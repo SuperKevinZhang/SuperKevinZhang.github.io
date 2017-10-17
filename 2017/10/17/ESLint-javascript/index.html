@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangzeshuai.com">
-  <title>Archives: 2016 | 行者无疆</title>
+  <title>如何规范Javascript编码规则,ESLint帮你来解决 | 行者无疆</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="纵使前方荆棘满布,我也会义无反顾">
-<meta property="og:type" content="website">
-<meta property="og:title" content="行者无疆">
-<meta property="og:url" content="http://zhangzeshuai.com/archives/2016/index.html">
+  <meta name="description" content="官方地址：http://eslint.org/ ESLint是一个用来识别 ECMAScript 并且按照规则给出报告的代码检测工具，使用它可以避免低级错误和统一代码的风格。ESLint被设计为完全可配置的，主要有两种方式来配置ESLint：">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何规范Javascript编码规则,ESLint帮你来解决">
+<meta property="og:url" content="http://zhangzeshuai.com/2017/10/17/ESLint-javascript/index.html">
 <meta property="og:site_name" content="行者无疆">
-<meta property="og:description" content="纵使前方荆棘满布,我也会义无反顾">
+<meta property="og:description" content="官方地址：http://eslint.org/ ESLint是一个用来识别 ECMAScript 并且按照规则给出报告的代码检测工具，使用它可以避免低级错误和统一代码的风格。ESLint被设计为完全可配置的，主要有两种方式来配置ESLint：">
+<meta property="og:updated_time" content="2017-10-17T10:20:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="行者无疆">
-<meta name="twitter:description" content="纵使前方荆棘满布,我也会义无反顾">
+<meta name="twitter:title" content="如何规范Javascript编码规则,ESLint帮你来解决">
+<meta name="twitter:description" content="官方地址：http://eslint.org/ ESLint是一个用来识别 ECMAScript 并且按照规则给出报告的代码检测工具，使用它可以避免低级错误和统一代码的风格。ESLint被设计为完全可配置的，主要有两种方式来配置ESLint：">
   
     <link rel="alternative" href="/atom.xml" title="行者无疆" type="application/atom+xml">
   
@@ -45,7 +47,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="" class="profilepic">
-			<img src="https://pic2.zhimg.com/9a6bdb4c8fc60f394a2364fc06d81fc1_xll.jpg" class="js-avatar">
+			<img src="/img/logo.jpeg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="">行者无疆</a></h1>
@@ -103,7 +105,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="https://pic2.zhimg.com/9a6bdb4c8fc60f394a2364fc06d81fc1_xll.jpg" class="js-avatar">
+				<img src="/img/logo.jpeg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">行者无疆</h1>
@@ -152,60 +154,361 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-ESLint-javascript" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/01/21/React-Native-学习笔记-前言/" class="archive-article-date">
-  	<time datetime="2016-01-21T08:49:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-01-21</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/01/21/React-Native-学习笔记-前言/">React Native 学习笔记 -- 前言</a>
+    <h1 class="article-title" itemprop="name">
+      如何规范Javascript编码规则,ESLint帮你来解决
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/10/17/ESLint-javascript/" class="archive-article-date">
+  	<time datetime="2017-10-17T10:18:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>官方地址：<a href="http://eslint.org/" target="_blank" rel="external">http://eslint.org/</a></p>
+<p>ESLint是一个用来识别 ECMAScript 并且按照规则给出报告的代码检测工具，使用它可以避免低级错误和统一代码的风格。ESLint被设计为完全可配置的，主要有两种方式来配置ESLint：<br><a id="more"></a><br>EsLint帮助我们检查Javascript编程时的语法错误。比如：在Javascript应用中，你很难找到你漏泄的变量或者方法。EsLint能够帮助我们分析JS代码，找到bug并确保一定程度的JS语法书写的正确性。</p>
+<p>EsLint是建立在Esprima(ECMAScript解析架构)的基础上的。Esprima支持ES5.1,本身也是用ECMAScript编写的，用于多用途分析。EsLint不但提供一些默认的规则（可扩展），也提供用户自定义规则来约束我们写的Javascript代码。</p>
+<p>EsLint提供以下支持：</p>
+<ol>
+<li>ES6</li>
+<li>AngularJS</li>
+<li>JSX</li>
+<li>Style检查</li>
+<li><p>自定义错误和提示<br>EsLint提供以下几种校验：</p>
+</li>
+<li><p>语法错误校验</p>
+</li>
+<li>不重要或丢失的标点符号，如分号</li>
+<li>没法运行到的代码块（使用过WebStorm的童鞋应该了解）</li>
+<li>未被使用的参数提醒</li>
+<li>漏掉的结束符，如}</li>
+<li>确保样式的统一规则，如sass或者less</li>
+<li>检查变量的命名</li>
+</ol>
+<p>如果安装,请参照官网</p>
+<p>为了方便查看和使用所以进行了整理，以下。</p>
+<p>“no-alert”: 0,//禁止使用alert confirm prompt</p>
+<p>“no-array-constructor”: 2,//禁止使用数组构造器</p>
+<p>“no-bitwise”: 0,//禁止使用按位运算符</p>
+<p>“no-caller”: 1,//禁止使用arguments.caller或arguments.callee</p>
+<p>“no-catch-shadow”: 2,//禁止catch子句参数与外部作用域变量同名</p>
+<p>“no-class-assign”: 2,//禁止给类赋值</p>
+<p>“no-cond-assign”: 2,//禁止在条件表达式中使用赋值语句</p>
+<p>“no-console”: 2,//禁止使用console</p>
+<p>“no-const-assign”: 2,//禁止修改const声明的变量</p>
+<p>“no-constant-condition”: 2,//禁止在条件中使用常量表达式 if(true) if(1)</p>
+<p>“no-continue”: 0,//禁止使用continue</p>
+<p>“no-control-regex”: 2,//禁止在正则表达式中使用控制字符</p>
+<p>“no-debugger”: 2,//禁止使用debugger</p>
+<p>“no-delete-var”: 2,//不能对var声明的变量使用delete操作符</p>
+<p>“no-div-regex”: 1,//不能使用看起来像除法的正则表达式/=foo/</p>
+<p>“no-dupe-keys”: 2,//在创建对象字面量时不允许键重复 {a:1,a:1}</p>
+<p>“no-dupe-args”: 2,//函数参数不能重复</p>
+<p>“no-duplicate-case”: 2,//switch中的case标签不能重复</p>
+<p>“no-else-return”: 2,//如果if语句里面有return,后面不能跟else语句</p>
+<p>“no-empty”: 2,//块语句中的内容不能为空</p>
+<p>“no-empty-character-class”: 2,//正则表达式中的[]内容不能为空</p>
+<p>“no-empty-label”: 2,//禁止使用空label</p>
+<p>“no-eq-null”: 2,//禁止对null使用==或!=运算符</p>
+<p>“no-eval”: 1,//禁止使用eval</p>
+<p>“no-ex-assign”: 2,//禁止给catch语句中的异常参数赋值</p>
+<p>“no-extend-native”: 2,//禁止扩展native对象</p>
+<p>“no-extra-bind”: 2,//禁止不必要的函数绑定</p>
+<p>“no-extra-boolean-cast”: 2,//禁止不必要的bool转换</p>
+<p>“no-extra-parens”: 2,//禁止非必要的括号</p>
+<p>“no-extra-semi”: 2,//禁止多余的冒号</p>
+<p>“no-fallthrough”: 1,//禁止switch穿透</p>
+<p>“no-floating-decimal”: 2,//禁止省略浮点数中的0 .5 3.</p>
+<p>“no-func-assign”: 2,//禁止重复的函数声明</p>
+<p>“no-implicit-coercion”: 1,//禁止隐式转换</p>
+<p>“no-implied-eval”: 2,//禁止使用隐式eval</p>
+<p>“no-inline-comments”: 0,//禁止行内备注</p>
+<p>“no-inner-declarations”: [2, “functions”],//禁止在块语句中使用声明（变量或函数）</p>
+<p>“no-invalid-regexp”: 2,//禁止无效的正则表达式</p>
+<p>“no-invalid-this”: 2,//禁止无效的this，只能用在构造器，类，对象字面量</p>
+<p>“no-irregular-whitespace”: 2,//不能有不规则的空格</p>
+<p>“no-iterator”: 2,//禁止使用<strong>iterator</strong> 属性</p>
+<p>“no-label-var”: 2,//label名不能与var声明的变量名相同</p>
+<p>“no-labels”: 2,//禁止标签声明</p>
+<p>“no-lone-blocks”: 2,//禁止不必要的嵌套块</p>
+<p>“no-lonely-if”: 2,//禁止else语句内只有if语句</p>
+<p>“no-loop-func”: 1,//禁止在循环中使用函数（如果没有引用外部变量不形成闭包就可以）</p>
+<p>“no-mixed-requires”: [0, false],//声明时不能混用声明类型</p>
+<p>“no-mixed-spaces-and-tabs”: [2, false],//禁止混用tab和空格</p>
+<p>“linebreak-style”: [0, “windows”],//换行风格</p>
+<p>“no-multi-spaces”: 1,//不能用多余的空格</p>
+<p>“no-multi-str”: 2,//字符串不能用\换行</p>
+<p>“no-multiple-empty-lines”: [1, {“max”: 2}],//空行最多不能超过2行</p>
+<p>“no-native-reassign”: 2,//不能重写native对象</p>
+<p>“no-negated-in-lhs”: 2,//in 操作符的左边不能有!</p>
+<p>“no-nested-ternary”: 0,//禁止使用嵌套的三目运算</p>
+<p>“no-new”: 1,//禁止在使用new构造一个实例后不赋值</p>
+<p>“no-new-func”: 1,//禁止使用new Function</p>
+<p>“no-new-object”: 2,//禁止使用new Object()</p>
+<p>“no-new-require”: 2,//禁止使用new require</p>
+<p>“no-new-wrappers”: 2,//禁止使用new创建包装实例，new String new Boolean new Number</p>
+<p>“no-obj-calls”: 2,//不能调用内置的全局对象，比如Math() JSON()</p>
+<p>“no-octal”: 2,//禁止使用八进制数字</p>
+<p>“no-octal-escape”: 2,//禁止使用八进制转义序列</p>
+<p>“no-param-reassign”: 2,//禁止给参数重新赋值</p>
+<p>“no-path-concat”: 0,//node中不能使用<strong>dirname或</strong>filename做路径拼接</p>
+<p>“no-plusplus”: 0,//禁止使用++，–</p>
+<p>“no-process-env”: 0,//禁止使用process.env</p>
+<p>“no-process-exit”: 0,//禁止使用process.exit()</p>
+<p>“no-proto”: 2,//禁止使用<strong>proto</strong>属性</p>
+<p>“no-redeclare”: 2,//禁止重复声明变量</p>
+<p>“no-regex-spaces”: 2,//禁止在正则表达式字面量中使用多个空格 /foo bar/</p>
+<p>“no-restricted-modules”: 0,//如果禁用了指定模块，使用就会报错</p>
+<p>“no-return-assign”: 1,//return 语句中不能有赋值表达式</p>
+<p>“no-script-url”: 0,//禁止使用javascript:void(0)</p>
+<p>“no-self-compare”: 2,//不能比较自身</p>
+<p>“no-sequences”: 0,//禁止使用逗号运算符</p>
+<p>“no-shadow”: 2,//外部作用域中的变量不能与它所包含的作用域中的变量或参数同名</p>
+<p>“no-shadow-restricted-names”: 2,//严格模式中规定的限制标识符不能作为声明时的变量名使用</p>
+<p>“no-spaced-func”: 2,//函数调用时 函数名与()之间不能有空格</p>
+<p>“no-sparse-arrays”: 2,//禁止稀疏数组， [1,,2]</p>
+<p>“no-sync”: 0,//nodejs 禁止同步方法</p>
+<p>“no-ternary”: 0,//禁止使用三目运算符</p>
+<p>“no-trailing-spaces”: 1,//一行结束后面不要有空格</p>
+<p>“no-this-before-super”: 0,//在调用super()之前不能使用this或super</p>
+<p>“no-throw-literal”: 2,//禁止抛出字面量错误 throw “error”;</p>
+<p>“no-undef”: 1,//不能有未定义的变量</p>
+<p>“no-undef-init”: 2,//变量初始化时不能直接给它赋值为undefined</p>
+<p>“no-undefined”: 2,//不能使用undefined</p>
+<p>“no-unexpected-multiline”: 2,//避免多行表达式</p>
+<p>“no-underscore-dangle”: 1,//标识符不能以_开头或结尾</p>
+<p>“no-unneeded-ternary”: 2,//禁止不必要的嵌套 var isYes = answer === 1 ? true : false;</p>
+<p>“no-unreachable”: 2,//不能有无法执行的代码</p>
+<p>“no-unused-expressions”: 2,//禁止无用的表达式</p>
+<p>“no-unused-vars”: [2, {“vars”: “all”, “args”: “after-used”}],//不能有声明后未被使用的变量或参数</p>
+<p>“no-use-before-define”: 2,//未定义前不能使用</p>
+<p>“no-useless-call”: 2,//禁止不必要的call和apply</p>
+<p>“no-void”: 2,//禁用void操作符</p>
+<p>“no-var”: 0,//禁用var，用let和const代替</p>
+<p>“no-warning-comments”: [1, { “terms”: [“todo”, “fixme”, “xxx”], “location”: “start” }],//不能有警告备注</p>
+<p>“no-with”: 2,//禁用with</p>
+<p>“array-bracket-spacing”: [2, “never”],//是否允许非空数组里面有多余的空格</p>
+<p>“arrow-parens”: 0,//箭头函数用小括号括起来</p>
+<p>“arrow-spacing”: 0,//=&gt;的前/后括号</p>
+<p>“accessor-pairs”: 0,//在对象中使用getter/setter</p>
+<p>“block-scoped-var”: 0,//块语句中使用var</p>
+<p>“brace-style”: [1, “1tbs”],//大括号风格</p>
+<p>“callback-return”: 1,//避免多次调用回调什么的</p>
+<p>“camelcase”: 2,//强制驼峰法命名</p>
+<p>“comma-dangle”: [2, “never”],//对象字面量项尾不能有逗号</p>
+<p>“comma-spacing”: 0,//逗号前后的空格</p>
+<p>“comma-style”: [2, “last”],//逗号风格，换行时在行首还是行尾</p>
+<p>“complexity”: [0, 11],//循环复杂度</p>
+<p>“computed-property-spacing”: [0, “never”],//是否允许计算后的键名什么的</p>
+<p>“consistent-return”: 0,//return 后面是否允许省略</p>
+<p>“consistent-this”: [2, “that”],//this别名</p>
+<p>“constructor-super”: 0,//非派生类不能调用super，派生类必须调用super</p>
+<p>“curly”: [2, “all”],//必须使用 if(){} 中的{}</p>
+<p>“default-case”: 2,//switch语句最后必须有default</p>
+<p>“dot-location”: 0,//对象访问符的位置，换行的时候在行首还是行尾</p>
+<p>“dot-notation”: [0, { “allowKeywords”: true }],//避免不必要的方括号</p>
+<p>“eol-last”: 0,//文件以单一的换行符结束</p>
+<p>“eqeqeq”: 2,//必须使用全等</p>
+<p>“func-names”: 0,//函数表达式必须有名字</p>
+<p>“func-style”: [0, “declaration”],//函数风格，规定只能使用函数声明/函数表达式</p>
+<p>“generator-star-spacing”: 0,//生成器函数*的前后空格</p>
+<p>“guard-for-in”: 0,//for in循环要用if语句过滤</p>
+<p>“handle-callback-err”: 0,//nodejs 处理错误</p>
+<p>“id-length”: 0,//变量名长度</p>
+<p>“indent”: [2, 4],//缩进风格</p>
+<p>“init-declarations”: 0,//声明时必须赋初值</p>
+<p>“key-spacing”: [0, { “beforeColon”: false, “afterColon”: true }],//对象字面量中冒号的前后空格</p>
+<p>“lines-around-comment”: 0,//行前/行后备注</p>
+<p>“max-depth”: [0, 4],//嵌套块深度</p>
+<p>“max-len”: [0, 80, 4],//字符串最大长度</p>
+<p>“max-nested-callbacks”: [0, 2],//回调嵌套深度</p>
+<p>“max-params”: [0, 3],//函数最多只能有3个参数</p>
+<p>“max-statements”: [0, 10],//函数内最多有几个声明</p>
+<p>“new-cap”: 2,//函数名首行大写必须使用new方式调用，首行小写必须用不带new方式调用</p>
+<p>“new-parens”: 2,//new时必须加小括号</p>
+<p>“newline-after-var”: 2,//变量声明后是否需要空一行</p>
+<p>“object-curly-spacing”: [0, “never”],//大括号内是否允许不必要的空格</p>
+<p>“object-shorthand”: 0,//强制对象字面量缩写语法</p>
+<p>“one-var”: 1,//连续声明</p>
+<p>“operator-assignment”: [0, “always”],//赋值运算符 += -=什么的</p>
+<p>“operator-linebreak”: [2, “after”],//换行时运算符在行尾还是行首</p>
+<p>“padded-blocks”: 0,//块语句内行首行尾是否要空行</p>
+<p>“prefer-const”: 0,//首选const</p>
+<p>“prefer-spread”: 0,//首选展开运算</p>
+<p>“prefer-reflect”: 0,//首选Reflect的方法</p>
+<p>“quotes”: [1, “single”],//引号类型 `` “” ‘’</p>
+<p>“quote-props”:[2, “always”],//对象字面量中的属性名是否强制双引号</p>
+<p>“radix”: 2,//parseInt必须指定第二个参数</p>
+<p>“id-match”: 0,//命名检测</p>
+<p>“require-yield”: 0,//生成器函数必须有yield</p>
+<p>“semi”: [2, “always”],//语句强制分号结尾</p>
+<p>“semi-spacing”: [0, {“before”: false, “after”: true}],//分号前后空格</p>
+<p>“sort-vars”: 0,//变量声明时排序</p>
+<p>“space-after-keywords”: [0, “always”],//关键字后面是否要空一格</p>
+<p>“space-before-blocks”: [0, “always”],//不以新行开始的块{前面要不要有空格</p>
+<p>“space-before-function-paren”: [0, “always”],//函数定义时括号前面要不要有空格</p>
+<p>“space-in-parens”: [0, “never”],//小括号里面要不要有空格</p>
+<p>“space-infix-ops”: 0,//中缀操作符周围要不要有空格</p>
+<p>“space-return-throw-case”: 2,//return throw case后面要不要加空格</p>
+<p>“space-unary-ops”: [0, { “words”: true, “nonwords”: false }],//一元运算符的前/后要不要加空格</p>
+<p>“spaced-comment”: 0,//注释风格不要有空格什么的</p>
+<p>“strict”: 2,//使用严格模式</p>
+<p>“use-isnan”: 2,//禁止比较时使用NaN，只能用isNaN()</p>
+<p>“valid-jsdoc”: 0,//jsdoc规则</p>
+<p>“valid-typeof”: 2,//必须使用合法的typeof的值</p>
+<p>“vars-on-top”: 2,//var必须放在作用域顶部</p>
+<p>“wrap-iife”: [2, “inside”],//立即执行函数表达式的小括号风格</p>
+<p>“wrap-regex”: 0,//正则表达式字面量用小括号包起来</p>
+<p>“yoda”: [2, “never”]//禁止尤达条件</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">React Native</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangzeshuai.com/2017/10/17/ESLint-javascript/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/10/17/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -228,8 +531,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
@@ -296,6 +599,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">React Native</a>

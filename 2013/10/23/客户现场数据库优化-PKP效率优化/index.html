@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangzeshuai.com">
-  <title>Archives: 2017 | 行者无疆</title>
+  <title>客户现场数据库优化--PKP效率优化 | 行者无疆</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="纵使前方荆棘满布,我也会义无反顾">
-<meta property="og:type" content="website">
-<meta property="og:title" content="行者无疆">
-<meta property="og:url" content="http://zhangzeshuai.com/archives/2017/index.html">
+  <meta name="description" content="​     今天在客户现场待了一天优化PKP问题.解决了部分问题.sp_importpkp的执行效率从20”-120”提高到了6”-15”之间,平均应该在10”以内,基本能满足客户的10”以内的要求.但是至于操作还会不会卡,还有待于观察,我估计操作卡,不是PKP造成的,到底是不是,需要一段时间观察.">
+<meta name="keywords" content="数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="客户现场数据库优化--PKP效率优化">
+<meta property="og:url" content="http://zhangzeshuai.com/2013/10/23/客户现场数据库优化-PKP效率优化/index.html">
 <meta property="og:site_name" content="行者无疆">
-<meta property="og:description" content="纵使前方荆棘满布,我也会义无反顾">
+<meta property="og:description" content="​     今天在客户现场待了一天优化PKP问题.解决了部分问题.sp_importpkp的执行效率从20”-120”提高到了6”-15”之间,平均应该在10”以内,基本能满足客户的10”以内的要求.但是至于操作还会不会卡,还有待于观察,我估计操作卡,不是PKP造成的,到底是不是,需要一段时间观察.">
+<meta property="og:updated_time" content="2017-10-17T11:09:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="行者无疆">
-<meta name="twitter:description" content="纵使前方荆棘满布,我也会义无反顾">
+<meta name="twitter:title" content="客户现场数据库优化--PKP效率优化">
+<meta name="twitter:description" content="​     今天在客户现场待了一天优化PKP问题.解决了部分问题.sp_importpkp的执行效率从20”-120”提高到了6”-15”之间,平均应该在10”以内,基本能满足客户的10”以内的要求.但是至于操作还会不会卡,还有待于观察,我估计操作卡,不是PKP造成的,到底是不是,需要一段时间观察.">
   
     <link rel="alternative" href="/atom.xml" title="行者无疆" type="application/atom+xml">
   
@@ -152,60 +154,182 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-客户现场数据库优化-PKP效率优化" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/17/ESLint-javascript/" class="archive-article-date">
-  	<time datetime="2017-10-17T10:18:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-17</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/17/ESLint-javascript/">如何规范Javascript编码规则,ESLint帮你来解决</a>
+    <h1 class="article-title" itemprop="name">
+      客户现场数据库优化--PKP效率优化
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2013/10/23/客户现场数据库优化-PKP效率优化/" class="archive-article-date">
+  	<time datetime="2013-10-23T11:06:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2013-10-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>​     今天在客户现场待了一天优化PKP问题.解决了部分问题.sp_importpkp的执行效率从20”-120”提高到了6”-15”之间,平均应该在10”以内,基本能满足客户的10”以内的要求.但是至于操作还会不会卡,还有待于观察,我估计操作卡,不是PKP造成的,到底是不是,需要一段时间观察.</p>
+<a id="more"></a>
+<p>​     过几天我们会继续观察日志,以及了解客户操作速度情况.</p>
+<p>​     解决过程如下:(以后大家也按照这个流程去解决效率问题)<br>​     1:找到执行的job,查看历史,了解存储过程执行情况,1-3分钟能够执行完毕<br>​     2:找到存储过程,查看每个阶段的日志,sql见附1<br>​          发现问题:<br>​          2.1 PKP insert 耗时1”-2”<br>​          2.2 CWB insert 耗时 2”-10”<br>​          2.3 TB_PREPRINT update 耗时2”左右<br>​          2.4 TT_upload_collection_update 耗时 30”-60”<br>​          2.5 其他耗时较少的不关注<br>​     3:分析耗时原因,2.1 2.2 ,是由于基础表大导致,2.2,2.3可以修改,估计效果也会太明显,前三个表的数量级都比较大,而且索引较多,所以慢可以理解.但是2.4 70多万条的记录,不应该这么慢.分析sql(附2 注释部分),发现在update使用到子查询的时候,会导致全表扫描,消耗cpu是不使用子查询的几千倍. 至于为什么update 条件里面使用子查询会导致全表扫描没用索引,我也没搞懂,也没查到愿意.只是从执行计划里面看出来了.</p>
+<p>​     4:更改 将update使用的子查询更换为只读,只next游标. 耗时0/2”-0.9”之间</p>
+<p>​     5:测试,ipmort_pkp 大概在6秒左右,由于不是业务高峰期,还不知道那时多少,从以前的日志中可以推断出,应该在15”以内.</p>
+<p>​     这个时候解决了部分问题.还需要做的是<br>​     A:继续监控几天日志,追踪客户操情况<br>​     B:检查存储过程是否有类似操作,在我的检查中,发现有几处类似的操作,见附3<br>​     C:确认监控日志结果,如果情况得到改善,把B处问题更改掉.如果情况还继续卡,说明另有他因,需要重新系统的排查.</p>
+<p>今天改了一个存储过程, sp_importpkp, dos的存储过程也存在这个问题.今天监控一晚上后,卫峰明天把DOS库[dbo].[proc_HHTCLTBATCH]也改掉,具体该的地方和参加,见附2和附3.<br>如果有改善,那么周五会有一个大改善.</p>
+<p>job:new DOS clt batch, import pkp (包含两个存储过程[dbo].[proc_HHTCLTBATCH], sp_importpkp)</p>
+<p>附1:<br>SELECT<br>​               –avg(datediff (ss, a.batch_on, b.batch_on))<br>​            a.batch_on as ‘begindate’,b.batch_on as ‘enddate’,<br>​            datediff (ss, a.batch_on, b.batch_on) as ‘diff’<br>  FROM    (SELECT <em><br>​             FROM dbo.LG_PROCESS<br>​            WHERE     batch_type = ‘ic’<br>​                  AND batch_on &gt; ‘2013-10-18’<br>​                  AND process_message = ‘TT_UPLOAD_COLLECTION update’) A<br>​       INNER JOIN<br>​          (SELECT </em><br>​             FROM dbo.LG_PROCESS<br>​            WHERE     batch_type = ‘ic’<br>​                  AND batch_on &gt; ‘2013-10-18’<br>​                  AND process_message = ‘µ¼ÈëPKP¼ÇÂ¼½áÊø’) B<br>​       ON a.batch_id = b.batch_id<br>​               – group by   a.batch_on<br>​               order by a.batch_on</p>
+<p>附2:</p>
+<p>附3</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangzeshuai.com/2013/10/23/客户现场数据库优化-PKP效率优化/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2016/01/21/React-Native-学习笔记-前言/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          React Native 学习笔记 -- 前言
+        
+      </div>
+    </a>
   
   
-    </div></section>
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -228,8 +352,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

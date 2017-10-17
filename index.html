@@ -293,6 +293,125 @@
 
 
   
+    <article id="post-React-Native学习笔记-准备知识" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/22/React-Native学习笔记-准备知识/">React Native学习笔记--准备知识</a>
+    </h1>
+  
+
+        
+        <a href="/2016/01/22/React-Native学习笔记-准备知识/" class="archive-article-date">
+  	<time datetime="2016-01-22T10:58:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-01-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>学习React Native,需要哪些知识</p>
+<p>React Native 不是一种语言,是各种工具及语言的集合,但他也有自己的语法JSX,所以学习他,需要有一定的知识</p>
+<p><strong>1:需要掌握的知识:</strong></p>
+<ul>
+<li>Javascript语法</li>
+<li>React/JSX的语法</li>
+<li>ES6的新特性语法</li>
+<li>些许的iOS或者Android的原生开发的知识</li>
+</ul>
+<p><strong>2:硬件准备</strong></p>
+<ul>
+<li>Mac机器,为什么用mac机器,因为Facebook的团队也是用mac开发的ReactNative,所以Mac机器对React Native 的支持比较好,其次它能显著提高你的开发效率</li>
+<li>苹果手机,为什么是苹果手机,因为我接下来用它来学习,android出现的莫名问题较多,初学阶段不好定位错误</li>
+</ul>
+<p><strong>3:需要了解的知识:</strong></p>
+<p><a href="http://brew.sh/" target="_blank" rel="external">Homebrew</a></p>
+<ul>
+<li><p><a href="http://brew.sh/" target="_blank" rel="external">Homebrew</a> 是 Mac 中的一个包管理器。没有安装的话，<a href="http://brew.sh/" target="_blank" rel="external">点击这里安装</a> 我的版本如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mac-2:~ srain$ brew -v</div><div class="line">Homebrew 0.9.5 (git revision ac9a7; last commit 2015-09-21)</div></pre></td></tr></table></figure>
+<p>版本过低将会导致无法安装后续几个组件。可用 <code>brew update</code> 升级。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mac-2:react-native srain$ brew update</div><div class="line">Updated Homebrew from ac9a71c8 to 4257c3da.</div></pre></td></tr></table></figure>
+</li>
+<li><p><a href="https://nodejs.org/" target="_blank" rel="external">Node.js</a> 和 <a href="https://docs.npmjs.com/" target="_blank" rel="external">npm</a></p>
+<p><a href="https://nodejs.org/" target="_blank" rel="external">Node.js</a> 需要 <code>4.0</code> 及其以上版本。安装好之后，<a href="https://docs.npmjs.com/" target="_blank" rel="external">npm</a> 也有了。</p>
+</li>
+<li><ul>
+<li><p>通过 <a href="https://github.com/creationix/nvm#installation" target="_blank" rel="external">nvm</a> 安装 <a href="https://nodejs.org/" target="_blank" rel="external">Node.js</a></p>
+<p><a href="https://github.com/creationix/nvm#installation" target="_blank" rel="external">nvm</a> 是 <a href="https://nodejs.org/" target="_blank" rel="external">Node.js</a> 的版本管理器，可以轻松安装各个版本的 <a href="https://nodejs.org/" target="_blank" rel="external">Node.js</a> 版本。</p>
+<p>安装 <a href="https://github.com/creationix/nvm#installation" target="_blank" rel="external">nvm</a> 可以通过 <a href="http://brew.sh/" target="_blank" rel="external">Homebrew</a> 安装:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install nvm</div></pre></td></tr></table></figure>
+<p>或者 <a href="https://github.com/creationix/nvm#installation" target="_blank" rel="external">按照这里的方法</a> 安装。</p>
+<p>然后安装 <a href="https://nodejs.org/" target="_blank" rel="external">Node.js</a>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nvm install node &amp;&amp; nvm alias default node</div></pre></td></tr></table></figure>
+</li>
+<li><p>也可以直接下载安装 <a href="https://nodejs.org/" target="_blank" rel="external">Node.js</a>： <a href="https://nodejs.org/en/download/" target="_blank" rel="external">https://nodejs.org/en/download/</a></p>
+</li>
+</ul>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mac-2:react-native srain$ node -v</div><div class="line">v4.0.0</div><div class="line">mac-2:react-native srain$ npm -v</div><div class="line">2.14.2</div></pre></td></tr></table></figure>
+<p>安装好之后，如下：</p>
+</li>
+<li><p>安装 <a href="https://facebook.github.io/watchman/docs/install.html" target="_blank" rel="external">watchman</a> 和 <a href="http://www.flowtype.org/" target="_blank" rel="external">flow</a></p>
+<p>这两个包分别是监控文件变化和类型检查的。安装如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">brew install watchman</div><div class="line">brew install flow</div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">React Native</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/01/22/React-Native学习笔记-准备知识/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-React-Native-学习笔记-前言" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -464,11 +583,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
               </li>
             
             <div class="clearfix"></div>

@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://zhangzeshuai.com/2007/08/01/sqlserverbulkinsert/index.html">
 <meta property="og:site_name" content="行者无疆">
 <meta property="og:description" content="大批量导入数据库 自己写的存储过程 很多年前做的一个项目,上线时需要将多个几百兆甚至上G的txt文件导入到sql server数据库中,使用buck 语法,可以非常快的速度导入,主要不要开启事物,否则会非常的慢">
-<meta property="og:updated_time" content="2017-10-18T04:08:30.000Z">
+<meta property="og:updated_time" content="2017-10-18T05:14:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大批量导入数据库 BULK INSERT">
 <meta name="twitter:description" content="大批量导入数据库 自己写的存储过程 很多年前做的一个项目,上线时需要将多个几百兆甚至上G的txt文件导入到sql server数据库中,使用buck 语法,可以非常快的速度导入,主要不要开启事物,否则会非常的慢">
@@ -184,13 +184,13 @@
 <p>很多年前做的一个项目,上线时需要将多个几百兆甚至上G的txt文件导入到sql server数据库中,使用buck 语法,可以非常快的速度导入,主要不要开启事物,否则会非常的慢</p>
 <a id="more"></a>
 <hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">CREATE PROC [dbo].[sp_Import_TT]</div><div class="line"></div><div class="line">@TableName NVARCHAR(50) ,  --导入的表名称</div><div class="line"></div><div class="line">@DataFile NVARCHAR(100) , --数据源文件</div><div class="line"></div><div class="line">@FormatFile NVARCHAR(100), --格式文件</div><div class="line"></div><div class="line">@LogFile NVARCHAR(100) --日志文件</div><div class="line"></div><div class="line">AS</div><div class="line"></div><div class="line"> EXEC(&apos;BULK INSERT &apos;+@TableName+&apos;</div><div class="line"></div><div class="line">                          FROM &apos;&apos;&apos;+@DataFile+&apos;&apos;&apos;</div><div class="line"></div><div class="line">                          WITH </div><div class="line"></div><div class="line">                          (</div><div class="line"></div><div class="line">                             FORMATFILE = &apos;&apos;&apos;+@FormatFile+&apos;&apos;&apos;,  </div><div class="line"></div><div class="line">                             ROWS_PER_BATCH =10,                --错误数回滚，如果错误超过此数，将整个事务回滚</div><div class="line"></div><div class="line">                             ERRORFILE = &apos;&apos;&apos;+@LogFile+&apos;&apos;&apos;                     </div><div class="line"></div><div class="line">                           )&apos;</div><div class="line"></div><div class="line">      )</div></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> PROC [dbo].[sp_Import_TT]</div><div class="line"></div><div class="line">@TableName <span class="keyword">NVARCHAR</span>(<span class="number">50</span>) ,  <span class="comment">--导入的表名称</span></div><div class="line"></div><div class="line">@<span class="keyword">DataFile</span> <span class="keyword">NVARCHAR</span>(<span class="number">100</span>) , <span class="comment">--数据源文件</span></div><div class="line"></div><div class="line">@FormatFile <span class="keyword">NVARCHAR</span>(<span class="number">100</span>), <span class="comment">--格式文件</span></div><div class="line"></div><div class="line">@<span class="keyword">LogFile</span> <span class="keyword">NVARCHAR</span>(<span class="number">100</span>) <span class="comment">--日志文件</span></div><div class="line"></div><div class="line"><span class="keyword">AS</span></div><div class="line"></div><div class="line"> EXEC(<span class="string">'BULK INSERT '</span>+@TableName+<span class="string">'</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">                          FROM '''</span>+@<span class="keyword">DataFile</span>+<span class="string">'''</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">                          WITH </span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">                          (</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">                             FORMATFILE = '''</span>+@FormatFile+<span class="string">''',  </span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">                             ROWS_PER_BATCH =10,                --错误数回滚，如果错误超过此数，将整个事务回滚</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">                             ERRORFILE = '''</span>+@<span class="keyword">LogFile</span>+<span class="string">'''                     </span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">                           )'</span></div><div class="line"></div><div class="line">      )</div></pre></td></tr></table></figure>
 <p><strong>附：格式文件类型</strong><br>9.0<br>9<br>1    SQLCHAR    0    20    “”    1    CWB_NO    “”<br>2    SQLCHAR    0    20    “”    2    AcctID    “”<br>3    SQLCHAR    0    10    “”    3    SERVICE_ID    “”<br>4    SQLCHAR    0    3    “”    4    DestSZMCode    “”<br>5    SQLCHAR    0    10    “”    5    ActualWeight    “”<br>6    SQLCHAR    0    10    “”    6    VolumeWeight    “”<br>7    SQLCHAR    0    2    “”    7    CountryCode    “”<br>8    SQLCHAR    0    8    “”    8    Clt_Datetime    “”<br>9    SQLCHAR    0    14    “/r/n”    47    PICKUP_TIME    “”</p>
 <p><strong>bcp导出数据:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXEC master..xp_cmdshell &apos;BCP OCS_Links_sha.DBO.tb_customer out D:/DATA.txt -c -F&quot;2&quot; -S&quot;192.168.12.129/ocs&quot; -U&quot;sa&quot; -P&quot;111111&quot;&apos;</div></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXEC master..xp_cmdshell 'BCP OCS_Links_sha.DBO.tb_customer out D:/DATA.txt -c -F"2" -S"192.168.12.129/ocs" -U"sa" -P"111111"'</div></pre></td></tr></table></figure>
 <p><strong>bcp 导出format文件:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXEC master..xp_cmdshell &apos;BCP OCS_Links_sha.DBO.tb_customer format nul -f D:/FMT.txt -c -S&quot;192.168.12.129/ocs&quot; -U&quot;sa&quot; -P&quot;111111&quot;&apos;</div></pre></td></tr></table></figure>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">--,如果遇到阻止Shell,请使用以下SQL启用shell</div><div class="line"></div><div class="line">EXEC sp_configure &apos;show advanced options&apos;, 1;RECONFIGURE;EXEC sp_configure &apos;xp_cmdshell&apos;, 1;RECONFIGURE</div></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXEC master..xp_cmdshell 'BCP OCS_Links_sha.DBO.tb_customer format nul -f D:/FMT.txt -c -S"192.168.12.129/ocs" -U"sa" -P"111111"'</div></pre></td></tr></table></figure>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">--,如果遇到阻止Shell,请使用以下SQL启用shell</span></div><div class="line"></div><div class="line">EXEC sp_configure '<span class="keyword">show</span> <span class="keyword">advanced</span> options<span class="string">', 1;RECONFIGURE;EXEC sp_configure '</span>xp_cmdshell<span class="string">', 1;RECONFIGURE</span></div></pre></td></tr></table></figure>
 
       
 
@@ -435,27 +435,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据库/大批量导入/BULK INSERT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">大批量导入</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">BULK INSERT</a>
+                <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -467,7 +447,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -476,6 +464,18 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Reporting Services</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">大批量导入</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">BULK INSERT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
               </li>
             
             <div class="clearfix"></div>

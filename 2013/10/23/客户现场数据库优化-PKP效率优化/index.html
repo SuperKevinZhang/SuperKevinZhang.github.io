@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://zhangzeshuai.com/2013/10/23/客户现场数据库优化-PKP效率优化/index.html">
 <meta property="og:site_name" content="行者无疆">
 <meta property="og:description" content="​     今天在客户现场待了一天优化PKP问题.解决了部分问题.sp_importpkp的执行效率从20”-120”提高到了6”-15”之间,平均应该在10”以内,基本能满足客户的10”以内的要求.但是至于操作还会不会卡,还有待于观察,我估计操作卡,不是PKP造成的,到底是不是,需要一段时间观察.">
-<meta property="og:updated_time" content="2017-10-17T11:09:36.000Z">
+<meta property="og:updated_time" content="2017-10-18T05:12:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="客户现场数据库优化--PKP效率优化">
 <meta name="twitter:description" content="​     今天在客户现场待了一天优化PKP问题.解决了部分问题.sp_importpkp的执行效率从20”-120”提高到了6”-15”之间,平均应该在10”以内,基本能满足客户的10”以内的要求.但是至于操作还会不会卡,还有待于观察,我估计操作卡,不是PKP造成的,到底是不是,需要一段时间观察.">
@@ -189,9 +189,8 @@
 <p>​     这个时候解决了部分问题.还需要做的是<br>​     A:继续监控几天日志,追踪客户操情况<br>​     B:检查存储过程是否有类似操作,在我的检查中,发现有几处类似的操作,见附3<br>​     C:确认监控日志结果,如果情况得到改善,把B处问题更改掉.如果情况还继续卡,说明另有他因,需要重新系统的排查.</p>
 <p>今天改了一个存储过程, sp_importpkp, dos的存储过程也存在这个问题.今天监控一晚上后,卫峰明天把DOS库[dbo].[proc_HHTCLTBATCH]也改掉,具体该的地方和参加,见附2和附3.<br>如果有改善,那么周五会有一个大改善.</p>
 <p>job:new DOS clt batch, import pkp (包含两个存储过程[dbo].[proc_HHTCLTBATCH], sp_importpkp)</p>
-<p>附1:<br>SELECT<br>​               –avg(datediff (ss, a.batch_on, b.batch_on))<br>​            a.batch_on as ‘begindate’,b.batch_on as ‘enddate’,<br>​            datediff (ss, a.batch_on, b.batch_on) as ‘diff’<br>  FROM    (SELECT <em><br>​             FROM dbo.LG_PROCESS<br>​            WHERE     batch_type = ‘ic’<br>​                  AND batch_on &gt; ‘2013-10-18’<br>​                  AND process_message = ‘TT_UPLOAD_COLLECTION update’) A<br>​       INNER JOIN<br>​          (SELECT </em><br>​             FROM dbo.LG_PROCESS<br>​            WHERE     batch_type = ‘ic’<br>​                  AND batch_on &gt; ‘2013-10-18’<br>​                  AND process_message = ‘µ¼ÈëPKP¼ÇÂ¼½áÊø’) B<br>​       ON a.batch_id = b.batch_id<br>​               – group by   a.batch_on<br>​               order by a.batch_on</p>
-<p>附2:</p>
-<p>附3</p>
+<p>附1:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span></div><div class="line"></div><div class="line">               <span class="comment">--avg(datediff (ss, a.batch_on, b.batch_on))</span></div><div class="line"></div><div class="line">            a.batch_on <span class="keyword">as</span> <span class="string">'begindate'</span>,b.batch_on <span class="keyword">as</span> <span class="string">'enddate'</span>,</div><div class="line"></div><div class="line">            <span class="keyword">datediff</span> (ss, a.batch_on, b.batch_on) <span class="keyword">as</span> <span class="string">'diff'</span></div><div class="line"></div><div class="line">  <span class="keyword">FROM</span>    (<span class="keyword">SELECT</span> *</div><div class="line"></div><div class="line">             <span class="keyword">FROM</span> dbo.LG_PROCESS</div><div class="line"></div><div class="line">            <span class="keyword">WHERE</span>     batch_type = <span class="string">'ic'</span></div><div class="line"></div><div class="line">                  <span class="keyword">AND</span> batch_on &gt; <span class="string">'2013-10-18'</span></div><div class="line"></div><div class="line">                  <span class="keyword">AND</span> process_message = <span class="string">'TT_UPLOAD_COLLECTION update'</span>) A</div><div class="line"></div><div class="line">       <span class="keyword">INNER</span> <span class="keyword">JOIN</span></div><div class="line"></div><div class="line">          (<span class="keyword">SELECT</span> *</div><div class="line"></div><div class="line">             <span class="keyword">FROM</span> dbo.LG_PROCESS</div><div class="line"></div><div class="line">            <span class="keyword">WHERE</span>     batch_type = <span class="string">'ic'</span></div><div class="line"></div><div class="line">                  <span class="keyword">AND</span> batch_on &gt; <span class="string">'2013-10-18'</span></div><div class="line"></div><div class="line">                  <span class="keyword">AND</span> process_message = <span class="string">'µ¼ÈëPKP¼ÇÂ¼½áÊø'</span>) B</div><div class="line"></div><div class="line">       <span class="keyword">ON</span> a.batch_id = b.batch_id</div><div class="line"></div><div class="line">               <span class="comment">-- group by   a.batch_on</span></div><div class="line"></div><div class="line">               <span class="keyword">order</span> <span class="keyword">by</span> a.batch_on</div></pre></td></tr></table></figure>
 
       
 
@@ -433,27 +432,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据库/大批量导入/BULK INSERT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">大批量导入</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">BULK INSERT</a>
+                <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -465,7 +444,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -474,6 +461,18 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Reporting Services</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">大批量导入</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">BULK INSERT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
               </li>
             
             <div class="clearfix"></div>

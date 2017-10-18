@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://zhangzeshuai.com/2007/08/14/sqlfunction/index.html">
 <meta property="og:site_name" content="行者无疆">
 <meta property="og:description" content="数据库技术交流–函数篇:   在我们平时的数据开发时，像其他的程序开发一样，也经常会遇到很多共通问题，怎么解决这些共通问题呢，我在这里向大家推荐一种方法。   1：函数（function）如果开发里面有很多共通部分，这时候你会发现用函数就是很方便了，例如：我们程序里面经常要用到除法等问题，我们知道当分母为零时会出异常，在程序里判断当然也可以，但是要考虑程序的可扩展性和可维护性，最好的方法就是我们再">
-<meta property="og:updated_time" content="2017-10-18T04:23:26.000Z">
+<meta property="og:updated_time" content="2017-10-18T05:13:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库技术交流--函数篇">
 <meta name="twitter:description" content="数据库技术交流–函数篇:   在我们平时的数据开发时，像其他的程序开发一样，也经常会遇到很多共通问题，怎么解决这些共通问题呢，我在这里向大家推荐一种方法。   1：函数（function）如果开发里面有很多共通部分，这时候你会发现用函数就是很方便了，例如：我们程序里面经常要用到除法等问题，我们知道当分母为零时会出异常，在程序里判断当然也可以，但是要考虑程序的可扩展性和可维护性，最好的方法就是我们再">
@@ -182,7 +182,7 @@
       
         <p>数据库技术交流–函数篇:<br>   在我们平时的数据开发时，像其他的程序开发一样，也经常会遇到很多共通问题，怎么解决这些共通问题呢，我在这里向大家推荐一种方法。<br>   1：函数（function）如果开发里面有很多共通部分，这时候你会发现用函数就是很方便了，例如：我们程序里面经常要用到除法等问题，我们知道当分母为零时会出异常，在程序里判断当然也可以，但是要考虑程序的可扩展性和可维护性，最好的方法就是我们再自定义一个函数用来判断除数为零时的情况，<br>下面就是我们创建的除法函数：</p>
 <a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">-- =============================================</div><div class="line"></div><div class="line">-- Author:        &lt;zhangzeshuai&gt;</div><div class="line"></div><div class="line">-- Create date: &lt;2007/08/10&gt;</div><div class="line"></div><div class="line">-- Description:    &lt;除数为零时判断&gt;</div><div class="line"></div><div class="line">-- =============================================</div><div class="line"></div><div class="line">CREATE FUNCTION [dbo].[fn_zone]</div><div class="line"></div><div class="line">(</div><div class="line"></div><div class="line">     @numerator FLOAT,    --分子</div><div class="line"></div><div class="line">     @denominator FLOAT   --分母</div><div class="line"></div><div class="line">)</div><div class="line"></div><div class="line">RETURNS NUMERIC(13,2)</div><div class="line"></div><div class="line">AS</div><div class="line"></div><div class="line">BEGIN</div><div class="line"></div><div class="line">    DECLARE @Result NUMERIC(13,2)  --结果</div><div class="line"></div><div class="line">    IF(@denominator=0 OR @denominator IS NULL)  --分母为零或空时</div><div class="line"></div><div class="line">     BEGIN</div><div class="line"></div><div class="line">                 SET @Result = 0   --返回结果，也可设置为其他</div><div class="line"></div><div class="line">     END</div><div class="line"></div><div class="line">        ELSE</div><div class="line"></div><div class="line">         BEGIN</div><div class="line"></div><div class="line">        SET @Result = @numerator/@denominator  --返回结果</div><div class="line"></div><div class="line">         END</div><div class="line"></div><div class="line">    RETURN @Result</div><div class="line"></div><div class="line">END</div><div class="line"></div><div class="line">GO</div></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="comment">-- =============================================</span></div><div class="line"></div><div class="line"><span class="comment">-- Author:        &lt;zhangzeshuai&gt;</span></div><div class="line"></div><div class="line"><span class="comment">-- Create date: &lt;2007/08/10&gt;</span></div><div class="line"></div><div class="line"><span class="comment">-- Description:    &lt;除数为零时判断&gt;</span></div><div class="line"></div><div class="line"><span class="comment">-- =============================================</span></div><div class="line"></div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">FUNCTION</span> [dbo].[fn_zone]</div><div class="line"></div><div class="line">(</div><div class="line"></div><div class="line">     @numerator <span class="built_in">FLOAT</span>,    <span class="comment">--分子</span></div><div class="line"></div><div class="line">     @denominator <span class="built_in">FLOAT</span>   <span class="comment">--分母</span></div><div class="line"></div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">RETURNS</span> <span class="built_in">NUMERIC</span>(<span class="number">13</span>,<span class="number">2</span>)</div><div class="line"></div><div class="line"><span class="keyword">AS</span></div><div class="line"></div><div class="line"><span class="keyword">BEGIN</span></div><div class="line"></div><div class="line">    <span class="keyword">DECLARE</span> @<span class="keyword">Result</span> <span class="built_in">NUMERIC</span>(<span class="number">13</span>,<span class="number">2</span>)  <span class="comment">--结果</span></div><div class="line"></div><div class="line">    <span class="keyword">IF</span>(@denominator=<span class="number">0</span> <span class="keyword">OR</span> @denominator <span class="keyword">IS</span> <span class="literal">NULL</span>)  <span class="comment">--分母为零或空时</span></div><div class="line"></div><div class="line">     <span class="keyword">BEGIN</span></div><div class="line"></div><div class="line">                 <span class="keyword">SET</span> @<span class="keyword">Result</span> = <span class="number">0</span>   <span class="comment">--返回结果，也可设置为其他</span></div><div class="line"></div><div class="line">     <span class="keyword">END</span></div><div class="line"></div><div class="line">        <span class="keyword">ELSE</span></div><div class="line"></div><div class="line">         <span class="keyword">BEGIN</span></div><div class="line"></div><div class="line">        <span class="keyword">SET</span> @<span class="keyword">Result</span> = @numerator/@denominator  <span class="comment">--返回结果</span></div><div class="line"></div><div class="line">         <span class="keyword">END</span></div><div class="line"></div><div class="line">    <span class="keyword">RETURN</span> @<span class="keyword">Result</span></div><div class="line"></div><div class="line"><span class="keyword">END</span></div><div class="line"></div><div class="line"><span class="keyword">GO</span></div></pre></td></tr></table></figure>
 <p>使用时直接用 SELECT [dbo].<a href="4,0">fn_zone</a> 就可以出结果了，而且更改时只需我们更改函数，而不是去每个sql文里去找，测试时也只是测试该函数就可以了。比每个程序里判断简单多了，最重要的是易于维护和扩展。<br>​                                                                    Kevin<br>​                                                                    2007/08/14</p>
 
       
@@ -425,27 +425,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据库/大批量导入/BULK INSERT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">大批量导入</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">BULK INSERT</a>
+                <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -457,7 +437,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -466,6 +454,18 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Reporting Services</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">大批量导入</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">BULK INSERT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
               </li>
             
             <div class="clearfix"></div>

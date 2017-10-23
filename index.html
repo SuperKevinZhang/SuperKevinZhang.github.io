@@ -167,6 +167,97 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-warehouse-barcodescanner-desion" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/23/warehouse-barcodescanner-desion/">WMS仓库管理系统扫描枪端架构设计实现方案(一)</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/23/warehouse-barcodescanner-desion/" class="archive-article-date">
+  	<time datetime="2017-10-23T06:32:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>​    仓库管理系统,扫描枪端系统架构的实现方案. </p>
+<p>​    一些传统的wms系统,并没有移动端的操作方案,在仓库里面的操作,有些是通过纸质操作,有些是通过PC和连接外置扫描头来实现.两种实现方式都对操作效率和便捷性上有诸多限制;在传统优化用尽的情况下,就需要通过技术改进来提高生产效率;增加扫描枪端的操作就是解决此问题的一个途径;</p>
+<p>​    客户在全国拥有2000多万平的仓库,分布在全国各地,双十一会有平时几倍的工作量产生.效率问题也是非常重量的东西,并发,离线,响应速度,都要考虑进去;如果扫描枪直接连接中心服务器,有两种情况可能满足不了业务.1:偏远地区的网络较差,访问网络的时候延迟较多.2:每次扫描的时候大量查询和写入,对数据库的并发要求比较高,大量查询也会占用较多的数据库资源;这两个问题都可能影响出入库扫描的效率;基于这种应用场景,设计了以下的架构实现方案:</p>
+<p>​    将部分操作和数据根据不同情况的配置同步到仓库端进行操作;    </p>
+<p>​        <img src="../image/扫描枪架构设计.png" alt=""></p>
+<p>​    1:正常情况下来,扫描枪连接中心库的的接口服务,进行在线操作.解决中小仓库等操作量小的问题,中小仓库如果在进行购买和部署同步中间件服务器,会导致部署陈本和维护成本上升,此种情况下,我们推荐直接部署连接中心库的api的操作;</p>
+<p>​    2:一些大的仓库,比如上海仓库,极端情况下一个订单有近万个sku和几十万个货物,此时如果连接中心库,则会给中心库造成较大的压力;对于这种情况,根据订单或者仓库的配置,让扫描枪通过连接中间件的接口服务,通过服务器进行获取数据存放到Redis里面,扫描枪的操作,通过消息队列的形势,将操作的数据回传给中心库;</p>
+<p>​    3:将一些操作log等于wms无关的数据,我们把这些数据放到了mysql中心服务器里面,之所以没有使用原来的Oracle,是因为这些log和action和wms的业务无关,是为了将来做kpi使用,其次是作为第三方开发公司,我们直接操作wms的中心库或者oracle服务器,需要申请一堆权限,具有一些安全隐患;</p>
+<p>​    4:扫描枪的离线操作;将同步到redis的订单数据同时同步到扫描枪上;大多数业务场景情况下禁止离线操作,因为牵涉多人操作的时候,离线操作无法校验,牵涉到多重校验问题也会导致复杂度大幅上升.所以我们规定了部分扫描可以离线操作,借鉴了2的实现方式,讲数据缓存到扫描枪上;</p>
+<p>​    情况1和情况3都比较好理解和实现;比较困难的是情况2和情况4,牵涉到分布式部署的同步和一致性问题.好的事情是业务上操作时,我们可以锁订单,禁止他人操作,来实现数据的一致性;对于订单数据,根据时间戳的设计,获取最新的未操作数据,当扫描枪端开始第一个业务操作是,调用中心接口方法,锁定订单,只有在redis的仓库api内可以操作次订单,防止脏数据的产生;仓库操作完成后(多重业务触发完成action),解锁订单,别人系统可以操作;仓库内产生的操作,汇总会通过消息队列传输信息,更新wms中心库的数据;</p>
+<p>​    离线操作和2的情况类似,离线之前,需要先锁定仓库,操作完成后,连接网络上传操作结果;离线应用和Redis如何重用逻辑,Redis和中心库的的通讯逻辑,是我们这次架构考虑的重点;</p>
+<p>​    </p>
+<p>​    app端的开发,我们使用了react native技术,虽然没有ios端,但我们的react navite的技术栈比较熟悉,开发效率和更新迭代起来比较方便;android 4.4 的在react native 非调试模式下,操作也不慢.而我们的效率瓶颈主要在扫描上面;</p>
+<p>​    项目初期阶段,部分实现方式也可能会更改.</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">WMS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">扫描枪</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/23/warehouse-barcodescanner-desion/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-react-native4-9androidstudio3-0mac" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -879,86 +970,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-Excel2DB" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2009/05/15/Excel2DB/">Excel导入数据库超级DLL</a>
-    </h1>
-  
-
-        
-        <a href="/2009/05/15/Excel2DB/" class="archive-article-date">
-  	<time datetime="2009-05-15T04:01:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2009-05-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>前言:<br> 项目之余,发现很多项目都需要Excel导入导出的功能,每次重复代码的Coding以令我忍无可忍,<br>终于在一个”寂寞难耐”的周末,完成了一个Excel导入数据库(支持Sql Server 2000,2005;<br>Access,Oracle未测试)的程序.闲暇时间测试了一下,功能和效率(1000条3-4秒)方面还不错.<br>此DLL在做导入程序至少节省您50%的工作量,BUG等也会减少很,闲暇出来的时间大家可以喝喝(其实我从不喝咖啡)<br>咖啡(我从来不喝),看看新闻或者做其他更重要的事情.痛苦的重复工作就这样成了您的闲暇时间,<br>工作有时候也需要”偷懒”的.</p>
-        
-          <a class="article-more-a" href="/2009/05/15/Excel2DB/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Excel</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2009/05/15/Excel2DB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1050,11 +1061,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Excel</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1062,7 +1069,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color1">Excel</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1107,6 +1118,14 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">BULK INSERT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">WMS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">扫描枪</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -6,19 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangzeshuai.com">
-  <title>大批量导入数据库 BULK INSERT | 行者无疆</title>
+  <title>系统架构师知识图谱 | 行者无疆</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="大批量导入数据库 自己写的存储过程 很多年前做的一个项目,上线时需要将多个几百兆甚至上G的txt文件导入到sql server数据库中,使用buck 语法,可以非常快的速度导入,主要不要开启事物,否则会非常的慢">
-<meta name="keywords" content="数据库,大批量导入,BULK INSERT">
+  <meta name="description" content="软考 系统架构师知识图谱     自己在学习中总结的脑图图谱,帮助自己学习和记忆;使用百度脑图做的,方便分享 原地址连接,可以看到更友好的格式">
+<meta name="keywords" content="软考,系统架构师">
 <meta property="og:type" content="article">
-<meta property="og:title" content="大批量导入数据库 BULK INSERT">
-<meta property="og:url" content="http://zhangzeshuai.com/2007/08/01/sqlserverbulkinsert/index.html">
+<meta property="og:title" content="系统架构师知识图谱">
+<meta property="og:url" content="http://zhangzeshuai.com/2017/10/24/系统架构师知识图谱/index.html">
 <meta property="og:site_name" content="行者无疆">
-<meta property="og:description" content="大批量导入数据库 自己写的存储过程 很多年前做的一个项目,上线时需要将多个几百兆甚至上G的txt文件导入到sql server数据库中,使用buck 语法,可以非常快的速度导入,主要不要开启事物,否则会非常的慢">
-<meta property="og:updated_time" content="2017-10-18T05:14:13.000Z">
+<meta property="og:description" content="软考 系统架构师知识图谱     自己在学习中总结的脑图图谱,帮助自己学习和记忆;使用百度脑图做的,方便分享 原地址连接,可以看到更友好的格式">
+<meta property="og:image" content="http://zhangzeshuai.com/2017/10/24/image/系统架构师知识图谱.svg">
+<meta property="og:updated_time" content="2017-10-24T10:14:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="大批量导入数据库 BULK INSERT">
-<meta name="twitter:description" content="大批量导入数据库 自己写的存储过程 很多年前做的一个项目,上线时需要将多个几百兆甚至上G的txt文件导入到sql server数据库中,使用buck 语法,可以非常快的速度导入,主要不要开启事物,否则会非常的慢">
+<meta name="twitter:title" content="系统架构师知识图谱">
+<meta name="twitter:description" content="软考 系统架构师知识图谱     自己在学习中总结的脑图图谱,帮助自己学习和记忆;使用百度脑图做的,方便分享 原地址连接,可以看到更友好的格式">
+<meta name="twitter:image" content="http://zhangzeshuai.com/2017/10/24/image/系统架构师知识图谱.svg">
   
     <link rel="alternative" href="/atom.xml" title="行者无疆" type="application/atom+xml">
   
@@ -167,37 +169,30 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-sqlserverbulkinsert" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-系统架构师知识图谱" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      大批量导入数据库 BULK INSERT
+      系统架构师知识图谱
     </h1>
   
 
         
-        <a href="/2007/08/01/sqlserverbulkinsert/" class="archive-article-date">
-  	<time datetime="2007-08-01T03:43:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2007-08-01</time>
+        <a href="/2017/10/24/系统架构师知识图谱/" class="archive-article-date">
+  	<time datetime="2017-10-24T09:53:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>大批量导入数据库 自己写的存储过程</strong></p>
-<p>很多年前做的一个项目,上线时需要将多个几百兆甚至上G的txt文件导入到sql server数据库中,使用buck 语法,可以非常快的速度导入,主要不要开启事物,否则会非常的慢</p>
-<a id="more"></a>
-<hr>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> PROC [dbo].[sp_Import_TT]</div><div class="line"></div><div class="line">@TableName <span class="keyword">NVARCHAR</span>(<span class="number">50</span>) ,  <span class="comment">--导入的表名称</span></div><div class="line"></div><div class="line">@<span class="keyword">DataFile</span> <span class="keyword">NVARCHAR</span>(<span class="number">100</span>) , <span class="comment">--数据源文件</span></div><div class="line"></div><div class="line">@FormatFile <span class="keyword">NVARCHAR</span>(<span class="number">100</span>), <span class="comment">--格式文件</span></div><div class="line"></div><div class="line">@<span class="keyword">LogFile</span> <span class="keyword">NVARCHAR</span>(<span class="number">100</span>) <span class="comment">--日志文件</span></div><div class="line"></div><div class="line"><span class="keyword">AS</span></div><div class="line"></div><div class="line"> EXEC(<span class="string">'BULK INSERT '</span>+@TableName+<span class="string">'</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">                          FROM '''</span>+@<span class="keyword">DataFile</span>+<span class="string">'''</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">                          WITH </span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">                          (</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">                             FORMATFILE = '''</span>+@FormatFile+<span class="string">''',  </span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">                             ROWS_PER_BATCH =10,                --错误数回滚，如果错误超过此数，将整个事务回滚</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">                             ERRORFILE = '''</span>+@<span class="keyword">LogFile</span>+<span class="string">'''                     </span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">                           )'</span></div><div class="line"></div><div class="line">      )</div></pre></td></tr></table></figure>
-<p><strong>附：格式文件类型</strong><br>9.0<br>9<br>1    SQLCHAR    0    20    “”    1    CWB_NO    “”<br>2    SQLCHAR    0    20    “”    2    AcctID    “”<br>3    SQLCHAR    0    10    “”    3    SERVICE_ID    “”<br>4    SQLCHAR    0    3    “”    4    DestSZMCode    “”<br>5    SQLCHAR    0    10    “”    5    ActualWeight    “”<br>6    SQLCHAR    0    10    “”    6    VolumeWeight    “”<br>7    SQLCHAR    0    2    “”    7    CountryCode    “”<br>8    SQLCHAR    0    8    “”    8    Clt_Datetime    “”<br>9    SQLCHAR    0    14    “/r/n”    47    PICKUP_TIME    “”</p>
-<p><strong>bcp导出数据:</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXEC master..xp_cmdshell 'BCP OCS_Links_sha.DBO.tb_customer out D:/DATA.txt -c -F"2" -S"192.168.12.129/ocs" -U"sa" -P"111111"'</div></pre></td></tr></table></figure>
-<p><strong>bcp 导出format文件:</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXEC master..xp_cmdshell 'BCP OCS_Links_sha.DBO.tb_customer format nul -f D:/FMT.txt -c -S"192.168.12.129/ocs" -U"sa" -P"111111"'</div></pre></td></tr></table></figure>
- <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">--,如果遇到阻止Shell,请使用以下SQL启用shell</span></div><div class="line"></div><div class="line">EXEC sp_configure '<span class="keyword">show</span> <span class="keyword">advanced</span> options<span class="string">', 1;RECONFIGURE;EXEC sp_configure '</span>xp_cmdshell<span class="string">', 1;RECONFIGURE</span></div></pre></td></tr></table></figure>
+        <p><em>软考 系统架构师知识图谱</em>    </p>
+<p>自己在学习中总结的脑图图谱,帮助自己学习和记忆;使用百度脑图做的,方便分享</p>
+<p><a href="http://naotu.baidu.com/file/98daf533f74c9489d1a4bcd786ddd9e3?token=91774c300d6be755" target="_blank" rel="external">原地址连接</a>,可以看到更友好的格式</p>
+<p><img src="../image/系统架构师知识图谱.svg" alt="系统架构师知识图谱"></p>
 
       
 
@@ -232,15 +227,11 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">软考</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">大批量导入</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">BULK INSERT</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">系统架构师</a>
         		</li>
       		
 		</ul>
@@ -296,7 +287,7 @@ var _hmt = _hmt || [];
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangzeshuai.com/2007/08/01/sqlserverbulkinsert/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangzeshuai.com/2017/10/24/系统架构师知识图谱/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -310,15 +301,20 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
-    <a href="/2007/08/01/ReportingServicesDev/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/10/24/系统架构师岗位要求/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Reporting Servies 报表开发心得
+          系统架构师岗位要求
         
       </div>
     </a>
   
+  
+    <a href="/2017/10/23/warehouse-barcodescanner-desion/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">WMS仓库管理系统扫描枪端架构设计实现方案(一)</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 

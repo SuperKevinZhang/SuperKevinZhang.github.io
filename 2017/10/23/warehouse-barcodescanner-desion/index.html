@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="行者无疆">
 <meta property="og:description" content="​    仓库管理系统,扫描枪端系统架构的实现方案.  ​    一些传统的wms系统,并没有移动端的操作方案,在仓库里面的操作,有些是通过纸质操作,有些是通过PC和连接外置扫描头来实现.两种实现方式都对操作效率和便捷性上有诸多限制;在传统优化用尽的情况下,就需要通过技术改进来提高生产效率;增加扫描枪端的操作就是解决此问题的一个途径; ​    客户在全国拥有2000多万平的仓库,分布在全国各地,">
 <meta property="og:image" content="http://zhangzeshuai.com/2017/10/23/image/扫描枪架构设计.png">
-<meta property="og:updated_time" content="2017-10-23T10:06:53.000Z">
+<meta property="og:updated_time" content="2017-10-24T09:58:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WMS仓库管理系统扫描枪端架构设计实现方案(一)">
 <meta name="twitter:description" content="​    仓库管理系统,扫描枪端系统架构的实现方案.  ​    一些传统的wms系统,并没有移动端的操作方案,在仓库里面的操作,有些是通过纸质操作,有些是通过PC和连接外置扫描头来实现.两种实现方式都对操作效率和便捷性上有诸多限制;在传统优化用尽的情况下,就需要通过技术改进来提高生产效率;增加扫描枪端的操作就是解决此问题的一个途径; ​    客户在全国拥有2000多万平的仓库,分布在全国各地,">
@@ -192,6 +192,7 @@ var _hmt = _hmt || [];
         <p>​    仓库管理系统,扫描枪端系统架构的实现方案. </p>
 <p>​    一些传统的wms系统,并没有移动端的操作方案,在仓库里面的操作,有些是通过纸质操作,有些是通过PC和连接外置扫描头来实现.两种实现方式都对操作效率和便捷性上有诸多限制;在传统优化用尽的情况下,就需要通过技术改进来提高生产效率;增加扫描枪端的操作就是解决此问题的一个途径;</p>
 <p>​    客户在全国拥有2000多万平的仓库,分布在全国各地,双十一会有平时几倍的工作量产生.效率问题也是非常重量的东西,并发,离线,响应速度,都要考虑进去;如果扫描枪直接连接中心服务器,有两种情况可能满足不了业务.1:偏远地区的网络较差,访问网络的时候延迟较多.2:每次扫描的时候大量查询和写入,对数据库的并发要求比较高,大量查询也会占用较多的数据库资源;这两个问题都可能影响出入库扫描的效率;基于这种应用场景,设计了以下的架构实现方案:</p>
+<a id="more"></a>
 <p>​    将部分操作和数据根据不同情况的配置同步到仓库端进行操作;    </p>
 <p>​        <img src="../image/扫描枪架构设计.png" alt=""></p>
 <p>​    1:正常情况下来,扫描枪连接中心库的的接口服务,进行在线操作.解决中小仓库等操作量小的问题,中小仓库如果在进行购买和部署同步中间件服务器,会导致部署陈本和维护成本上升,此种情况下,我们推荐直接部署连接中心库的api的操作;</p>
@@ -310,6 +311,15 @@ var _hmt = _hmt || [];
 
   
 <nav id="article-nav">
+  
+    <a href="/2017/10/24/系统架构师知识图谱/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          系统架构师知识图谱
+        
+      </div>
+    </a>
   
   
     <a href="/2017/10/18/react-native4-9androidstudio3-0mac/" id="article-nav-older" class="article-nav-link-wrap">
@@ -453,15 +463,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Excel</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -489,23 +499,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">react native</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">android studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">大批量导入</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">BULK INSERT</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -517,7 +511,35 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">react native</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">android studio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">大批量导入</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">BULK INSERT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">双击热备</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">软考</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">系统架构师</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">阿里</a>
               </li>
             
             <div class="clearfix"></div>

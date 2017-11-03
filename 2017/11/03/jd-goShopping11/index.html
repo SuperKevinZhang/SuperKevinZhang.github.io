@@ -6,19 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangzeshuai.com">
-  <title>webapi优化之MiniProfiler监控 (一) | 行者无疆</title>
+  <title>京东抢购秒杀助手—小桃子版 | 行者无疆</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="​    使用.net开发Web API,Entity Framework是个好东西,可以大大简化操作数据库的复杂度,使很多不会写sql的人也能完成对后台的操作.但凡事都有两面性,EF 带来开发便利性的同时,也带来了效率的低下性; 这里所说的效率低下,并不是说EF真的效率低下,而是由于大家对EF不熟悉,EF功能又非常强大,随便你怎么写都能出现结果,用户用法不规范导致的效率低下;除了开发规范避免一些">
-<meta name="keywords" content="WebApi,MiniProfiler,Entity Framework">
+  <meta name="description" content="​    双十一当天考试,没办法去抢购东西,闲暇之余写了一个京东秒杀抢购助手,帮助没有时间的人抢一些想要的东西; ​    为什么叫小桃子版,因为头像的小公主就是叫小桃子.@_@ ​    使用方式: ​    1:打开要抢购商品的详细画面,请注意网络地址一定要是 item.jd.com开头的详细画面,摁F12,打开开发者模式,选择Console选项卡,把以下代码粘贴在Console里面,回车执行">
+<meta name="keywords" content="秒杀,抢购,京东">
 <meta property="og:type" content="article">
-<meta property="og:title" content="webapi优化之MiniProfiler监控 (一)">
-<meta property="og:url" content="http://zhangzeshuai.com/2017/10/27/MiniProfiler-webapi-ef/index.html">
+<meta property="og:title" content="京东抢购秒杀助手—小桃子版">
+<meta property="og:url" content="http://zhangzeshuai.com/2017/11/03/jd-goShopping11/index.html">
 <meta property="og:site_name" content="行者无疆">
-<meta property="og:description" content="​    使用.net开发Web API,Entity Framework是个好东西,可以大大简化操作数据库的复杂度,使很多不会写sql的人也能完成对后台的操作.但凡事都有两面性,EF 带来开发便利性的同时,也带来了效率的低下性; 这里所说的效率低下,并不是说EF真的效率低下,而是由于大家对EF不熟悉,EF功能又非常强大,随便你怎么写都能出现结果,用户用法不规范导致的效率低下;除了开发规范避免一些">
-<meta property="og:updated_time" content="2017-10-30T04:24:38.000Z">
+<meta property="og:description" content="​    双十一当天考试,没办法去抢购东西,闲暇之余写了一个京东秒杀抢购助手,帮助没有时间的人抢一些想要的东西; ​    为什么叫小桃子版,因为头像的小公主就是叫小桃子.@_@ ​    使用方式: ​    1:打开要抢购商品的详细画面,请注意网络地址一定要是 item.jd.com开头的详细画面,摁F12,打开开发者模式,选择Console选项卡,把以下代码粘贴在Console里面,回车执行">
+<meta property="og:image" content="http://zhangzeshuai.com/2017/11/03/image/jd_go_shopping1.png">
+<meta property="og:image" content="http://zhangzeshuai.com/2017/11/03/image/jd_go_shopping3.png">
+<meta property="og:updated_time" content="2017-11-03T06:53:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="webapi优化之MiniProfiler监控 (一)">
-<meta name="twitter:description" content="​    使用.net开发Web API,Entity Framework是个好东西,可以大大简化操作数据库的复杂度,使很多不会写sql的人也能完成对后台的操作.但凡事都有两面性,EF 带来开发便利性的同时,也带来了效率的低下性; 这里所说的效率低下,并不是说EF真的效率低下,而是由于大家对EF不熟悉,EF功能又非常强大,随便你怎么写都能出现结果,用户用法不规范导致的效率低下;除了开发规范避免一些">
+<meta name="twitter:title" content="京东抢购秒杀助手—小桃子版">
+<meta name="twitter:description" content="​    双十一当天考试,没办法去抢购东西,闲暇之余写了一个京东秒杀抢购助手,帮助没有时间的人抢一些想要的东西; ​    为什么叫小桃子版,因为头像的小公主就是叫小桃子.@_@ ​    使用方式: ​    1:打开要抢购商品的详细画面,请注意网络地址一定要是 item.jd.com开头的详细画面,摁F12,打开开发者模式,选择Console选项卡,把以下代码粘贴在Console里面,回车执行">
+<meta name="twitter:image" content="http://zhangzeshuai.com/2017/11/03/image/jd_go_shopping1.png">
   
     <link rel="alternative" href="/atom.xml" title="行者无疆" type="application/atom+xml">
   
@@ -167,53 +170,37 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-MiniProfiler-webapi-ef" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-jd-goShopping11" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      webapi优化之MiniProfiler监控 (一)
+      京东抢购秒杀助手—小桃子版
     </h1>
   
 
         
-        <a href="/2017/10/27/MiniProfiler-webapi-ef/" class="archive-article-date">
-  	<time datetime="2017-10-27T11:07:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-27</time>
+        <a href="/2017/11/03/jd-goShopping11/" class="archive-article-date">
+  	<time datetime="2017-11-03T06:35:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>​    使用.net开发Web API,Entity Framework是个好东西,可以大大简化操作数据库的复杂度,使很多不会写sql的人也能完成对后台的操作.但凡事都有两面性,EF 带来开发便利性的同时,也带来了效率的低下性; 这里所说的效率低下,并不是说EF真的效率低下,而是由于大家对EF不熟悉,EF功能又非常强大,随便你怎么写都能出现结果,用户用法不规范导致的效率低下;除了开发规范避免一些特别明显的效率写法外,好的调试工具这个时候就成本效率优化必需的东西了,这个时候MiniProfiler插件就排上了用场;</p>
+        <p>​    双十一当天考试,没办法去抢购东西,闲暇之余写了一个京东秒杀抢购助手,帮助没有时间的人抢一些想要的东西;</p>
+<p>​    为什么叫小桃子版,因为头像的小公主就是叫小桃子.@_@</p>
+<p>​    <strong>使用方式:</strong></p>
+<p>​    1:打开要抢购商品的详细画面,请注意网络地址一定要是 item.jd.com开头的详细画面,摁F12,打开开发者模式,选择Console选项卡,把以下代码粘贴在Console里面,回车执行;</p>
 <a id="more"></a>
-<p>​    MiniProfiler不是必需的,你也可以通过使用SQL Server Profiler来监控执行的sql,但确实非常必要的,MiniProfiler可以使你的监控变得非常简单; MiniProfiler是<a href="http://stackoverflow.com/" target="_blank" rel="external">Stack Overflow</a>团队设计的一款对ASP.NET MVC的性能分析的小程序。可以对一个页面本身，及该页面通过直接引用、Ajax、Iframe形式访问的其它页面进行监控,监控内容包括数据库内容，并可以显示数据库访问的SQL（支持EF、EF CodeFirst等 ）。并且以很友好的方式展现在页面上。</p>
-<p>​    该Profiler的一个特别有用的功能是它与数据库框架的集成。除了.NET原生的 DbConnection类，profiler还内置了对实体框架（Entity Framework）以及LINQ to SQL的支持。任何执行的Step都会包括当时查询的次数和所花费的时间。为了检测常见的错误，如N+1反模式，profiler将检测仅有参数值存在差 异的多个查询。</p>
-<pre><code>## MVC Web的监控
-</code></pre><p>​    MiniProfiler 放在nuget上面,安装起来也非常简单,可以通过程序包管理器控制台安装,也可以通过管理解决方案的NuGet程序包安装(两者 都在NuGet包管理器里面),我们这里通过命令行的形式安装;</p>
-<p>​    安装准备:</p>
-<p>​        1:Entity Framework 6.0</p>
-<p>​        2:Visio Studio 2013 </p>
-<p>​        3:<a href="https://miniprofiler.com/" target="_blank" rel="external">MiniProfiler</a> 3.2.0.157</p>
-<p>​    安装步骤</p>
-<p>​        1:打开工具-&gt;NuGet包管理器-&gt;程序包管理器控制台</p>
-<p>​            输入</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">PM&gt; Install-Package MiniProfiler</div></pre></td></tr></table></figure>
-<p>​        如果是低版本的EF需要选择对应的Profiler,高版本的建议选用最新版的Profiler,我刚开始选的稍微低一个版本的,监控输入不出来;</p>
-<p>​        2:接下来的就是需要配置了;</p>
-<pre><code>2.1 在Global.asax.cs中配置启动监控信息(这里配置的监控EF6)
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">protected void Application_Start()</div><div class="line">        &#123;</div><div class="line">            AreaRegistration.RegisterAllAreas();</div><div class="line">            GlobalConfiguration.Configure(WebApiConfig.Register);</div><div class="line">            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);</div><div class="line">            RouteConfig.RegisterRoutes(RouteTable.Routes);</div><div class="line">            BundleConfig.RegisterBundles(BundleTable.Bundles);</div><div class="line">		   //这里是监控EF6 的信息 --监控EF6 初始化</div><div class="line">            MiniProfilerEF6.Initialize();</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        protected void Application_BeginRequest()</div><div class="line">        &#123;</div><div class="line">            if (Request.IsLocal)//这里是允许本地访问启动监控,可不写</div><div class="line">            &#123;</div><div class="line">                //开始监控</div><div class="line">                MiniProfiler.Start();</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        protected void Application_EndRequest()</div><div class="line">        &#123;</div><div class="line">            //结束监控</div><div class="line">            MiniProfiler.Stop();</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
-<p>​        2.2 修改layout文件</p>
-<p>​            在Views\Shared_Layout.cshtml文件的body前面加上一段代码，让监控展示在页面上。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>@ViewBag.Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    @RenderSection("scripts", required: false)</div><div class="line">    @using StackExchange.Profiling; /</div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    @RenderBody()</div><div class="line">    @MiniProfiler.RenderIncludes();</div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>​    此时再次运行,就可以在左上角看到web画面执行的情况了;</p>
-<p>​    好</p>
-<h2 id="WebAPI的监控"><a href="#WebAPI的监控" class="headerlink" title="WebAPI的监控"></a>WebAPI的监控</h2><p>​    默认情况下,Profiler并不会监控webapi,如果我们想监控webapi,需要做一些其他的更改;</p>
-<p>在<a href="https://community.miniprofiler.com/t/can-i-use-mini-profiler-for-asp-net-web-api-and-have-results-still-seen-on-url/365/2" target="_blank" rel="external">miniProfiler</a>论坛上搜索到一个解决方案:需要的请参考</p>
-<p>​    <a href="https://github.com/mmusket/webapi-profiling" target="_blank" rel="external">https://github.com/mmusket/webapi-profiling</a></p>
-<p>​    <a href="http://www.lambdatwist.com/webapi-profiling-with-miniprofiler-swagger/" target="_blank" rel="external">http://www.lambdatwist.com/webapi-profiling-with-miniprofiler-swagger/</a></p>
+<p>​    <em>打开开发者模式</em></p>
+<p>​    <img src="../image/jd_go_shopping1.png" alt="jd_go_shopping1"></p>
+<p>​    <strong>特别注意:被监控的画面标签页一定要在前台 </strong></p>
+<p><img src="../image/jd_go_shopping3.png" alt="jd_go_shopping3"></p>
+<p>代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> nIntervId;</div><div class="line"><span class="keyword">var</span> count = <span class="number">1</span>;</div><div class="line"><span class="keyword">var</span> goDate;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">go</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"小桃子 ^_^ 正在帮你抢购＊＊＊＊＊＊＊＊＊＊＊＊＊ 刷新"</span> + count + <span class="string">"次"</span>);</div><div class="line">    <span class="comment">//console.log("host:" + window.location.hostname);</span></div><div class="line">    count++;</div><div class="line">    <span class="comment">// iPhone X go set time</span></div><div class="line">    <span class="keyword">if</span> (<span class="built_in">Date</span>.now() &gt;= <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">"2017-11-03 15:59:59"</span>)) &#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">"开始抢购iPhone X"</span> + <span class="built_in">Date</span>.now());</div><div class="line"></div><div class="line">        <span class="comment">// iphoneX 抢购</span></div><div class="line">        <span class="keyword">if</span> ($(parent.frames[<span class="number">0</span>].document).find(<span class="string">"#choose-btn-ko"</span>).length == <span class="number">1</span>) &#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">"(++++++++++++iphoneX 抢购"</span>);</div><div class="line">            <span class="keyword">var</span> sku = <span class="built_in">window</span>.location.pathname.replace(<span class="regexp">/[^0-9]/ig</span>, <span class="string">""</span>);</div><div class="line">            <span class="keyword">var</span> ref = <span class="string">"//cart.jd.com/gate.action?pid="</span> + sku + <span class="string">"&amp;pcount=1&amp;ptype=1"</span>;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">"https:"</span> + ref);</div><div class="line">            <span class="comment">//5089237</span></div><div class="line">            $(parent.frames[<span class="number">0</span>].document).find(<span class="string">"#choose-btn-ko"</span>).attr(<span class="string">"href"</span>, ref);<span class="comment">//                 </span></div><div class="line">            parent.frames[<span class="number">0</span>].document.getElementById(<span class="string">"choose-btn-ko"</span>).click();</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//预约抢购</span></div><div class="line">        <span class="keyword">if</span> ($(parent.frames[<span class="number">0</span>].document).find(<span class="string">"#btn-reservation"</span>).length == <span class="number">1</span>) &#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">"(++++++++++++正在预约抢购"</span>);</div><div class="line"></div><div class="line">            parent.frames[<span class="number">0</span>].document.getElementById(<span class="string">"btn-reservation"</span>).click();</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//秒杀   </span></div><div class="line">        <span class="keyword">if</span> ($(parent.frames[<span class="number">0</span>].document).find(<span class="string">"#InitCartUrl"</span>).length == <span class="number">1</span>) &#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">"(++++++++++++正在秒杀"</span>);</div><div class="line">            parent.frames[<span class="number">0</span>].document.getElementById(<span class="string">"InitCartUrl"</span>).click();</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//去购物车结算</span></div><div class="line">        <span class="keyword">if</span> ($(parent.frames[<span class="number">0</span>].document).find(<span class="string">"#GotoShoppingCart"</span>).length == <span class="number">1</span>) &#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">"(++++++++++++正在去购物车结算"</span>);</div><div class="line">            parent.frames[<span class="number">0</span>].document.getElementById(<span class="string">"GotoShoppingCart"</span>).click();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//去结算        </span></div><div class="line">        <span class="keyword">if</span> ($(parent.frames[<span class="number">0</span>].document).find(<span class="string">".submit-btn"</span>).length == <span class="number">1</span>) &#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">"(++++++++++++正在去结算"</span>);</div><div class="line"></div><div class="line">            <span class="comment">//只提交我抢购的商品</span></div><div class="line">            <span class="comment">//var sku = window.location.pathname.replace(/[^0-9]/ig, "");                 </span></div><div class="line"></div><div class="line">            <span class="comment">//$("#toggle-checkboxes_up").trigger("click");</span></div><div class="line">            <span class="comment">//全不选择</span></div><div class="line">            <span class="comment">//parent.frames[0].document.getElementById("toggle-checkboxes_up").click();</span></div><div class="line"></div><div class="line">            <span class="comment">//$(parent.frames[0].document).find('input:checkbox').attr("checked",false);</span></div><div class="line">            <span class="comment">//$(parent.frames[0].document).find("input:checkbox[value^='"+sku+"']").trigger("click");</span></div><div class="line"></div><div class="line">            <span class="comment">//$(parent.frames[0].document).find("input:checkbox[value^='"+sku+"']").attr("checked",true);</span></div><div class="line"></div><div class="line">            parent.frames[<span class="number">0</span>].document.getElementsByClassName(<span class="string">"submit-btn"</span>)[<span class="number">0</span>].click();</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//提交订单order-submit</span></div><div class="line">        <span class="keyword">if</span> ($(parent.frames[<span class="number">0</span>].document).find(<span class="string">"#order-submit"</span>).length == <span class="number">1</span>) &#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">"(++++++++++++正在提交订单"</span>);</div><div class="line">            <span class="comment">//$(parent.frames[0].document).find(".payment-item item-selected online-payment")</span></div><div class="line"></div><div class="line">            <span class="comment">//在线支付</span></div><div class="line">            parent.frames[<span class="number">0</span>].document.getElementById(<span class="string">"order-submit"</span>).click();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">rewrite</span>(<span class="params">current</span>) </span>&#123;</div><div class="line">    fr4me = <span class="string">'&lt;frameset cols=\'*\'&gt;\n&lt;frame src=\''</span> + current + <span class="string">'\'/&gt;'</span>;</div><div class="line">    fr4me += <span class="string">'&lt;/frameset&gt;'</span>;</div><div class="line">    <span class="keyword">with</span> (<span class="built_in">document</span>) &#123; write(fr4me); <span class="keyword">void</span> (close()) &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//注入sql</span></div><div class="line">rewrite(<span class="built_in">window</span>.location.href);</div><div class="line"></div><div class="line"><span class="comment">//这里需要注意的是，prompt有两个参数，前面是提示的话，后面是当对话框出来后，在对话框里的默认值</span></div><div class="line"><span class="keyword">var</span> d = prompt(<span class="string">"请输入抢购开始时间"</span>, <span class="string">"2017-11-03 15:59:59"</span>);</div><div class="line"><span class="comment">//如果返回的有内容</span></div><div class="line"><span class="keyword">if</span> (d) &#123;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        goDate = <span class="keyword">new</span> <span class="built_in">Date</span>(d);</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">"设定时间成功:"</span> + goDate);</div><div class="line">        </div><div class="line">        alert(<span class="string">"监控期间,请保持标签页在最前面"</span>);</div><div class="line">        <span class="comment">//go(); 0.25秒执行一次</span></div><div class="line">        nIntervId = setInterval(<span class="string">"go()"</span>, <span class="number">250</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">catch</span> (e) &#123;</div><div class="line">        alert(<span class="string">"时间格式不正确,请使用yyyy-MM-dd hh:mm:ss格式,精确到秒, 请重试"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    alert(<span class="string">"请抢购时间, 请重重试"</span>);</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment">    clearInterval(nIntervId);//停止监控</span></div><div class="line"><span class="comment">    */</span></div></pre></td></tr></table></figure>
 
       
 
@@ -248,15 +235,15 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">WebApi</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">秒杀</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MiniProfiler</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">抢购</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Entity Framework</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">京东</a>
         		</li>
       		
 		</ul>
@@ -312,7 +299,7 @@ var _hmt = _hmt || [];
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangzeshuai.com/2017/10/27/MiniProfiler-webapi-ef/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangzeshuai.com/2017/11/03/jd-goShopping11/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -326,18 +313,9 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
-    <a href="/2017/11/03/jd-goShopping11/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          京东抢购秒杀助手—小桃子版
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/10/24/系统架构师岗位要求/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">系统架构师岗位要求</div>
+    <a href="/2017/10/27/MiniProfiler-webapi-ef/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">webapi优化之MiniProfiler监控 (一)</div>
       <i class="icon-circle-right"></i>
     </a>
   

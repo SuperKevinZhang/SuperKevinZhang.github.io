@@ -6,17 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangzeshuai.com">
-  <title>Archives: 2017 | 行者无疆</title>
+  <title>行者无疆</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="纵使前方荆棘满布,我也会义无反顾">
-<meta property="og:type" content="website">
+  <meta name="description" content="title: SQL Server 通过分析执行计划优化视图date: 2017-12-05 15:27:52tags: [数据库优化] ​                        SQL Server 通过分析执行计划优化视图 ​    最近接到一个优化的咨询,这家公司的系统建立与2004年,目前已经已经运行14之久,这大概是我遇到运行最久的主业务系统了; ​    项目简介:  物流公司">
+<meta property="og:type" content="article">
 <meta property="og:title" content="行者无疆">
-<meta property="og:url" content="http://zhangzeshuai.com/archives/2017/index.html">
+<meta property="og:url" content="http://zhangzeshuai.com/2017/12/05/DBPerformance /index.html">
 <meta property="og:site_name" content="行者无疆">
-<meta property="og:description" content="纵使前方荆棘满布,我也会义无反顾">
+<meta property="og:description" content="title: SQL Server 通过分析执行计划优化视图date: 2017-12-05 15:27:52tags: [数据库优化] ​                        SQL Server 通过分析执行计划优化视图 ​    最近接到一个优化的咨询,这家公司的系统建立与2004年,目前已经已经运行14之久,这大概是我遇到运行最久的主业务系统了; ​    项目简介:  物流公司">
+<meta property="og:image" content="http://zhangzeshuai.com/2017/12/05/DBPerformance%20/newPlan.png">
+<meta property="og:updated_time" content="2017-12-05T08:31:29.598Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="行者无疆">
-<meta name="twitter:description" content="纵使前方荆棘满布,我也会义无反顾">
+<meta name="twitter:description" content="title: SQL Server 通过分析执行计划优化视图date: 2017-12-05 15:27:52tags: [数据库优化] ​                        SQL Server 通过分析执行计划优化视图 ​    最近接到一个优化的咨询,这家公司的系统建立与2004年,目前已经已经运行14之久,这大概是我遇到运行最久的主业务系统了; ​    项目简介:  物流公司">
+<meta name="twitter:image" content="http://zhangzeshuai.com/2017/12/05/DBPerformance%20/newPlan.png">
   
     <link rel="alternative" href="/atom.xml" title="行者无疆" type="application/atom+xml">
   
@@ -165,449 +168,200 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-DBPerformance " class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>title: SQL Server 通过分析执行计划优化视图<br>date: 2017-12-05 15:27:52<br>tags: [数据库优化]</p>
+<p>​                        <strong>SQL Server 通过分析执行计划优化视图</strong></p>
+<p>​    最近接到一个优化的咨询,这家公司的系统建立与2004年,目前已经已经运行14之久,这大概是我遇到运行最久的主业务系统了;</p>
+<p>​    <strong>项目简介:</strong></p>
+<ul>
+<li><p>物流公司业务基干系统(一个基干系统能用14年,厉害)</p>
+</li>
+<li><p>数据库:SQL Server 2000</p>
+<ul>
+<li><p>开发语言:Visual Basic(注意是VB,不是VB.NET)</p>
+</li>
+<li><p>系统架构:C/S</p>
+<p>​</p>
+<p><strong>问题描述:</strong></p>
+<p>​       系统太久远,当时开发的人员只剩下了一个,且快到了退休年龄,年轻人已经没几个人会VB了.现在每一个业务改动都非常困难,且系统运行效率特别低.有时候一个操作需要20秒以上;</p>
+<p>​</p>
+<p><strong><strong>解决方案:</strong></strong></p>
+<p>​      长远的解决方案当然是重新开发系统,按照最新的公司战略和当下的技术结构重构系统.这这不是一蹴而就的事情,对于解决方案供应商第一任务是取得客户信任,然后再规划将来的事情;对于客户来说,比较重要的事情如何解决目前效率的问题.所以我们做的第一件事情是通过解决客户效率问题取得客户信任.VB的代码牵涉众多,不适合早期的优化,早期优化从优化数据库开始;</p>
+<p><strong>数据库优化</strong></p>
+<p>​       我们拿最常用的一个批货视图开始优化;这个视图拿到的第一眼是晕掉的,查询这么多表,这么多子查询和计算.在我们的测试机上执行时间为52秒;</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SET</span> QUOTED_IDENTIFIER <span class="keyword">ON</span> </div><div class="line"><span class="keyword">GO</span></div><div class="line"><span class="keyword">SET</span> ANSI_NULLS <span class="keyword">ON</span> </div><div class="line"><span class="keyword">GO</span></div><div class="line"></div><div class="line"><span class="keyword">ALTER</span>  <span class="keyword">VIEW</span> 	_Consoled</div><div class="line"><span class="keyword">AS</span></div><div class="line"><span class="keyword">SELECT</span> 	MAWB.MAWB, 	MAWB.FlightDate, <span class="keyword">CASE</span> <span class="keyword">WHEN</span> 	Mawb.Agent <span class="keyword">IS</span> <span class="literal">NULL</span> </div><div class="line">      <span class="keyword">THEN</span> 	MAWB.Flight + 	Mawb.Des3 <span class="keyword">ELSE</span> 	Mawb.Flight + 	Mawb.Des3 + <span class="string">'('</span></div><div class="line">       + 	Mawb.Agent + <span class="string">')'</span> <span class="keyword">END</span> <span class="keyword">AS</span> Flight, 	MAWB.Flight <span class="keyword">AS</span> MawbFlight, </div><div class="line">      	MAWB.Dest1, 	MAWB.Dest2, 	HAWB.WareHouseSN, </div><div class="line">      	Customer.CustName, 	MAWB.Agent, 	MAWB.Pieces1, 	MAWB.Gross1, </div><div class="line">      	MAWB.V1, 	MAWB.Weight1, 	MAWB.Pieces2, 	MAWB.Gross2, </div><div class="line">      	MAWB.V2, 	MAWB.Weight2, </div><div class="line">      <span class="keyword">CASE</span> <span class="keyword">WHEN</span> MAWB.Status16 = <span class="number">1</span> <span class="keyword">THEN</span> <span class="string">'自报关'</span> <span class="keyword">ELSE</span> <span class="string">''</span> <span class="keyword">END</span> + 	MAWB.OP <span class="keyword">AS</span> OP, </div><div class="line">      <span class="keyword">CASE</span> 	MAWB.Printer <span class="keyword">WHEN</span> <span class="string">''</span> <span class="keyword">THEN</span> <span class="string">''</span> <span class="keyword">ELSE</span> <span class="string">'总'</span> <span class="keyword">END</span> <span class="keyword">AS</span> Printed, </div><div class="line">      	HAWB.Pieces2 <span class="keyword">AS</span> PCS, 	HAWB.Gross4 <span class="keyword">AS</span> WGT, 	HAWB.V4 <span class="keyword">AS</span> VLM, </div><div class="line">      <span class="keyword">CASE</span> 	HAWB.Num3 <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">''</span> <span class="keyword">ELSE</span> <span class="string">'*'</span> <span class="keyword">END</span> <span class="keyword">AS</span> Broken, </div><div class="line">      <span class="keyword">CASE</span> 	Hawb.HWStatus <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="keyword">ltrim</span>(<span class="keyword">str</span>(	Hawb.Pieces1)) </div><div class="line">      <span class="keyword">WHEN</span> <span class="number">2</span> <span class="keyword">THEN</span> <span class="keyword">ltrim</span>(<span class="keyword">str</span>(	Hawb.Pieces1)) + <span class="string">'('</span> + <span class="keyword">ltrim</span>(<span class="keyword">str</span>(	Hawb.Pieces2)) </div><div class="line">      + <span class="string">')'</span> <span class="keyword">ELSE</span> <span class="keyword">ltrim</span>(<span class="keyword">str</span>(	Hawb.Pieces2)) <span class="keyword">END</span> <span class="keyword">AS</span> Pieces, </div><div class="line">      <span class="keyword">CASE</span> 	Hawb.HWStatus <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> 	Hawb.Gross1 <span class="keyword">ELSE</span> 	Hawb.Gross4 <span class="keyword">END</span></div><div class="line">       <span class="keyword">AS</span> Gross, </div><div class="line">      <span class="keyword">CASE</span> 	Hawb.HWStatus <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> 	HAWB.V1 <span class="keyword">ELSE</span> 	Hawb.V4 <span class="keyword">END</span> <span class="keyword">AS</span> V,</div><div class="line">       <span class="keyword">CASE</span> 	Hawb.HWStatus <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> 	HAWB.Weight1 <span class="keyword">ELSE</span> 	Hawb.Weight4</div><div class="line">       <span class="keyword">END</span> <span class="keyword">AS</span> Weight, 	HAWB.HAWB, 	HAWB.BGNote, </div><div class="line">      <span class="keyword">CASE</span> 	Hawb.Status11 <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">''</span> <span class="keyword">ELSE</span> <span class="string">'*'</span> <span class="keyword">END</span> <span class="keyword">AS</span> DCZ, </div><div class="line">      <span class="keyword">CASE</span> <span class="keyword">WHEN</span> BGDS.BGDs <span class="keyword">IS</span> <span class="literal">NULL</span> </div><div class="line">      <span class="keyword">THEN</span> <span class="string">''</span> <span class="keyword">ELSE</span> <span class="keyword">CASE</span> BGDS.Status8 <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">'*'</span> <span class="keyword">ELSE</span> <span class="string">'**'</span> <span class="keyword">END</span> <span class="keyword">END</span> + 	HAWB.Des4</div><div class="line">       + <span class="keyword">CASE</span> 	Hawb.Num10 <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">''</span> <span class="keyword">ELSE</span> <span class="string">'扣'</span> <span class="keyword">END</span> + <span class="keyword">CASE</span> 	Hawb.HWStatus</div><div class="line">       <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">' '</span> <span class="keyword">WHEN</span> <span class="number">1</span> <span class="keyword">THEN</span> <span class="string">'H'</span> <span class="keyword">WHEN</span> <span class="number">2</span> <span class="keyword">THEN</span> <span class="string">'B'</span> <span class="keyword">WHEN</span> <span class="number">3</span> <span class="keyword">THEN</span> <span class="string">'C'</span> <span class="keyword">END</span> + <span class="keyword">CASE</span></div><div class="line">       	Hawb.Num3 <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">''</span> <span class="keyword">ELSE</span> <span class="string">'破'</span> <span class="keyword">END</span> + <span class="keyword">CASE</span> 	HAWB.Status26 <span class="keyword">WHEN</span> <span class="number">2</span></div><div class="line">       <span class="keyword">THEN</span> <span class="string">'T'</span> <span class="keyword">ELSE</span> <span class="string">''</span> <span class="keyword">END</span> + <span class="keyword">CASE</span> 	Hawb.DanZhengStatus <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">' '</span> <span class="keyword">ELSE</span> <span class="keyword">CASE</span></div><div class="line">       	HAWB.Status19 <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">'D'</span> <span class="keyword">ELSE</span> <span class="string">'M'</span> <span class="keyword">END</span> <span class="keyword">END</span> + <span class="keyword">CASE</span> 	Hawb.Status14</div><div class="line">       <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">'  '</span> <span class="keyword">WHEN</span> <span class="number">1</span> <span class="keyword">THEN</span> <span class="string">'到'</span> <span class="keyword">WHEN</span> <span class="number">2</span> <span class="keyword">THEN</span> <span class="string">'签'</span> <span class="keyword">WHEN</span> <span class="number">3</span> <span class="keyword">THEN</span> <span class="string">'拆'</span> <span class="keyword">WHEN</span> <span class="number">4</span> <span class="keyword">THEN</span></div><div class="line">       <span class="string">'问'</span> <span class="keyword">WHEN</span> <span class="number">5</span> <span class="keyword">THEN</span> <span class="string">'放'</span> <span class="keyword">WHEN</span> <span class="number">6</span> <span class="keyword">THEN</span> <span class="string">'审'</span> <span class="keyword">WHEN</span> <span class="number">7</span> <span class="keyword">THEN</span> <span class="string">'计'</span> <span class="keyword">WHEN</span> <span class="number">8</span> <span class="keyword">THEN</span> <span class="string">'完'</span> <span class="keyword">END</span></div><div class="line">       + <span class="keyword">CASE</span> 	Hawb.Status9 <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">' '</span> <span class="keyword">ELSE</span> <span class="string">'S'</span> <span class="keyword">END</span> + <span class="keyword">CASE</span> 	Hawb.FStatus <span class="keyword">WHEN</span></div><div class="line">       <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">' '</span> <span class="keyword">ELSE</span> <span class="string">'A'</span> <span class="keyword">END</span> + <span class="keyword">CASE</span> 	Hawb.QStatus <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">' '</span> <span class="keyword">ELSE</span> <span class="string">'P'</span> <span class="keyword">END</span> + <span class="keyword">CASE</span></div><div class="line">       	Hawb.Status16 <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">'  '</span> <span class="keyword">ELSE</span> <span class="string">'标'</span> <span class="keyword">END</span> + <span class="keyword">CASE</span> <span class="keyword">WHEN</span> Housing.Category</div><div class="line">       <span class="keyword">IS</span> <span class="literal">NULL</span> </div><div class="line">      <span class="keyword">THEN</span> <span class="string">''</span> <span class="keyword">ELSE</span> Housing.Category <span class="keyword">END</span> + <span class="keyword">CASE</span> MAWB.Status13 <span class="keyword">WHEN</span> <span class="number">1</span> <span class="keyword">THEN</span> <span class="string">'区内'</span> <span class="keyword">WHEN</span></div><div class="line">       <span class="number">2</span> <span class="keyword">THEN</span> <span class="string">'区外'</span> <span class="keyword">ELSE</span> <span class="string">''</span> <span class="keyword">END</span> + <span class="keyword">CASE</span> <span class="keyword">WHEN</span> 	outPlans.WareHouseSN <span class="keyword">IS</span> <span class="literal">NULL</span> </div><div class="line">      <span class="keyword">THEN</span> <span class="string">''</span> <span class="keyword">ELSE</span> <span class="string">'排'</span> <span class="keyword">END</span>  <span class="keyword">AS</span></div><div class="line">       <span class="keyword">Status</span>, 	HAWB.Status14, 	HAWB.Status17, 	HAWB.Status27, </div><div class="line">      Housing.STPosition, Housing.Category, 	MAWB.Status10, 	MAWB.Status11, </div><div class="line">      	MAWB.Status12, 	MAWB.Status13, 	Destination.City, 	AirLines.AirLine, </div><div class="line">      	MAWB.AirPort, 	HAWB.Dest, 	HAWB.Num1, 	HAWB.ProcedureStatus, </div><div class="line">      	HAWB.PrintOut, 	HAWB.PrintRequest, 	MAWB.Status2, </div><div class="line">      	MAWB.Status7, 	MAWB.Status8, 	MAWB.Status4, 	MAWB.Des1, </div><div class="line">      <span class="keyword">CASE</span> <span class="keyword">WHEN</span> 	MAWB.DeclareDate <span class="keyword">IS</span> <span class="literal">NULL</span> <span class="keyword">OR</span></div><div class="line">      	MAWB.DeclareDate = 	MAWB.FlightDate <span class="keyword">THEN</span> <span class="string">''</span> <span class="keyword">ELSE</span> <span class="string">'报关日'</span> + <span class="keyword">RIGHT</span>(<span class="keyword">CONVERT</span>(<span class="built_in">Varchar</span>(<span class="number">10</span>),</div><div class="line">       	MAWB.DeclareDate, <span class="number">120</span>), <span class="number">5</span>) <span class="keyword">END</span> <span class="keyword">AS</span> DeclareDate, </div><div class="line">      	HAWB.Status10 <span class="keyword">AS</span> HawbStatus10, BGD.BGStatus, </div><div class="line">      <span class="keyword">CASE</span> <span class="keyword">WHEN</span> 	SubmitOFFlight.Submit <span class="keyword">IS</span> <span class="literal">NULL</span> </div><div class="line">      <span class="keyword">THEN</span> <span class="string">''</span> <span class="keyword">ELSE</span> 	SubmitOFFlight.Submit <span class="keyword">END</span> <span class="keyword">AS</span> Submit, BGDS.PCS <span class="keyword">AS</span> BGPCS, </div><div class="line">      BGDS.WGT <span class="keyword">AS</span> BGWGT, 	HAWB.Des2, 	HAWB.Des5, <span class="string">''</span> <span class="keyword">as</span> Regular</div><div class="line"><span class="keyword">FROM</span> 	HAWB <span class="keyword">RIGHT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></div><div class="line">      	Destination <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></div><div class="line">      	AirLines <span class="keyword">ON</span> </div><div class="line">      	Destination.AirLine = 	AirLines.AirLineCode <span class="keyword">RIGHT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></div><div class="line">      	MAWB <span class="keyword">ON</span> 	Destination.Code = 	MAWB.Dest2 <span class="keyword">ON</span> </div><div class="line">      	HAWB.MAWB = 	MAWB.MAWB <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></div><div class="line">      	OutPlans <span class="keyword">ON</span> </div><div class="line">      	HAWB.WareHouseSN = 	OutPlans.WareHouseSN <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></div><div class="line">      	Customer <span class="keyword">ON</span> 	HAWB.CustID = 	Customer.CustID <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></div><div class="line">          (<span class="keyword">SELECT</span> 	Store.WareHouseSN, <span class="keyword">MAX</span>(	Store.STPosition) <span class="keyword">AS</span> STPosition, </div><div class="line">               <span class="keyword">CASE</span> <span class="keyword">MAX</span>(	WareHouse.Category) </div><div class="line">               <span class="keyword">WHEN</span> <span class="number">1</span> <span class="keyword">THEN</span> <span class="string">'新'</span> <span class="keyword">WHEN</span> <span class="number">2</span> <span class="keyword">THEN</span> <span class="string">'老'</span> <span class="keyword">WHEN</span> <span class="number">3</span> <span class="keyword">THEN</span> <span class="string">'虹'</span> <span class="keyword">WHEN</span> <span class="number">4</span> <span class="keyword">THEN</span> <span class="string">'阪'</span> <span class="keyword">END</span></div><div class="line">                <span class="keyword">AS</span> <span class="keyword">Category</span></div><div class="line">         <span class="keyword">FROM</span> 	<span class="keyword">Store</span> <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></div><div class="line">               	WareHouse <span class="keyword">ON</span> </div><div class="line">               	Store.STPosition = 	WareHouse.STPosition</div><div class="line">         <span class="keyword">GROUP</span> <span class="keyword">BY</span> 	Store.WareHouseSN) Housing <span class="keyword">ON</span> </div><div class="line">      	HAWB.WareHouseSN = Housing.WareHouseSN <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></div><div class="line">          (<span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> WareHouseSN <span class="keyword">AS</span> BGStatus</div><div class="line">         <span class="keyword">FROM</span> BGD) BGD <span class="keyword">ON</span> </div><div class="line">      	HAWB.WareHouseSN = BGD.BGStatus <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></div><div class="line">      	SubmitOFFlight <span class="keyword">ON</span> <span class="keyword">LEFT</span>(	MAWB.MAWB, <span class="number">3</span>) = 	SubmitOFFlight.Code <span class="keyword">AND</span> </div><div class="line">      	MAWB.Flight = 	SubmitOFFlight.Flight <span class="keyword">AND</span> </div><div class="line">      	MAWB.AirPort = 	SubmitOFFlight.AirPort <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></div><div class="line">          (<span class="keyword">SELECT</span> WareHouseSN, <span class="keyword">COUNT</span>(MK) <span class="keyword">AS</span> BGDs, <span class="keyword">MIN</span>(Status8) <span class="keyword">AS</span> Status8, </div><div class="line">               <span class="keyword">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> Copystatus <span class="keyword">IS</span> <span class="literal">NULL</span> <span class="keyword">AND</span> </div><div class="line">               Increase = <span class="number">0</span> <span class="keyword">THEN</span> Pieces <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">AS</span> PCS, </div><div class="line">               <span class="keyword">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> CopyStatus <span class="keyword">IS</span> <span class="literal">NULL</span> <span class="keyword">THEN</span> Weight <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) </div><div class="line">               <span class="keyword">AS</span> WGT</div><div class="line">         <span class="keyword">FROM</span> BGD</div><div class="line">         <span class="keyword">GROUP</span> <span class="keyword">BY</span> WarehouseSN) BGDS <span class="keyword">ON</span> </div><div class="line">      	HAWB.WareHouseSN = BGDS.WareHouseSN</div></pre></td></tr></table></figure>
+<p>GO<br>SET QUOTED_IDENTIFIER OFF<br>GO<br>SET ANSI_NULLS ON<br>GO</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>​<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">    ​</div><div class="line"></div><div class="line">**视图旧的执行计划**</div><div class="line"></div><div class="line">![优化前执行计划](oldPlan.png)</div><div class="line"></div><div class="line">通过执行计划分析可以得知以下问题:</div><div class="line"></div><div class="line">1: MAWB 全表扫描 13% 数据 417</div><div class="line"></div><div class="line">```sql</div><div class="line">--在MAWB主要的查询时间段FlightDate 添加索引</div><div class="line"></div><div class="line">create index index_mawb_FlightDate on dbo.mawb (FlightDate);</div></pre></td></tr></table></figure>
+</code></pre><p>2: HWAB 主键索引全表扫描 39% 数据 10万</p>
+<p>MAWB.MAWB = HAWB.MAWB<br>在HWAB中,MAWB 字段没有索引,数据库执行计划判断通过主键进行全部扫描,耗费最多的时间,</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">--关联条件HAWB.MAWB上加索引</span></div><div class="line"></div><div class="line"> <span class="keyword">create</span> <span class="keyword">index</span> index_hawb_hawb <span class="keyword">on</span> dbo.hawb (MAWB) ;</div><div class="line"></div><div class="line"><span class="comment">--处理时间由 26秒 到 1.457秒</span></div></pre></td></tr></table></figure>
+<p>3: BGD 索引全表扫描 11% 数据 7万 实际数据7万,全部访问<br>   BGD 索引全表扫描 11% 数据 7万 实际数据7万,全部访问,两次访问</p>
+<p> 每次3.5秒左右,两次7秒;</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">--添加索引</span></div><div class="line"></div><div class="line"><span class="keyword">create</span> <span class="keyword">index</span> index_bgd_WareHouseSN <span class="keyword">on</span> dbo.bgd (WareHouseSN); </div><div class="line"></div><div class="line"><span class="comment">--且通过临时表改为访问一次</span></div><div class="line"></div><div class="line"><span class="comment">--处理时间由 7秒 到 0.355秒</span></div></pre></td></tr></table></figure>
+<p>4: BGD.WarehouseSN = HAWB.WarehouseSN 7% 实际数据 417,Store 索引全表扫描 7% 实际数据 10万</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">--添加复合索引</span></div><div class="line"></div><div class="line"><span class="keyword">create</span> <span class="keyword">index</span> index_store_WareHouseSN_STPosition <span class="keyword">on</span> dbo.Store (WareHouseSN,STPosition);</div><div class="line"></div><div class="line"><span class="comment">--处理时间 5.83 -&gt; 0.295</span></div></pre></td></tr></table></figure>
+<p>5: 计算列<br>    在查询列中有大量计算,影响性能<br>    由于时间关系,以及更改计算列后会影响实际业务逻辑,需要测试,我们在这里没有优化;<br>    优化的思路是:尽量不要在数据库中做列计算,可以将数据查询出来在代码中进行计算;如果非要在数据库计算,尽量计算少的列,且在内存中计算;</p>
+<p>6: 其他<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">不太影响效率的全表扫描</div><div class="line"><span class="comment">--添加复合索引SubmitOFFlight</span></div><div class="line"></div><div class="line"> <span class="keyword">create</span> <span class="keyword">index</span> index_SubmitOFFlight_Code <span class="keyword">on</span> dbo.SubmitOFFlight (Code,Flight,AirPort) ;</div></pre></td></tr></table></figure></p>
+<p><strong>添加索引后的执行计划</strong></p>
+<p><img src="newPlan.png" alt="新的执行计划"></p>
+<p>​    通过两个执行计划的对比,我们发现之前的全表扫描已经替换成了索引扫描;整体销量也提高了10倍左右;此时较大的花费主要集中在Bookmark Lookup 标签查找上面,由于查询列过多,我们也无法做覆盖索引.如果想提高Bookmark Lookup的查询效率,猜测通过更换SSD硬盘可以提升很多;</p>
+<p>​    6秒钟感觉还是很慢,可能sql server 2000的引擎优化不好,相似配置环境下,迁移到sql server 2008的服务器上面(两机器内存均为4G,2008机器E5 cpu 2.4Ghz*2 台式机,2000机器I3 cup 3.07Ghz 服务器,理论上2008的机器配置更低),同样情况之下2秒;如果升级到sql server 2014 ,开启内存模式,应该就可以秒查了;    </p>
+<p>​    以上的思路是通过增加视图和升级服务器和硬件的思路.添加视图的方式最简单和成本低,基本上不需要更改任何代码;缺点是可能效率还达不到要求;升级服务器和硬件的方式也简单见效,缺点是费用较高;两者可以结合使用.现在还有第三个思路,就是把视图更改为存储过程,用临时表过滤更多的数据和减少数据库的访问次数.实际情况提升速度并不明显,由视图到存储过程,执行时间大概由6秒下降到3秒,提高100%左右;</p>
+<p>​    以上的优化都是基于技术层面,没有牵涉到业务逻辑的优化,实际上通过业务逻辑的优化,也可以大幅增加脚本的查询速度,时间短搞不清业务逻辑的情况下不建议优化逻辑,风险比较大;</p>
+<p><strong>存储过程的思路:</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div></pre></td><td class="code"><pre><div class="line"><span class="comment">--测试的时候,删除缓存</span></div><div class="line">DBCC FREEPROCCACHE</div><div class="line">GO</div><div class="line">DBCC DROPCLEANBUFFERS</div><div class="line">GO</div><div class="line"></div><div class="line"><span class="keyword">DECLARE</span> @FlightDate   datetime</div><div class="line"></div><div class="line"><span class="keyword">SET</span> @FlightDate   = <span class="string">'2015-08-01'</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> HAWB.WareHouseSN,</div><div class="line">       MAWB.MAWB,</div><div class="line">       MAWB.FlightDate,</div><div class="line">       MAWB.Dest1,</div><div class="line">       MAWB.Dest2,</div><div class="line">       MAWB.Flight,</div><div class="line">       MAWB.AirPort,</div><div class="line">       HAWB.CustID,</div><div class="line">       Mawb.Agent,</div><div class="line">       Mawb.Des3,</div><div class="line">       MAWB.Pieces1,</div><div class="line">       MAWB.Gross1,</div><div class="line">       MAWB.V1,</div><div class="line">       MAWB.Weight1,</div><div class="line">       MAWB.Pieces2,</div><div class="line">       MAWB.Gross2,</div><div class="line">       MAWB.V2,</div><div class="line">       MAWB.Weight2,</div><div class="line">       MAWB.Status16,</div><div class="line">       MAWB.Printer,</div><div class="line">       HAWB.V4,</div><div class="line">       HAWB.Num3,</div><div class="line">       Hawb.HWStatus,</div><div class="line">       Hawb.Weight4,</div><div class="line">       HAWB.BGNote,</div><div class="line">       HAWB.Des4,</div><div class="line">       HAWB.Status26,</div><div class="line">       Hawb.DanZhengStatus,</div><div class="line">       HAWB.Status19,</div><div class="line">       Hawb.Status14,</div><div class="line">       Hawb.Status9,</div><div class="line">       Hawb.FStatus,</div><div class="line">       Hawb.QStatus,</div><div class="line">       HAWB.Status17,</div><div class="line">       HAWB.Status27,</div><div class="line">       MAWB.Status10,</div><div class="line">       MAWB.Status11,</div><div class="line">       MAWB.Status12,</div><div class="line">       MAWB.Status13,</div><div class="line">       HAWB.Dest,</div><div class="line">       HAWB.Num1,</div><div class="line">       HAWB.ProcedureStatus,</div><div class="line">       HAWB.PrintOut,</div><div class="line">       HAWB.PrintRequest,</div><div class="line">       MAWB.Status2,</div><div class="line">       MAWB.Status7,</div><div class="line">       MAWB.Status8,</div><div class="line">       MAWB.Status4,</div><div class="line">       MAWB.Des1,</div><div class="line">       MAWB.DeclareDate,</div><div class="line">       HAWB.Des5,</div><div class="line">       MAWB.OP,</div><div class="line">       HAWB.Gross4,</div><div class="line">       Hawb.Num10,</div><div class="line">       HAWB.Des2,</div><div class="line">       HAWB.HAWB</div><div class="line">  <span class="keyword">INTO</span> #AWB</div><div class="line">  <span class="keyword">FROM</span>    MAWB</div><div class="line">       <span class="keyword">INNER</span> <span class="keyword">JOIN</span></div><div class="line">          HAWB</div><div class="line">       <span class="keyword">ON</span> MAWB.MAWB = HAWB.MAWB</div><div class="line"> <span class="keyword">WHERE</span> MAWB.FlightDate = @FlightDate <span class="comment">--and mawb.mawb = '112-2884 6160'</span></div><div class="line"></div><div class="line"><span class="comment">--SELECT * FROM  #AWB</span></div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> WareHouseSN, MK, Status8, Copystatus, Increase, Pieces, Weight</div><div class="line">  <span class="keyword">INTO</span> #BGD</div><div class="line">  <span class="keyword">FROM</span> BGD</div><div class="line"> <span class="keyword">WHERE</span> WareHouseSN <span class="comment">--in ('SSHA7091914','PVG640054')</span></div><div class="line">       <span class="keyword">IN</span> (<span class="keyword">SELECT</span> WareHouseSN</div><div class="line">             <span class="keyword">FROM</span> #AWB)</div><div class="line"><span class="keyword">SELECT</span> AWB.MAWB,</div><div class="line">       AWB.FlightDate,</div><div class="line">       <span class="keyword">CASE</span></div><div class="line">          <span class="keyword">WHEN</span> AWB.Agent <span class="keyword">IS</span> <span class="literal">NULL</span> <span class="keyword">THEN</span> AWB.Flight + AWB.Des3</div><div class="line">          <span class="keyword">ELSE</span> AWB.Flight + AWB.Des3 + <span class="string">'('</span> + AWB.Agent + <span class="string">')'</span></div><div class="line">       <span class="keyword">END</span></div><div class="line">          <span class="keyword">AS</span> Flight,</div><div class="line">       AWB.Flight <span class="keyword">AS</span> MawbFlight,</div><div class="line">       AWB.Dest1,</div><div class="line">       AWB.Dest2,</div><div class="line">       AWB.WareHouseSN,</div><div class="line">       Customer.CustName,</div><div class="line">       AWB.Agent,</div><div class="line">       AWB.Pieces1,</div><div class="line">       AWB.Gross1,</div><div class="line">       AWB.V1,</div><div class="line">       AWB.Weight1,</div><div class="line">       AWB.Pieces2,</div><div class="line">       AWB.Gross2,</div><div class="line">       AWB.V2,</div><div class="line">       AWB.Weight2,</div><div class="line">       <span class="keyword">CASE</span> <span class="keyword">WHEN</span> AWB.Status16 = <span class="number">1</span> <span class="keyword">THEN</span> <span class="string">'自报关'</span> <span class="keyword">ELSE</span> <span class="string">''</span> <span class="keyword">END</span> + AWB.OP <span class="keyword">AS</span> OP,</div><div class="line">       <span class="keyword">CASE</span> AWB.Printer <span class="keyword">WHEN</span> <span class="string">''</span> <span class="keyword">THEN</span> <span class="string">''</span> <span class="keyword">ELSE</span> <span class="string">'总'</span> <span class="keyword">END</span> <span class="keyword">AS</span> Printed,</div><div class="line">       AWB.Pieces2 <span class="keyword">AS</span> PCS,</div><div class="line">       AWB.Gross4 <span class="keyword">AS</span> WGT,</div><div class="line">       AWB.V4 <span class="keyword">AS</span> VLM,</div><div class="line">       <span class="keyword">CASE</span> AWB.Num3 <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">''</span> <span class="keyword">ELSE</span> <span class="string">'*'</span> <span class="keyword">END</span> <span class="keyword">AS</span> Broken,</div><div class="line">       <span class="keyword">CASE</span> AWB.HWStatus</div><div class="line">          <span class="keyword">WHEN</span> <span class="number">0</span></div><div class="line">          <span class="keyword">THEN</span></div><div class="line">             <span class="keyword">ltrim</span> (<span class="keyword">str</span> (AWB.Pieces1))</div><div class="line">          <span class="keyword">WHEN</span> <span class="number">2</span></div><div class="line">          <span class="keyword">THEN</span></div><div class="line">             <span class="keyword">ltrim</span> (<span class="keyword">str</span> (AWB.Pieces1)) + <span class="string">'('</span> + <span class="keyword">ltrim</span> (<span class="keyword">str</span> (AWB.Pieces2)) + <span class="string">')'</span></div><div class="line">          <span class="keyword">ELSE</span></div><div class="line">             <span class="keyword">ltrim</span> (<span class="keyword">str</span> (AWB.Pieces2))</div><div class="line">       <span class="keyword">END</span></div><div class="line">          <span class="keyword">AS</span> Pieces,</div><div class="line">       <span class="keyword">CASE</span> AWB.HWStatus <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> AWB.Gross1 <span class="keyword">ELSE</span> AWB.Gross4 <span class="keyword">END</span> <span class="keyword">AS</span> Gross,</div><div class="line">       <span class="keyword">CASE</span> AWB.HWStatus <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> AWB.V1 <span class="keyword">ELSE</span> AWB.V4 <span class="keyword">END</span> <span class="keyword">AS</span> V,</div><div class="line">       <span class="keyword">CASE</span> AWB.HWStatus <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> AWB.Weight1 <span class="keyword">ELSE</span> AWB.Weight4 <span class="keyword">END</span></div><div class="line">          <span class="keyword">AS</span> Weight,</div><div class="line">       AWB.HAWB,</div><div class="line">       AWB.BGNote,</div><div class="line">       <span class="keyword">CASE</span> AWB.Status11 <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">''</span> <span class="keyword">ELSE</span> <span class="string">'*'</span> <span class="keyword">END</span> <span class="keyword">AS</span> DCZ,</div><div class="line">       <span class="keyword">CASE</span></div><div class="line">          <span class="keyword">WHEN</span> BGDS.BGDs <span class="keyword">IS</span> <span class="literal">NULL</span> <span class="keyword">THEN</span> <span class="string">''</span></div><div class="line">          <span class="keyword">ELSE</span> <span class="keyword">CASE</span> BGDS.Status8 <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">'*'</span> <span class="keyword">ELSE</span> <span class="string">'**'</span> <span class="keyword">END</span></div><div class="line">       <span class="keyword">END</span></div><div class="line">       + AWB.Des4</div><div class="line">       + <span class="keyword">CASE</span> AWB.Num10 <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">''</span> <span class="keyword">ELSE</span> <span class="string">'扣'</span> <span class="keyword">END</span></div><div class="line">       + <span class="keyword">CASE</span> AWB.HWStatus</div><div class="line">            <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">' '</span></div><div class="line">            <span class="keyword">WHEN</span> <span class="number">1</span> <span class="keyword">THEN</span> <span class="string">'H'</span></div><div class="line">            <span class="keyword">WHEN</span> <span class="number">2</span> <span class="keyword">THEN</span> <span class="string">'B'</span></div><div class="line">            <span class="keyword">WHEN</span> <span class="number">3</span> <span class="keyword">THEN</span> <span class="string">'C'</span></div><div class="line">         <span class="keyword">END</span></div><div class="line">       + <span class="keyword">CASE</span> AWB.Num3 <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">''</span> <span class="keyword">ELSE</span> <span class="string">'破'</span> <span class="keyword">END</span></div><div class="line">       + <span class="keyword">CASE</span> AWB.Status26 <span class="keyword">WHEN</span> <span class="number">2</span> <span class="keyword">THEN</span> <span class="string">'T'</span> <span class="keyword">ELSE</span> <span class="string">''</span> <span class="keyword">END</span></div><div class="line">       + <span class="keyword">CASE</span> AWB.DanZhengStatus</div><div class="line">            <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">' '</span></div><div class="line">            <span class="keyword">ELSE</span> <span class="keyword">CASE</span> AWB.Status19 <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">'D'</span> <span class="keyword">ELSE</span> <span class="string">'M'</span> <span class="keyword">END</span></div><div class="line">         <span class="keyword">END</span></div><div class="line">       + <span class="keyword">CASE</span> AWB.Status14</div><div class="line">            <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">'  '</span></div><div class="line">            <span class="keyword">WHEN</span> <span class="number">1</span> <span class="keyword">THEN</span> <span class="string">'到'</span></div><div class="line">            <span class="keyword">WHEN</span> <span class="number">2</span> <span class="keyword">THEN</span> <span class="string">'签'</span></div><div class="line">            <span class="keyword">WHEN</span> <span class="number">3</span> <span class="keyword">THEN</span> <span class="string">'拆'</span></div><div class="line">            <span class="keyword">WHEN</span> <span class="number">4</span> <span class="keyword">THEN</span> <span class="string">'问'</span></div><div class="line">            <span class="keyword">WHEN</span> <span class="number">5</span> <span class="keyword">THEN</span> <span class="string">'放'</span></div><div class="line">            <span class="keyword">WHEN</span> <span class="number">6</span> <span class="keyword">THEN</span> <span class="string">'审'</span></div><div class="line">            <span class="keyword">WHEN</span> <span class="number">7</span> <span class="keyword">THEN</span> <span class="string">'计'</span></div><div class="line">            <span class="keyword">WHEN</span> <span class="number">8</span> <span class="keyword">THEN</span> <span class="string">'完'</span></div><div class="line">         <span class="keyword">END</span></div><div class="line">       + <span class="keyword">CASE</span> AWB.Status9 <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">' '</span> <span class="keyword">ELSE</span> <span class="string">'S'</span> <span class="keyword">END</span></div><div class="line">       + <span class="keyword">CASE</span> AWB.FStatus <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">' '</span> <span class="keyword">ELSE</span> <span class="string">'A'</span> <span class="keyword">END</span></div><div class="line">       + <span class="keyword">CASE</span> AWB.QStatus <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">' '</span> <span class="keyword">ELSE</span> <span class="string">'P'</span> <span class="keyword">END</span></div><div class="line">       + <span class="keyword">CASE</span> AWB.Status16 <span class="keyword">WHEN</span> <span class="number">0</span> <span class="keyword">THEN</span> <span class="string">'  '</span> <span class="keyword">ELSE</span> <span class="string">'标'</span> <span class="keyword">END</span></div><div class="line">       + <span class="keyword">CASE</span> <span class="keyword">WHEN</span> Housing.Category <span class="keyword">IS</span> <span class="literal">NULL</span> <span class="keyword">THEN</span> <span class="string">''</span> <span class="keyword">ELSE</span> Housing.Category <span class="keyword">END</span></div><div class="line">       + <span class="keyword">CASE</span> AWB.Status13</div><div class="line">            <span class="keyword">WHEN</span> <span class="number">1</span> <span class="keyword">THEN</span> <span class="string">'区内'</span></div><div class="line">            <span class="keyword">WHEN</span> <span class="number">2</span> <span class="keyword">THEN</span> <span class="string">'区外'</span></div><div class="line">            <span class="keyword">ELSE</span> <span class="string">''</span></div><div class="line">         <span class="keyword">END</span></div><div class="line">       + <span class="keyword">CASE</span> <span class="keyword">WHEN</span> outPlans.WareHouseSN <span class="keyword">IS</span> <span class="literal">NULL</span> <span class="keyword">THEN</span> <span class="string">''</span> <span class="keyword">ELSE</span> <span class="string">'排'</span> <span class="keyword">END</span></div><div class="line">          <span class="keyword">AS</span> <span class="keyword">Status</span>,</div><div class="line">       AWB.Status14,</div><div class="line">       AWB.Status17,</div><div class="line">       AWB.Status27,</div><div class="line">       Housing.STPosition,</div><div class="line">       Housing.Category,</div><div class="line">       AWB.Status10,</div><div class="line">       AWB.Status11,</div><div class="line">       AWB.Status12,</div><div class="line">       AWB.Status13,</div><div class="line">       Destination.City,</div><div class="line">       AirLines.AirLine,</div><div class="line">       AWB.AirPort,</div><div class="line">       AWB.Dest,</div><div class="line">       AWB.Num1,</div><div class="line">       AWB.ProcedureStatus,</div><div class="line">       AWB.PrintOut,</div><div class="line">       AWB.PrintRequest,</div><div class="line">       AWB.Status2,</div><div class="line">       AWB.Status7,</div><div class="line">       AWB.Status8,</div><div class="line">       AWB.Status4,</div><div class="line">       AWB.Des1,</div><div class="line">       <span class="keyword">CASE</span></div><div class="line">          <span class="keyword">WHEN</span> AWB.DeclareDate <span class="keyword">IS</span> <span class="literal">NULL</span> <span class="keyword">OR</span> AWB.DeclareDate = AWB.FlightDate</div><div class="line">          <span class="keyword">THEN</span></div><div class="line">             <span class="string">''</span></div><div class="line">          <span class="keyword">ELSE</span></div><div class="line">             <span class="string">'报关日'</span></div><div class="line">             + <span class="keyword">RIGHT</span> (<span class="keyword">CONVERT</span> (<span class="built_in">VARCHAR</span> (<span class="number">10</span>), AWB.DeclareDate, <span class="number">120</span>), <span class="number">5</span>)</div><div class="line">       <span class="keyword">END</span></div><div class="line">          <span class="keyword">AS</span> DeclareDate,</div><div class="line">       AWB.Status10 <span class="keyword">AS</span> HawbStatus10,</div><div class="line">       BGD.BGStatus,</div><div class="line">       <span class="keyword">CASE</span></div><div class="line">          <span class="keyword">WHEN</span> SubmitOFFlight.Submit <span class="keyword">IS</span> <span class="literal">NULL</span> <span class="keyword">THEN</span> <span class="string">''</span></div><div class="line">          <span class="keyword">ELSE</span> SubmitOFFlight.Submit</div><div class="line">       <span class="keyword">END</span></div><div class="line">          <span class="keyword">AS</span> Submit,</div><div class="line">       BGDS.PCS <span class="keyword">AS</span> BGPCS,</div><div class="line">       BGDS.WGT <span class="keyword">AS</span> BGWGT,</div><div class="line">       AWB.Des2,</div><div class="line">       AWB.Des5,</div><div class="line">       <span class="string">''</span> <span class="keyword">AS</span> Regular</div><div class="line">  <span class="keyword">FROM</span>                      #AWB AWB</div><div class="line">                         <span class="keyword">RIGHT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></div><div class="line">                               dbo.Destination</div><div class="line">                            <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></div><div class="line">                               dbo.AirLines</div><div class="line">                            <span class="keyword">ON</span> dbo.Destination.AirLine =</div><div class="line">                                  dbo.AirLines.AirLineCode</div><div class="line">                         <span class="keyword">ON</span> dbo.Destination.Code = AWB.Dest2</div><div class="line">                      <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></div><div class="line">                         dbo.OutPlans</div><div class="line">                      <span class="keyword">ON</span> AWB.WareHouseSN = dbo.OutPlans.WareHouseSN</div><div class="line">                   <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></div><div class="line">                      dbo.Customer</div><div class="line">                   <span class="keyword">ON</span> AWB.CustID = dbo.Customer.CustID</div><div class="line">                <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></div><div class="line">                   (<span class="keyword">SELECT</span> dbo.Store.WareHouseSN,</div><div class="line">                           <span class="keyword">MAX</span> (dbo.Store.STPosition) <span class="keyword">AS</span> STPosition,</div><div class="line">                           <span class="keyword">CASE</span> <span class="keyword">MAX</span> (dbo.WareHouse.Category)</div><div class="line">                              <span class="keyword">WHEN</span> <span class="number">1</span> <span class="keyword">THEN</span> <span class="string">'新'</span></div><div class="line">                              <span class="keyword">WHEN</span> <span class="number">2</span> <span class="keyword">THEN</span> <span class="string">'老'</span></div><div class="line">                              <span class="keyword">WHEN</span> <span class="number">3</span> <span class="keyword">THEN</span> <span class="string">'虹'</span></div><div class="line">                              <span class="keyword">WHEN</span> <span class="number">4</span> <span class="keyword">THEN</span> <span class="string">'阪'</span></div><div class="line">                           <span class="keyword">END</span></div><div class="line">                              <span class="keyword">AS</span> <span class="keyword">Category</span></div><div class="line">                      <span class="keyword">FROM</span>    dbo.Store</div><div class="line">                           <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></div><div class="line">                              dbo.WareHouse</div><div class="line">                           <span class="keyword">ON</span> dbo.Store.STPosition = dbo.WareHouse.STPosition</div><div class="line">                     <span class="keyword">WHERE</span> dbo.Store.WareHouseSN <span class="keyword">IN</span> (<span class="keyword">SELECT</span> WareHouseSN</div><div class="line">                                                       <span class="keyword">FROM</span> #AWB)</div><div class="line">                    <span class="keyword">GROUP</span> <span class="keyword">BY</span> dbo.Store.WareHouseSN) Housing</div><div class="line">                <span class="keyword">ON</span> AWB.WareHouseSN = Housing.WareHouseSN</div><div class="line">             <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></div><div class="line">                (<span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> WareHouseSN <span class="keyword">AS</span> BGStatus</div><div class="line">                   <span class="keyword">FROM</span> #BGD) BGD</div><div class="line">             <span class="keyword">ON</span> AWB.WareHouseSN = BGD.BGStatus</div><div class="line">          <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></div><div class="line">             dbo.SubmitOFFlight</div><div class="line">          <span class="keyword">ON</span>     <span class="keyword">LEFT</span> (AWB.MAWB, <span class="number">3</span>) = dbo.SubmitOFFlight.Code</div><div class="line">             <span class="keyword">AND</span> AWB.Flight = dbo.SubmitOFFlight.Flight</div><div class="line">             <span class="keyword">AND</span> AWB.AirPort = dbo.SubmitOFFlight.AirPort</div><div class="line">       <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span></div><div class="line">          (<span class="keyword">SELECT</span> WareHouseSN,</div><div class="line">                  <span class="keyword">COUNT</span> (MK) <span class="keyword">AS</span> BGDs,</div><div class="line">                  <span class="keyword">MIN</span> (Status8) <span class="keyword">AS</span> Status8,</div><div class="line">                  <span class="keyword">SUM</span>(<span class="keyword">CASE</span></div><div class="line">                         <span class="keyword">WHEN</span> Copystatus <span class="keyword">IS</span> <span class="literal">NULL</span> <span class="keyword">AND</span> Increase = <span class="number">0</span> <span class="keyword">THEN</span> Pieces</div><div class="line">                         <span class="keyword">ELSE</span> <span class="number">0</span></div><div class="line">                      <span class="keyword">END</span>)</div><div class="line">                     <span class="keyword">AS</span> PCS,</div><div class="line">                  <span class="keyword">SUM</span> (<span class="keyword">CASE</span> <span class="keyword">WHEN</span> CopyStatus <span class="keyword">IS</span> <span class="literal">NULL</span> <span class="keyword">THEN</span> Weight <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>)</div><div class="line">                     <span class="keyword">AS</span> WGT</div><div class="line">             <span class="keyword">FROM</span> #BGD</div><div class="line">           <span class="keyword">GROUP</span> <span class="keyword">BY</span> WarehouseSN) BGDS</div><div class="line">       <span class="keyword">ON</span> AWB.WareHouseSN = BGDS.WareHouseSN</div><div class="line"> <span class="keyword">WHERE</span> AWB.FlightDate = @FlightDate </div><div class="line"></div><div class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span>  #AWB</div><div class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> #BGD</div></pre></td></tr></table></figure>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您的精神支持<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/05/dbperfomanceplan/" class="archive-article-date">
-  	<time datetime="2017-12-05T08:32:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/05/dbperfomanceplan/">SQL Server 通过分析执行计划优化视图</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">数据库优化</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
-          
-
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangzeshuai.com/2017/12/05/DBPerformance /" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/28/warehousecache/" class="archive-article-date">
-  	<time datetime="2017-11-28T09:27:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-28</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2017/11/28/warehousecache/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">HttpRuntime.Cache 与 static Dictionary 缓存</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/28/warehousecache/">HttpRuntime.Cache 与 static Dictionary 缓存</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">缓存</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Cache</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/16/SystemArchitectExam/" class="archive-article-date">
-  	<time datetime="2017-11-16T10:16:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/16/SystemArchitectExam/">系统架构师考试总结</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">软考</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">系统架构师</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/03/jd-goShopping11/" class="archive-article-date">
-  	<time datetime="2017-11-03T06:35:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/03/jd-goShopping11/">京东抢购秒杀助手—小桃子版</a>
-    </h1>
+    <section id="comments">
+      <div id="disqus_thread"></div>
+        <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'true'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </section>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">秒杀</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">抢购</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">京东</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/27/MiniProfiler-webapi-ef/" class="archive-article-date">
-  	<time datetime="2017-10-27T11:07:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/27/MiniProfiler-webapi-ef/">webapi优化之MiniProfiler监控 (一)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">WebApi</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MiniProfiler</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Entity Framework</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/24/系统架构师岗位要求/" class="archive-article-date">
-  	<time datetime="2017-10-24T09:54:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/24/系统架构师岗位要求/">系统架构师岗位要求</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">系统架构师</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">阿里</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/24/系统架构师知识图谱/" class="archive-article-date">
-  	<time datetime="2017-10-24T09:53:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/24/系统架构师知识图谱/">系统架构师知识图谱</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">软考</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">系统架构师</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/23/warehouse-barcodescanner-desion/" class="archive-article-date">
-  	<time datetime="2017-10-23T06:32:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/23/warehouse-barcodescanner-desion/">WMS仓库管理系统扫描枪端架构设计实现方案(一)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">WMS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">扫描枪</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/18/react-native4-9androidstudio3-0mac/" class="archive-article-date">
-  	<time datetime="2017-10-18T10:25:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/18/react-native4-9androidstudio3-0mac/">Mac 环境下 react-native4.9 android studio3.0 开发实录</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">react native</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">android studio</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/18/adbdevicestcp5037/" class="archive-article-date">
-  	<time datetime="2017-10-18T08:50:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/18/adbdevicestcp5037/">连接genymotion模拟器错误 cannot bind &#39;tcp:5037&#39;</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">genymotion</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2017/page/2/">2</a><a class="extend next" rel="next" href="/archives/2017/page/2/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -633,8 +387,8 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
@@ -695,15 +449,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Excel</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -747,19 +501,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据库优化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">genymotion</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Android</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -775,19 +521,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">react native</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">android studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">大批量导入</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">BULK INSERT</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -799,15 +541,23 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">双击热备</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">缓存</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">大批量导入</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">BULK INSERT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">双击热备</a>
               </li>
              
               <li class="article-tag-list-item">

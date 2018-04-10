@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://zhangzeshuai.com/2018/01/31/shellautotestandroid/index.html">
 <meta property="og:site_name" content="行者无疆">
 <meta property="og:description" content="​    最近做一个仓库APP的项目,其中一些测试的体力活,数据造起来非常麻烦,需要造条码,需要疯狂扫描测试效率,以及永远都无法避免的回归测试.烦恼之余,想想为什么不使用自动化脚本来解脱轮回呢.">
-<meta property="og:updated_time" content="2018-01-31T09:58:42.684Z">
+<meta property="og:updated_time" content="2018-01-31T10:00:33.543Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 自动化测试脚本初探">
 <meta name="twitter:description" content="​    最近做一个仓库APP的项目,其中一些测试的体力活,数据造起来非常麻烦,需要造条码,需要疯狂扫描测试效率,以及永远都无法避免的回归测试.烦恼之余,想想为什么不使用自动化脚本来解脱轮回呢.">
@@ -191,7 +191,7 @@ var _hmt = _hmt || [];
 <a id="more"></a>
 <p>​    自动化工具网上已经很多,已经有无数个轮子,但使用起来有些麻烦.我想要测试的只是最简单的模拟录入.不想那么的去调查和学习自动化工具等比较重的东西.就想到了通过脚本模拟一些录入.最初的困难来自仓库收货扫描的时候需要采集SN,我造了400个SN条码,扫了100次,已经开始扫的头晕脑胀了,这些简单重复的工作在我眼中不应该由人去做的,于是开始想办法如何自动化模拟输入;</p>
 <p>​    由于知识狭隘,最初使用的是 adb shell命令,这个命令因为开发android的时候经常用到,所以第一个想到了它,模拟400SN,扫描录入并确定上架.本来枯燥的输入工作,瞬间变的简单,命令行执行起脚本.去趟厕所回来,结果执行的差不多了.再次回归测试,只需要改几个数据即可.是不是很方便.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 订单 9504 sku 10000001  循环400次 </span></span></div><div class="line">intCount=900100 </div><div class="line">stringDefalut='286172018012'</div><div class="line">adb shell input text 000000009504</div><div class="line">adb shell input keyevent 66</div><div class="line">sleep 1</div><div class="line">for ((i=1;i&lt;=400;i++))</div><div class="line">do</div><div class="line">    adb shell input text $&#123;stringDefalut&#125;$[$&#123;intCount&#125;+$&#123;i&#125;]</div><div class="line">    # 66 回车</div><div class="line">    adb shell input keyevent 66</div><div class="line">    sleep 1</div><div class="line">    # 最下面的button</div><div class="line">    adb shell input tap 240 750</div><div class="line">    #seleep 1</div><div class="line">done</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 订单 9504 sku 10000001  循环400次 </span></div><div class="line">intCount=900100 </div><div class="line">stringDefalut='286172018012'</div><div class="line">adb shell input text 000000009504</div><div class="line">adb shell input keyevent 66</div><div class="line">sleep 1</div><div class="line">for ((i=1;i&lt;=400;i++))</div><div class="line">do</div><div class="line">    adb shell input text $&#123;stringDefalut&#125;$[$&#123;intCount&#125;+$&#123;i&#125;]</div><div class="line">    # 66 回车</div><div class="line">    adb shell input keyevent 66</div><div class="line">    sleep 1</div><div class="line">    # 最下面的button</div><div class="line">    adb shell input tap 240 750</div><div class="line">    #seleep 1</div><div class="line">done</div></pre></td></tr></table></figure>
 <p>​    脚本发给了同事,发现shell命令在windows平台下执行效果不好.不兼容.花几分钟时间瞬间改成Python版本,兼容各种平台了;</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> time</div><div class="line"><span class="keyword">import</span> os</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">execute</span><span class="params">(cmd)</span>:</span></div><div class="line">    os.system(cmd)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">text</span><span class="params">(content)</span>:</span></div><div class="line">    os.system(<span class="string">'adb shell input text '</span> + content)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">enter</span><span class="params">()</span>:</span></div><div class="line">    os.system(<span class="string">'adb shell input keyevent 66'</span>)</div><div class="line">    time.sleep(<span class="number">1</span>)</div><div class="line"><span class="comment"># 订单 9504 sku 10000001  循环400次</span></div><div class="line">intCount = <span class="number">900100</span></div><div class="line">stringDefault = <span class="string">'286172018012'</span></div><div class="line"><span class="comment"># inputCmd = 'adb shell input text 000000009504'</span></div><div class="line"><span class="comment"># text('000000009504')</span></div><div class="line"><span class="comment"># enter()</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">50</span>, <span class="number">51</span>):</div><div class="line">    intCount += i</div><div class="line">    text(stringDefault + str(intCount))</div><div class="line">    enter()</div><div class="line">    execute(<span class="string">'adb shell input tap 240 750'</span>)</div></pre></td></tr></table></figure>
 <p>​    当然以上的脚本只是最简单的脚本,模拟录入,没有和UI交互.如果想更深入的自动化测试,这个时候就需要使用各种自动化测试工具了.</p>
@@ -299,6 +299,15 @@ var _hmt = _hmt || [];
 
   
 <nav id="article-nav">
+  
+    <a href="/2018/04/10/ThreadServletIIS/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          网站请求高并发  --  Servlet与IIS 线程处理 区别
+        
+      </div>
+    </a>
   
   
     <a href="/2017/12/05/dbperfomanceplan/" id="article-nav-older" class="article-nav-link-wrap">
@@ -450,6 +459,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">WebApi</a>
               </li>
              
@@ -459,10 +472,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Entity Framework</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -506,14 +515,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">react native</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">android studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">秒杀</a>
               </li>
              
@@ -530,11 +531,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">WMS</a>
+                <a href="javascript:void(0)" class="js-tag color3">react native</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">扫描枪</a>
+                <a href="javascript:void(0)" class="js-tag color5">android studio</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -543,6 +544,14 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">BULK INSERT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">WMS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">扫描枪</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -559,6 +568,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">阿里</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">java,.net,多线程</a>
               </li>
             
             <div class="clearfix"></div>

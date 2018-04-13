@@ -167,6 +167,93 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-双击热备" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/12/02/双击热备/">没有双机热备软件下的数据库热备方案</a>
+    </h1>
+  
+
+        
+        <a href="/2011/12/02/双击热备/" class="archive-article-date">
+  	<time datetime="2011-12-02T11:06:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2011-12-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code> 首先声明,代替双机热备的中间件想法,是3年前和一个朋友谈话时,得到的思路.而这个思路是多年前一个日本老头级别的软件工程师提出来的,并不是某个人或者某个公司的解决方案.其次,SQL Server的集群故障转移技术是微软的解决方案.也不牵涉到其他公司的核心技术.
+ 因为blog中引用了其他公司的图片,涉及保密原因,已经撤下.但是此blog中并不是将包含客户信息的工作文档发布到公网上,文章中不保护任何客户信息,文章也不是工作文档.引用的图片用到了客户的一些图片,我在这里深表歉意.并且已经及时删除原有文章,并自己重新制作图片后发布.
+ 文章原理不变,措辞稍作修改.
+
+当开发系统需要双机热备,而双方都不愿意出钱购买双机热备软件时,我们该如何处理这种Case,在这里提供两个解决方案.第一种是3年前从朋友那里得到一个思路.开发数据库中间件的方式,通过数据库中间件来同步数据,切换连接.第二种是使用微软提供的集群故障转移技术.
+ 开发中间件需要熟悉ADO.net原理,并需要花费大量开发和测试精力,项目中并不可取.,而SQL server提供的镜像(集群故障转移技术)来解决此问题却非常简单
+</code></pre><p>中间件解决方案<br><img src="http://img.blog.csdn.net/20171020155900805?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvemhhbmd6ZXNodWFp/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="中间件方案"><br>缺点<br>1：无论是从时间成本还是人力成本上,我们都没时间来完成此中间件的开发.<br>2：就算是开发出来的中间件,也不能保证系统恢复异常时的处理都能够完全正确.</p>
+<p>集群故障转移的解决方案<br><img src="http://img.blog.csdn.net/20171020155809857?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvemhhbmd6ZXNodWFp/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="集群故障转移方案"><br>方案方法:<br>1：在客户端访问数据库时,添加镜像的访问地址,其实很简单.在原来字符串的基础上<br>connectionString=”SERVER= (主服务) DATABASE=dbname;UID=XXX;PWD=XXX”<br>添加 Failover Partner= (镜像服务)变成后来的.<br>connectionString=”SERVER=ip;Failover Partner=ip;DATABASE=dbname;UID=XXX;PWD=XXX”<br>2：配置POS服务器2为服务器1的镜像.<br>     参考文献: <a href="http://wenku.baidu.com/view/bbc8fdc7aa00b52acfc7ca0d.html" target="_blank" rel="external">http://wenku.baidu.com/view/bbc8fdc7aa00b52acfc7ca0d.html</a><br>方案原理:<br>     正常情况:集群服务(主服务)会通过事务一直同步故障转移服务(镜像服务),以保持两个数据库的一致和完整性.<br>     故障情况:当主服务发生故障时,镜像服务就会变为主服务.<br>通过在Config中配置的ADO连接字符串,ADO.NET会自动判断去连接哪台服务器.</p>
+<p>在几乎没有增加代码的情况,我们就完成了数据库的同步与恢复.</p>
+<p>与双机热备软件比较:<br>优点:省钱,部署简单.<br>缺点:发生故障时只能从主到从,不能自动由从到主.需要人工干预</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">双击热备</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2011/12/02/双击热备/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Excel2DB" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -736,10 +823,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Excel</a>
               </li>
              
@@ -757,6 +840,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Entity Framework</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -804,6 +891,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Flutter,移动跨平台开发,Dart</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">秒杀</a>
               </li>
              
@@ -816,7 +907,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">shell,Python</a>
+                <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -828,19 +919,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
+                <a href="javascript:void(0)" class="js-tag color3">shell,Python</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sql server,AlwaysOn,读写分离,高可用性</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">大批量导入</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">BULK INSERT</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -852,7 +935,19 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">大批量导入</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">BULK INSERT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">双击热备</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">阿里</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -861,10 +956,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Cache</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">阿里</a>
               </li>
             
             <div class="clearfix"></div>

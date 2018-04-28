@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://zhangzeshuai.com/2018/04/28/es6-study1/index.html">
 <meta property="og:site_name" content="行者无疆">
 <meta property="og:description" content="​    ES6 简介: ​    ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Javascript进行了颠覆性的改革,目标是解决Javascript的很多遗留问题,使其可以编写复杂的应用程序,代码可读性也更好,更接近面向对象的思想,与java.C#语法更接近;    Babel: 由于不是所有的浏览器都支持ES6语法,所以就有了Bable转码器,开发">
-<meta property="og:updated_time" content="2018-04-28T06:42:59.744Z">
+<meta property="og:updated_time" content="2018-04-28T09:15:22.406Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="es6学习注意事项">
 <meta name="twitter:description" content="​    ES6 简介: ​    ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Javascript进行了颠覆性的改革,目标是解决Javascript的很多遗留问题,使其可以编写复杂的应用程序,代码可读性也更好,更接近面向对象的思想,与java.C#语法更接近;    Babel: 由于不是所有的浏览器都支持ES6语法,所以就有了Bable转码器,开发">
@@ -205,7 +205,7 @@ var _hmt = _hmt || [];
 <p><strong>1:作用域 let 与 var</strong></p>
 <p>ES5并不是没有作用域,它也有函数作用域,全局作用域和eval作用域,但是这些作用域存在一个问题,就是变量提升,什么是变量提升:比如我用var声明一个变量,无论声明在何处，都会被视为声明在函数的最顶部;</p>
 <p>注意:ES5 也是有函数作用域的,函数内部声明的变量,不会冲突掉全局的变量; 顺便提一下, 如果在函数内未使用var 声明,则解析器认为这个变量是全局变量,所以大家在写代码的一定要用var 或者let声明一下变量;</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(a);<span class="comment">// 仅仅执行这句话 输出结果 undefined</span></div><div class="line"><span class="keyword">var</span> a;</div><div class="line"><span class="built_in">console</span>.log(a);<span class="comment">// abc </span></div><div class="line">a=<span class="string">'abc'</span>;</div><div class="line"><span class="comment">//**** 以上全部执行就会输出abc,abc</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> a = <span class="string">'999'</span>;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'内部:'</span>+ a);</div><div class="line">&#125;</div><div class="line">test();</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'外部:'</span>+ a);</div><div class="line"><span class="comment">//输出结果  内部:999,外部 abc;</span></div><div class="line"></div><div class="line">#如果改为这样</div><div class="line"><span class="keyword">var</span> a=<span class="string">'abc'</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    a = <span class="string">'999'</span>;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'内部:'</span>+ a);</div><div class="line">&#125;</div><div class="line">test();</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'外部:'</span>+ a);</div><div class="line"><span class="comment">//输出结果  内部:999,外部 999;</span></div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(a);<span class="comment">// 仅仅执行这句话 输出结果 报错 undefined</span></div><div class="line"><span class="keyword">var</span> a;</div><div class="line"><span class="built_in">console</span>.log(a);<span class="comment">// undefined 但不报错 </span></div><div class="line">a=<span class="string">'abc'</span>;</div><div class="line"><span class="comment">//**** 以上全部执行就会输出undefined,undefined</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> a = <span class="string">'999'</span>;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'内部:'</span>+ a);</div><div class="line">&#125;</div><div class="line">test();</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'外部:'</span>+ a);</div><div class="line"><span class="comment">//输出结果  内部:999,外部 abc;</span></div><div class="line"></div><div class="line">#如果改为这样</div><div class="line"><span class="keyword">var</span> a=<span class="string">'abc'</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    a = <span class="string">'999'</span>;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'内部:'</span>+ a);</div><div class="line">&#125;</div><div class="line">test();</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'外部:'</span>+ a);</div><div class="line"><span class="comment">//输出结果  内部:999,外部 999;</span></div></pre></td></tr></table></figure>
 <p><strong>let</strong> 定义的变量则不会被变量提升,let也是块级作用域</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(a);<span class="comment">// a is not defined</span></div><div class="line"><span class="keyword">let</span> a = <span class="string">'abc'</span>;</div></pre></td></tr></table></figure>
 <p><strong>const</strong>:ES6新增了一个const 变量,const声明的变量不可以修改,在声明全局不可变的变量和效率方法可能更好一些;</p>
@@ -233,7 +233,7 @@ var _hmt = _hmt || [];
 <p>这个后端程序员很好理解,就是面向对象继承的那一套东西,</p>
 <p><strong>简化数组操作</strong></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> num=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</div><div class="line"><span class="keyword">let</span> [x,y,z]=num;</div><div class="line"><span class="built_in">console</span>.log(z);<span class="comment">//3</span></div></pre></td></tr></table></figure>
-<p>其他的一些内容慢慢待发现</p>
+<p>其他的一些内容慢慢待发现,接下来会分享一下闭包函数的问题</p>
 </script></p>
       
 
@@ -532,10 +532,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">es6,Javascript,ECMAScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">genymotion</a>
               </li>
              
@@ -548,7 +544,23 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">es6,Javascript,ECMAScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Flutter,移动跨平台开发,Dart</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">react native</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">android studio</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -561,18 +573,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">京东</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">react native</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">android studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangzeshuai.com">
-  <title>行者无疆</title>
+  <title>es6学习注意事项 | 行者无疆</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="CujHLAO4ac">
-<meta property="og:type" content="website">
-<meta property="og:title" content="行者无疆">
-<meta property="og:url" content="http://zhangzeshuai.com/baidu_verify_CujHLAO4ac.html">
+  <meta name="description" content="​    ES6 简介: ​    ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Javascript进行了颠覆性的改革,目标是解决Javascript的很多遗留问题,使其可以编写复杂的应用程序,代码可读性也更好,更接近面向对象的思想,与java.C#语法更接近;    Babel: 由于不是所有的浏览器都支持ES6语法,所以就有了Bable转码器,开发">
+<meta name="keywords" content="es6,Javascript,ECMAScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="es6学习注意事项">
+<meta property="og:url" content="http://zhangzeshuai.com/2018/04/28/es6-study1/index.html">
 <meta property="og:site_name" content="行者无疆">
-<meta property="og:description" content="CujHLAO4ac">
-<meta property="og:updated_time" content="2017-11-06T10:46:24.000Z">
+<meta property="og:description" content="​    ES6 简介: ​    ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Javascript进行了颠覆性的改革,目标是解决Javascript的很多遗留问题,使其可以编写复杂的应用程序,代码可读性也更好,更接近面向对象的思想,与java.C#语法更接近;    Babel: 由于不是所有的浏览器都支持ES6语法,所以就有了Bable转码器,开发">
+<meta property="og:updated_time" content="2018-04-28T06:42:59.744Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="行者无疆">
-<meta name="twitter:description" content="CujHLAO4ac">
+<meta name="twitter:title" content="es6学习注意事项">
+<meta name="twitter:description" content="​    ES6 简介: ​    ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Javascript进行了颠覆性的改革,目标是解决Javascript的很多遗留问题,使其可以编写复杂的应用程序,代码可读性也更好,更接近面向对象的思想,与java.C#语法更接近;    Babel: 由于不是所有的浏览器都支持ES6语法,所以就有了Bable转码器,开发">
   
     <link rel="alternative" href="/atom.xml" title="行者无疆" type="application/atom+xml">
   
@@ -166,12 +167,74 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-es6-study1" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      es6学习注意事项
+    </h1>
+  
+
+        
+        <a href="/2018/04/28/es6-study1/" class="archive-article-date">
+  	<time datetime="2018-04-28T03:27:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-28</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        CujHLAO4ac
+        <p>​    ES6 简介:</p>
+<p>​    ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Javascript进行了颠覆性的改革,目标是解决Javascript的很多遗留问题,使其可以编写复杂的应用程序,代码可读性也更好,更接近面向对象的思想,与java.C#语法更接近;</p>
+<p>   <strong><a href="http://babeljs.io/" target="_blank" rel="external">Babel</a>:</strong> 由于不是所有的浏览器都支持ES6语法,所以就有了Bable转码器,开发ES6程序基本上必不可少的工具,详细的配置大家去网上搜索,我们这里主要讲 ES6学习中的一些思路;</p>
+<a id="more"></a>
+<p>​    学习每一门新语言,建议大家都要系统的去读他们的官方文档(我读的是<a href="http://es6.ruanyifeng.com/" target="_blank" rel="external">阮一峰</a>的博客);第一次读可能读不懂,没关系,第二次读的写写demo,会理解更深刻,我的这些注意事项就是在读完第一次文档后,实际项目中遇到的问题和感受.</p>
+<p>​    学习ES6我们最好要知道ES5语法有哪些问题,ES6是如避免和解决的;</p>
+<p>​    ES5存在的问题</p>
+<ul>
+<li>作用域</li>
+<li>异步函数</li>
+<li>原型</li>
+<li>构造函数</li>
+<li>继承</li>
+<li>ES6 的语法糖</li>
+</ul>
+<p><strong>1:作用域 let 与 var</strong></p>
+<p>ES5并不是没有作用域,它也有函数作用域,全局作用域和eval作用域,但是这些作用域存在一个问题,就是变量提升,什么是变量提升:比如我用var声明一个变量,无论声明在何处，都会被视为声明在函数的最顶部;</p>
+<p>注意:ES5 也是有函数作用域的,函数内部声明的变量,不会冲突掉全局的变量; 顺便提一下, 如果在函数内未使用var 声明,则解析器认为这个变量是全局变量,所以大家在写代码的一定要用var 或者let声明一下变量;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(a);<span class="comment">// 仅仅执行这句话 输出结果 undefined</span></div><div class="line"><span class="keyword">var</span> a;</div><div class="line"><span class="built_in">console</span>.log(a);<span class="comment">// abc </span></div><div class="line">a=<span class="string">'abc'</span>;</div><div class="line"><span class="comment">//**** 以上全部执行就会输出abc,abc</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> a = <span class="string">'999'</span>;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'内部:'</span>+ a);</div><div class="line">&#125;</div><div class="line">test();</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'外部:'</span>+ a);</div><div class="line"><span class="comment">//输出结果  内部:999,外部 abc;</span></div><div class="line"></div><div class="line">#如果改为这样</div><div class="line"><span class="keyword">var</span> a=<span class="string">'abc'</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    a = <span class="string">'999'</span>;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'内部:'</span>+ a);</div><div class="line">&#125;</div><div class="line">test();</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'外部:'</span>+ a);</div><div class="line"><span class="comment">//输出结果  内部:999,外部 999;</span></div></pre></td></tr></table></figure>
+<p><strong>let</strong> 定义的变量则不会被变量提升,let也是块级作用域</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(a);<span class="comment">// a is not defined</span></div><div class="line"><span class="keyword">let</span> a = <span class="string">'abc'</span>;</div></pre></td></tr></table></figure>
+<p><strong>const</strong>:ES6新增了一个const 变量,const声明的变量不可以修改,在声明全局不可变的变量和效率方法可能更好一些;</p>
+<p><strong>2:异步函数</strong></p>
+<p>原生的Javascript实现起来比较复杂,需要用到XMLHttpRequest对象,使用者很少,后来的以jQuery为代表的中间类库,解决了原生ajax复杂的问题,但是还存在一个比较令人不爽的东西,就是回调函数.每一次异步函数执行之后,都需要通过回调来处理.举例,微信登录,ES5的语法需要这样写,这只是最简单的情况,通常情况下我们需要登录成功后,取得Code,然后再通过code,取得用户的openid,后台系统记录openid,这样的话就需要3层嵌套,阅读起来比较不方便,也容易出错;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//app.js</span></div><div class="line">App(&#123;</div><div class="line">  onLaunch: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    wx.login(&#123;</div><div class="line">      success: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (res.code) &#123;</div><div class="line">          <span class="comment">//发起网络请求</span></div><div class="line">          wx.request(&#123;</div><div class="line">            url: <span class="string">'https://test.com/onLogin'</span>,</div><div class="line">            data: &#123;</div><div class="line">              code: res.code</div><div class="line">            &#125;</div><div class="line">          &#125;)</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">          <span class="built_in">console</span>.log(<span class="string">'登录失败！'</span> + res.errMsg)</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>ES6的<strong><a href="http://es6.ruanyifeng.com/#docs/async" target="_blank" rel="external">async</a>,await,<a href="http://es6.ruanyifeng.com/#docs/promise" target="_blank" rel="external">Promise</a></strong> 特性则解决了这些问题,async和Promise的详细特性请大家去阅读文档,这里只做简单说明;async的引用是异步函数的使用更简单,也没有了ES5中无限循环嵌套的问题,这里特别说明的是async的返回对象是Promise,可以使用then命令等,如果函数要返回数据,则需要通过Promise处理一下;下面是ES6语法的微信登录:(这里使用了微信开发框架wepy的语法,用户登录后获取openid的一个方法)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">async</span> getUserOpenID()&#123;</div><div class="line">      <span class="keyword">let</span> d = <span class="keyword">await</span>  wepy.login().catch( <span class="function">(<span class="params">e</span>) =&gt;</span>&#123;<span class="built_in">console</span>.log(<span class="string">'error:'</span>+e)&#125;);</div><div class="line">      <span class="keyword">if</span> (d)&#123;</div><div class="line">        <span class="comment">//获取用户openid</span></div><div class="line">        <span class="keyword">let</span> url = <span class="string">'https://api.weixin.qq.com/sns/jscode2session?appid=wx203858ba39a7bdf1&amp;secret=eefa8c82e6962e1a22a76a5610a44480&amp;js_code='</span>+</div><div class="line">        d.code+<span class="string">'&amp;grant_type=authorization_code'</span> ;</div><div class="line">        <span class="keyword">let</span> data = <span class="keyword">await</span> wepy.request(url);</div><div class="line">        <span class="comment">// return data;// 也可以这样写</span></div><div class="line">        <span class="keyword">if</span>(data.data.openid)&#123;</div><div class="line">              wx.setStorageSync(<span class="string">'openid'</span>,data.data.openid);</div><div class="line">              <span class="built_in">console</span>.log(data.data.openid);</div><div class="line">              <span class="comment">// return data.data.openid //不可以这样写 注意这种方式外面调用这个方法是获取不到结果值的</span></div><div class="line">              <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(data.data.openid);<span class="comment">// 可以这样写</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>上面一段代码包含两种使用方式</p>
+<p>2.1 直接使用Promise.prototype.then(),Promise.prototype.catch(),Promise.prototype.finally(),方式调用.常见的方式是then()方法,then()的第一个参数是resolved 状态的回调函数,第一个参数(可选)是rejected状态的回调函数;</p>
+<p>2.2 返回其他对象,如果返回的值不需要回调或者往更高层次调用,直接返回对象操作即可;但是如果返回的对象需要给其他function调用,则需要通过Promise.resolve()函数包装一下;因为await返回的是Promise对象</p>
+<p>2.3 直接返回Promise对象,也就是return date;外面可以对这个Promise对象进行处理</p>
+<p>大家可以根据具体的业务选择使用哪种方式处理;</p>
+<p><strong>语法糖</strong></p>
+<p><strong>arrow function 箭头函数</strong></p>
+<p>比如一个回调函数需要处理,看起来简化一些,同时如果函数需要返回,也省去了return关键字</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#ES6语法</div><div class="line">wepy.login().catch( <span class="function">(<span class="params">e</span>) =&gt;</span>&#123;<span class="built_in">console</span>.log(<span class="string">'error:'</span>+e)&#125;);</div><div class="line">#ES5语法</div><div class="line">wepy.login().catch( <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;<span class="built_in">console</span>.log(<span class="string">'error:'</span>+e)&#125;);</div></pre></td></tr></table></figure>
+<p><strong>template string 模板字符串</strong></p>
+<p>这个在面向对象的语言里面基本都有,ES6语法也参考引入进来了,很好懂.关键字是’${}’,看起来更雅观了;这个语法在拼接html的时候更方法,否则太多的++容易晕掉</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#ES5语法</div><div class="line"><span class="keyword">var</span> str = <span class="string">'hello'</span>;</div><div class="line"><span class="built_in">console</span>.log(str + <span class="string">' word'</span>);</div><div class="line">#ES6语法</div><div class="line"><span class="keyword">var</span> str =<span class="string">'hello'</span>;</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'$&#123;str&#125; word'</span>);</div></pre></td></tr></table></figure>
+<p><strong>import,export</strong></p>
+<p>这个不知道算不算语法糖,从最早的<script>,到后来的require,到现在的ES6语法的import,使用起来更简单.import和require也有些区别;比如import不能使用url;还有一个比较大的区别是</p>
+<p>require 引用是值的copy,import 是值的引用;这样说可能不好理解,可以参考java或者C#里面的值类型和引用类型的 require相当于值类型,引用的时候是copy一个地址过去,你改了原因模块的值,并不会影响到现在我的引用;import相当于引用类型的引用,传输的仅仅是个指针地址,如果原来模块的值改变了,我引用的模块的值也会跟着改变(不知道这样对比对不对)</p>
+<p><strong>class,extends</strong> </p>
+<p>这个后端程序员很好理解,就是面向对象继承的那一套东西,</p>
+<p><strong>简化数组操作</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> num=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</div><div class="line"><span class="keyword">let</span> [x,y,z]=num;</div><div class="line"><span class="built_in">console</span>.log(z);<span class="comment">//3</span></div></pre></td></tr></table></figure>
+<p>其他的一些内容慢慢待发现</p>
+</script></p>
       
 
       
@@ -200,6 +263,17 @@ var _hmt = _hmt || [];
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">es6,Javascript,ECMAScript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -250,7 +324,7 @@ var _hmt = _hmt || [];
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangzeshuai.com/baidu_verify_CujHLAO4ac.html" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangzeshuai.com/2018/04/28/es6-study1/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -262,6 +336,16 @@ var _hmt = _hmt || [];
 </article>
 
   
+<nav id="article-nav">
+  
+  
+    <a href="/2018/04/13/flutterguid/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">当React Native 遇上 Flutter</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -330,7 +414,7 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

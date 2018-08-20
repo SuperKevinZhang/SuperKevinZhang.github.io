@@ -167,6 +167,186 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-index-merge" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/20/index-merge/">数据库优化 index merge 的理解</a>
+    </h1>
+  
+
+        
+        <a href="/2018/08/20/index-merge/" class="archive-article-date">
+  	<time datetime="2018-08-20T08:48:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="越学习-越不知道写些什么-总觉得自己知道的太少了"><a href="#越学习-越不知道写些什么-总觉得自己知道的太少了" class="headerlink" title="越学习,越不知道写些什么,总觉得自己知道的太少了;"></a>越学习,越不知道写些什么,总觉得自己知道的太少了;</h5><p>今天上班的路上看到脉脉上的帖子(暴露我上班时间了),在讨论一个索引的问题,</p>
+<p><img src="https://github.com/SuperKevinZhang/SuperKevinZhang.github.io/blob/master/image/%E8%81%8C%E8%A8%80%E6%88%AA%E5%9B%BE20180820.jpg?raw=true" alt="截图"></p>
+<p>自认为对索引还比较熟悉,专门抽时间验证了一下各位的说法.记录下来用来加深理解;</p>
+<p>先说说对于这段sql大家的理解:</p>
+<ul>
+<li><p>不用索引</p>
+</li>
+<li><p>只用一个索引</p>
+</li>
+<li><p>有人理解为联合索引,联合索引全表扫描</p>
+</li>
+<li><p>or 只用一个索引,and走index merge</p>
+<p>​</p>
+</li>
+</ul>
+<p>先说说我自己为做动手前的想法;</p>
+<ul>
+<li><p>面试官没确定数据库类型(比如是mysql还是sql server,Oracle)和版本(mysql的各个版本差别还是比较大的),面试者也没提出来是那种类型和版本,这里面每一个问题都可能答案不一样;</p>
+</li>
+<li><p>面试官没说吗用的那种索引,是分别用两个索引,还是聚合索引;</p>
+</li>
+<li><p>自己认为应该都用得到索引,如果用不到索引,那优化引擎也做的太差了;</p>
+        
+          <a class="article-more-a" href="/2018/08/20/index-merge/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/08/20/index-merge/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Javascript-closure" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/31/Javascript-closure/">JavaScript 关于闭包的理解(文章未完成)</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/31/Javascript-closure/" class="archive-article-date">
+  	<time datetime="2018-05-31T08:13:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>​       闭包这个文章,很早就像写,由于自己理解的不透彻,一直不敢写.原计划5月31号写的文章,7月份才完成,由于项目忙和自己的偷懒,一直想看的Javascript权威指南,断断续续的看了很久,也只是挑自己感兴趣的看些.不想学习,总是有各种诱惑和理由;</p>
+<p>​     我也尝试着用更清晰简洁的方式来写问题,学过了很多理论,在没有实践的支持下,记忆不到半年就忘记的差不多了.这次借鉴5W1H的方法来写这篇文字试试;</p>
+<p>​     了解闭包,我们从以下这5个方面开始;</p>
+<p>1:闭包的定义</p>
+<p>2:为什么会出现闭包</p>
+<p>3:闭包解决了哪些问题</p>
+<p>4:闭包带来了哪些问题</p>
+<p>5:理解闭包需要了解的哪些知识</p>
+        
+          <a class="article-more-a" href="/2018/05/31/Javascript-closure/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">JavaScript,闭包,作用域</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/31/Javascript-closure/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-es6-study1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -812,179 +992,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-jd-goShopping11" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/03/jd-goShopping11/">京东抢购秒杀助手—小桃子版</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/03/jd-goShopping11/" class="archive-article-date">
-  	<time datetime="2017-11-03T06:35:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>​    双十一当天考试,没办法去抢购东西,闲暇之余写了一个京东秒杀抢购助手,帮助没有时间的人抢一些想要的东西;</p>
-<p>​    为什么叫小桃子版,因为头像的小公主就是叫小桃子.@_@本来想做把脚本做成chrome扩展插件的形式,让大家用起来方便些,扩展程序注入监控画面比较麻烦,试了两次失败了,平时比较忙,来不及实现了.使用脚本抢购,就当锻炼锻炼自己的动手能力吧;</p>
-<p>​    如果做成Chrome插件,就是这个样子</p>
-<p><img src="http://img.blog.csdn.net/20171103152352169?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvemhhbmd6ZXNodWFp/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="如果做成chrome就是这个样子"></p>
-<p>​    <strong>使用方式:</strong></p>
-<p>​    1:打开要抢购商品的详细画面,请注意网络地址一定要是 item.jd.com开头的详细画面,摁F12,打开开发者模式,选择Console选项卡,把以下代码粘贴在Console里面,回车执行;</p>
-        
-          <a class="article-more-a" href="/2017/11/03/jd-goShopping11/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">秒杀</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">抢购</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">京东</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/03/jd-goShopping11/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MiniProfiler-webapi-ef" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/27/MiniProfiler-webapi-ef/">webapi优化之MiniProfiler监控 (一)</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/27/MiniProfiler-webapi-ef/" class="archive-article-date">
-  	<time datetime="2017-10-27T11:07:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>​    使用.net开发Web API,Entity Framework是个好东西,可以大大简化操作数据库的复杂度,使很多不会写sql的人也能完成对后台的操作.但凡事都有两面性,EF 带来开发便利性的同时,也带来了效率的低下性; 这里所说的效率低下,并不是说EF真的效率低下,而是由于大家对EF不熟悉,EF功能又非常强大,随便你怎么写都能出现结果,用户用法不规范导致的效率低下;除了开发规范避免一些特别明显的效率写法外,好的调试工具这个时候就成本效率优化必需的东西了,这个时候MiniProfiler插件就排上了用场;</p>
-        
-          <a class="article-more-a" href="/2017/10/27/MiniProfiler-webapi-ef/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">WebApi</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MiniProfiler</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Entity Framework</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/27/MiniProfiler-webapi-ef/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1076,7 +1083,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1100,23 +1107,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">软考</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">系统架构师</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">java,.net,多线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1132,6 +1127,18 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">软考</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">系统架构师</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">JavaScript,闭包,作用域</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">genymotion</a>
               </li>
              
@@ -1140,7 +1147,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">es6,Javascript,ECMAScript</a>
+                <a href="javascript:void(0)" class="js-tag color4">java,.net,多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1149,6 +1156,14 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Flutter,移动跨平台开发,Dart</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">es6,Javascript,ECMAScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1172,6 +1187,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">shell,Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">大批量导入</a>
               </li>
              
@@ -1180,15 +1199,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sql server,AlwaysOn,读写分离,高可用性</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">shell,Python</a>
+                <a href="javascript:void(0)" class="js-tag color4">WMS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">扫描枪</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1201,14 +1220,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">双击热备</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">WMS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">扫描枪</a>
               </li>
              
               <li class="article-tag-list-item">

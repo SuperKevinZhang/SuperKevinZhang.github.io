@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://zhangzeshuai.com/2018/04/28/es6-study1/index.html">
 <meta property="og:site_name" content="行者无疆">
 <meta property="og:description" content="​    ES6 简介: ​    ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Javascript进行了颠覆性的改革,目标是解决Javascript的很多遗留问题,使其可以编写复杂的应用程序,代码可读性也更好,更接近面向对象的思想,与java.C#语法更接近;    Babel: 由于不是所有的浏览器都支持ES6语法,所以就有了Bable转码器,开发">
-<meta property="og:updated_time" content="2018-04-28T09:15:22.406Z">
+<meta property="og:updated_time" content="2018-05-01T06:37:27.722Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="es6学习注意事项">
 <meta name="twitter:description" content="​    ES6 简介: ​    ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Javascript进行了颠覆性的改革,目标是解决Javascript的很多遗留问题,使其可以编写复杂的应用程序,代码可读性也更好,更接近面向对象的思想,与java.C#语法更接近;    Babel: 由于不是所有的浏览器都支持ES6语法,所以就有了Bable转码器,开发">
@@ -224,8 +224,8 @@ var _hmt = _hmt || [];
 <p>比如一个回调函数需要处理,看起来简化一些,同时如果函数需要返回,也省去了return关键字</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#ES6语法</div><div class="line">wepy.login().catch( <span class="function">(<span class="params">e</span>) =&gt;</span>&#123;<span class="built_in">console</span>.log(<span class="string">'error:'</span>+e)&#125;);</div><div class="line">#ES5语法</div><div class="line">wepy.login().catch( <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;<span class="built_in">console</span>.log(<span class="string">'error:'</span>+e)&#125;);</div></pre></td></tr></table></figure>
 <p><strong>template string 模板字符串</strong></p>
-<p>这个在面向对象的语言里面基本都有,ES6语法也参考引入进来了,很好懂.关键字是’${}’,看起来更雅观了;这个语法在拼接html的时候更方法,否则太多的++容易晕掉</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#ES5语法</div><div class="line"><span class="keyword">var</span> str = <span class="string">'hello'</span>;</div><div class="line"><span class="built_in">console</span>.log(str + <span class="string">' word'</span>);</div><div class="line">#ES6语法</div><div class="line"><span class="keyword">var</span> str =<span class="string">'hello'</span>;</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'$&#123;str&#125; word'</span>);</div></pre></td></tr></table></figure>
+<p>这个在面向对象的语言里面基本都有,ES6语法也参考引入进来了,很好懂.关键字是<code>${</code>,注意这是反引号`看起来更雅观了;这个语法在拼接html的时候更方法,否则太多的++容易晕掉</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#ES5语法</div><div class="line"><span class="keyword">var</span> str = <span class="string">'hello'</span>;</div><div class="line"><span class="built_in">console</span>.log(str + <span class="string">' word'</span>);</div><div class="line">#ES6语法</div><div class="line"><span class="keyword">var</span> str =<span class="string">'hello'</span>;</div><div class="line"><span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;str&#125;</span> word`</span>);</div></pre></td></tr></table></figure>
 <p><strong>import,export</strong></p>
 <p>这个不知道算不算语法糖,从最早的<script>,到后来的require,到现在的ES6语法的import,使用起来更简单.import和require也有些区别;比如import不能使用url;还有一个比较大的区别是</p>
 <p>require 引用是值的copy,import 是值的引用;这样说可能不好理解,可以参考java或者C#里面的值类型和引用类型的 require相当于值类型,引用的时候是copy一个地址过去,你改了原因模块的值,并不会影响到现在我的引用;import相当于引用类型的引用,传输的仅仅是个指针地址,如果原来模块的值改变了,我引用的模块的值也会跟着改变(不知道这样对比对不对)</p>
@@ -337,6 +337,15 @@ var _hmt = _hmt || [];
 
   
 <nav id="article-nav">
+  
+    <a href="/2018/05/31/Javascript-closure/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          JavaScript 关于闭包的理解(文章未完成)
+        
+      </div>
+    </a>
   
   
     <a href="/2018/04/13/flutterguid/" id="article-nav-older" class="article-nav-link-wrap">
@@ -477,7 +486,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -501,23 +510,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">软考</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">系统架构师</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">java,.net,多线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -533,6 +530,18 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">软考</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">系统架构师</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">JavaScript,闭包,作用域</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">genymotion</a>
               </li>
              
@@ -541,7 +550,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">es6,Javascript,ECMAScript</a>
+                <a href="javascript:void(0)" class="js-tag color4">java,.net,多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -550,6 +559,14 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Flutter,移动跨平台开发,Dart</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">es6,Javascript,ECMAScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -573,6 +590,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">shell,Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">大批量导入</a>
               </li>
              
@@ -581,15 +602,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sql server,AlwaysOn,读写分离,高可用性</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">shell,Python</a>
+                <a href="javascript:void(0)" class="js-tag color4">WMS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">扫描枪</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -602,14 +623,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">双击热备</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">WMS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">扫描枪</a>
               </li>
              
               <li class="article-tag-list-item">

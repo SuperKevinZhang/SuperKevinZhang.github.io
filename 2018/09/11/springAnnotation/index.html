@@ -6,19 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangzeshuai.com">
-  <title>连接genymotion模拟器错误 cannot bind &#39;tcp:5037&#39; | 行者无疆</title>
+  <title>Spring Boot 常用注解 脑图版 | 行者无疆</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Android 模拟器常用命令 查看当前正在运行模拟器列表 1adb devices android studio 无法识别模拟器及真机,使用 adb devices 命令查看,发现以下错误 123456adb devicesList of devices attachedadb server is out of date.  killing...cannot bind &apos;tcp:5037&apos;: A">
-<meta name="keywords" content="genymotion,Android">
+  <meta name="description" content="Spring Boot 常用注解 脑图版 学习Spring Boot过程的笔记,通过思维导图整理自己的思路,更符合大脑记忆;在线版可以看到注释及代码实现; 在线脑图地址: http://naotu.baidu.com/file/1d55dd8aa03cd9f7b2aa835891675526">
+<meta name="keywords" content="Spring Boot, 注解">
 <meta property="og:type" content="article">
-<meta property="og:title" content="连接genymotion模拟器错误 cannot bind &#39;tcp:5037&#39;">
-<meta property="og:url" content="http://zhangzeshuai.com/2017/10/18/adbdevicestcp5037/index.html">
+<meta property="og:title" content="Spring Boot 常用注解 脑图版">
+<meta property="og:url" content="http://zhangzeshuai.com/2018/09/11/springAnnotation/index.html">
 <meta property="og:site_name" content="行者无疆">
-<meta property="og:description" content="Android 模拟器常用命令 查看当前正在运行模拟器列表 1adb devices android studio 无法识别模拟器及真机,使用 adb devices 命令查看,发现以下错误 123456adb devicesList of devices attachedadb server is out of date.  killing...cannot bind &apos;tcp:5037&apos;: A">
-<meta property="og:updated_time" content="2017-10-18T11:00:31.000Z">
+<meta property="og:description" content="Spring Boot 常用注解 脑图版 学习Spring Boot过程的笔记,通过思维导图整理自己的思路,更符合大脑记忆;在线版可以看到注释及代码实现; 在线脑图地址: http://naotu.baidu.com/file/1d55dd8aa03cd9f7b2aa835891675526">
+<meta property="og:image" content="https://raw.githubusercontent.com/SuperKevinZhang/SuperKevinZhang.github.io/master/image/SpringAnnotaition.png">
+<meta property="og:updated_time" content="2018-09-11T05:52:05.982Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="连接genymotion模拟器错误 cannot bind &#39;tcp:5037&#39;">
-<meta name="twitter:description" content="Android 模拟器常用命令 查看当前正在运行模拟器列表 1adb devices android studio 无法识别模拟器及真机,使用 adb devices 命令查看,发现以下错误 123456adb devicesList of devices attachedadb server is out of date.  killing...cannot bind &apos;tcp:5037&apos;: A">
+<meta name="twitter:title" content="Spring Boot 常用注解 脑图版">
+<meta name="twitter:description" content="Spring Boot 常用注解 脑图版 学习Spring Boot过程的笔记,通过思维导图整理自己的思路,更符合大脑记忆;在线版可以看到注释及代码实现; 在线脑图地址: http://naotu.baidu.com/file/1d55dd8aa03cd9f7b2aa835891675526">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/SuperKevinZhang/SuperKevinZhang.github.io/master/image/SpringAnnotaition.png">
   
     <link rel="alternative" href="/atom.xml" title="行者无疆" type="application/atom+xml">
   
@@ -167,41 +169,30 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-adbdevicestcp5037" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-springAnnotation" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      连接genymotion模拟器错误 cannot bind &#39;tcp:5037&#39;
+      Spring Boot 常用注解 脑图版
     </h1>
   
 
         
-        <a href="/2017/10/18/adbdevicestcp5037/" class="archive-article-date">
-  	<time datetime="2017-10-18T08:50:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-18</time>
+        <a href="/2018/09/11/springAnnotation/" class="archive-article-date">
+  	<time datetime="2018-09-11T05:47:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Android 模拟器常用命令</p>
-<p>查看当前正在运行模拟器列表</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">adb devices</div></pre></td></tr></table></figure>
-<p>android studio 无法识别模拟器及真机,使用 adb devices 命令查看,发现以下错误</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">adb devices</div><div class="line">List of devices attached</div><div class="line">adb server is out of date.  killing...</div><div class="line">cannot bind 'tcp:5037': Address already in use</div><div class="line">ADB server didn't ACK</div><div class="line">* failed to start daemon *</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>问题原因分析**</p>
-<p>​    gnymotion 与 系统adb 调用的不是同一个sdk中的adb．所以可能是其中一个启动了一个adb,之后再次启动的时候就提示端口占用了．（两个adb使用了同一端口）</p>
-<p><strong>解决方案</strong></p>
-<p>​    1.查看自己系统adb的路径</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">which adb</div><div class="line">/Users/indeed/Library/Android/sdk/platform-tools/adb</div></pre></td></tr></table></figure>
-<p>​    2.设置genymotion的sdk路径为上述的sdk路径．</p>
-<p>打开genymotin-&gt;Settings-&gt;ADB-&gt;Use custom Android SDK tools-&gt;Browse-&gt;选择目标sdk（注意copy到sdk目录就可以了:/Users/indeed/Library/Android/sdk）</p>
-<p>​    3:重启模拟器,再次查询</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">adb devices</div><div class="line">List of devices attached</div><div class="line">192.168.56.101:5555	device</div></pre></td></tr></table></figure>
+        <p>Spring Boot 常用注解 脑图版</p>
+<p>学习Spring Boot过程的笔记,通过思维导图整理自己的思路,更符合大脑记忆;在线版可以看到注释及代码实现;</p>
+<p>在线脑图地址: <a href="http://naotu.baidu.com/file/1d55dd8aa03cd9f7b2aa835891675526" target="_blank" rel="external">http://naotu.baidu.com/file/1d55dd8aa03cd9f7b2aa835891675526</a></p>
+<p><img src="https://raw.githubusercontent.com/SuperKevinZhang/SuperKevinZhang.github.io/master/image/SpringAnnotaition.png" alt="Spring Boot 常用注解"></p>
 
       
 
@@ -236,11 +227,7 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">genymotion</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spring Boot, 注解</a>
         		</li>
       		
 		</ul>
@@ -296,7 +283,7 @@ var _hmt = _hmt || [];
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangzeshuai.com/2017/10/18/adbdevicestcp5037/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangzeshuai.com/2018/09/11/springAnnotation/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -310,18 +297,9 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
-    <a href="/2017/10/18/react-native4-9androidstudio3-0mac/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Mac 环境下 react-native4.9 android studio3.0 开发实录
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/10/18/housekeeping/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Housekeeping设计</div>
+    <a href="/2018/08/30/redis/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">redis 学习笔记 -- 学习redis看这个脑图也许就够了</div>
       <i class="icon-circle-right"></i>
     </a>
   

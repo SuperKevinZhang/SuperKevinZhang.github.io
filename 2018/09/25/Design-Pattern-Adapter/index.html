@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://zhangzeshuai.com/2018/09/25/Design-Pattern-Adapter/index.html">
 <meta property="og:site_name" content="行者无疆">
 <meta property="og:description" content="​    一年多来,做了几个项目,虽然没有什么技术和业务难度,但是也不能白白浪费了自己一年的光景,除了技术也业务外,总有一些知识值得我们去总结和学习; ​    这么些年埋头于苦干,很少抽出时间来整理提高自己的综合水平.发现了身的不足够,开始重新复习一下大学里的那些理论知识.此时的学习,和当时相比,总有一种醍醐灌顶的感觉;今天就总设计模式这个方面来分析总结一下最近做过的一个项目; ​    项目的">
-<meta property="og:updated_time" content="2018-09-25T11:22:57.546Z">
+<meta property="og:updated_time" content="2018-09-25T11:24:21.825Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式在项目架构中的最佳实践 -- 生成器模式&#x2F;适配器模式">
 <meta name="twitter:description" content="​    一年多来,做了几个项目,虽然没有什么技术和业务难度,但是也不能白白浪费了自己一年的光景,除了技术也业务外,总有一些知识值得我们去总结和学习; ​    这么些年埋头于苦干,很少抽出时间来整理提高自己的综合水平.发现了身的不足够,开始重新复习一下大学里的那些理论知识.此时的学习,和当时相比,总有一种醍醐灌顶的感觉;今天就总设计模式这个方面来分析总结一下最近做过的一个项目; ​    项目的">
@@ -196,8 +196,7 @@ var _hmt = _hmt || [];
 <p>​    2:项目需要从TMS系统中抽取数据,生成符合Schema标准的xml与Global系统交互;Schema文件中存在着大量重复的业务校验;</p>
 <p>​    Schema之一的结构如下:​    </p>
 <p>​    </p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">​	| -- 运单数据</div><div class="line"></div><div class="line">​		|	| -- 主数据</div><div class="line"></div><div class="line">​		|	| -- 发票数据</div><div class="line"></div><div class="line">​		|	| -- 体积重量数据</div><div class="line"></div><div class="line">​		|	| -- 件数详</div></pre></td></tr></table></figure>
-<p>细</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">| -- 运单数据</div><div class="line"></div><div class="line">	|	| -- 主数据</div><div class="line"></div><div class="line">	|	| -- 发票数据</div><div class="line"></div><div class="line">	|	| -- 体积重量数据</div><div class="line"></div><div class="line">	|	| -- 件数详细</div></pre></td></tr></table></figure>
 <p>​    整个运单由N个节点组成,每个节点又有可能是独立的节点,且由更细的节点组成;</p>
 <h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述:"></a>问题描述:</h4><p>​    所以在整个业务上,如何做到重用和老的功能,和数据如何与Schema结构如何简单对应,是我们这次重点考虑的内容;</p>
 <h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案:"></a>解决方案:</h4><p>​    通过设计模式解决业务痛点;</p>
@@ -515,15 +514,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">JavaScript,闭包,作用域</a>
+                <a href="javascript:void(0)" class="js-tag color1">设计模式 生成器模式</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">设计模式 生成器模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -535,7 +530,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
+                <a href="javascript:void(0)" class="js-tag color3">JavaScript,闭包,作用域</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -548,6 +543,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Entity Framework</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -567,15 +566,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">java,.net,多线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">软考</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">系统架构师</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">java,.net,多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -587,10 +586,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Flutter,移动跨平台开发,Dart</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">数据库优化</a>
               </li>
              
@@ -599,15 +594,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Flutter,移动跨平台开发,Dart</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">react native</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">android studio</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -623,11 +614,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color3">react native</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Spring Boot,注解</a>
+                <a href="javascript:void(0)" class="js-tag color5">android studio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -635,19 +630,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Spring Boot,注解</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sql server,AlwaysOn,读写分离,高可用性</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">WMS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">扫描枪</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">双击热备</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -659,11 +646,23 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">WMS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">扫描枪</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">缓存</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">双击热备</a>
               </li>
              
               <li class="article-tag-list-item">

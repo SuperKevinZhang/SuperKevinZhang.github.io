@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://zhangzeshuai.com">
   <title>es6学习注意事项 | 行者无疆</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="​    ES6 简介: ​    ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Javascript进行了颠覆性的改革,目标是解决Javascript的很多遗留问题,使其可以编写复杂的应用程序,代码可读性也更好,更接近面向对象的思想,与java.C#语法更接近;    Babel: 由于不是所有的浏览器都支持ES6语法,所以就有了Bable转码器,开发">
+  <meta name="description" content="ES6 简介:  ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Javascript进行了颠覆性的改革,目标是解决Javascript的很多遗留问题,使其可以编写复杂的应用程序,代码可读性也更好,更接近面向对象的思想,与java.C#语法更接近;    Babel: 由于不是所有的浏览器都支持ES6语法,所以就有了Bable转码器,开发ES6程序基本上必">
 <meta name="keywords" content="es6,Javascript,ECMAScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="es6学习注意事项">
 <meta property="og:url" content="http://zhangzeshuai.com/2018/04/28/es6-study1/index.html">
 <meta property="og:site_name" content="行者无疆">
-<meta property="og:description" content="​    ES6 简介: ​    ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Javascript进行了颠覆性的改革,目标是解决Javascript的很多遗留问题,使其可以编写复杂的应用程序,代码可读性也更好,更接近面向对象的思想,与java.C#语法更接近;    Babel: 由于不是所有的浏览器都支持ES6语法,所以就有了Bable转码器,开发">
-<meta property="og:updated_time" content="2018-05-01T06:37:27.722Z">
+<meta property="og:description" content="ES6 简介:  ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Javascript进行了颠覆性的改革,目标是解决Javascript的很多遗留问题,使其可以编写复杂的应用程序,代码可读性也更好,更接近面向对象的思想,与java.C#语法更接近;    Babel: 由于不是所有的浏览器都支持ES6语法,所以就有了Bable转码器,开发ES6程序基本上必">
+<meta property="og:updated_time" content="2018-09-26T03:30:27.651Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="es6学习注意事项">
-<meta name="twitter:description" content="​    ES6 简介: ​    ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Javascript进行了颠覆性的改革,目标是解决Javascript的很多遗留问题,使其可以编写复杂的应用程序,代码可读性也更好,更接近面向对象的思想,与java.C#语法更接近;    Babel: 由于不是所有的浏览器都支持ES6语法,所以就有了Bable转码器,开发">
+<meta name="twitter:description" content="ES6 简介:  ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Javascript进行了颠覆性的改革,目标是解决Javascript的很多遗留问题,使其可以编写复杂的应用程序,代码可读性也更好,更接近面向对象的思想,与java.C#语法更接近;    Babel: 由于不是所有的浏览器都支持ES6语法,所以就有了Bable转码器,开发ES6程序基本上必">
   
     <link rel="alternative" href="/atom.xml" title="行者无疆" type="application/atom+xml">
   
@@ -187,14 +187,17 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>​    ES6 简介:</p>
-<p>​    ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Javascript进行了颠覆性的改革,目标是解决Javascript的很多遗留问题,使其可以编写复杂的应用程序,代码可读性也更好,更接近面向对象的思想,与java.C#语法更接近;</p>
-<p>   <strong><a href="http://babeljs.io/" target="_blank" rel="external">Babel</a>:</strong> 由于不是所有的浏览器都支持ES6语法,所以就有了Bable转码器,开发ES6程序基本上必不可少的工具,详细的配置大家去网上搜索,我们这里主要讲 ES6学习中的一些思路;</p>
+        <pre><code>ES6 简介:
+
+ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Javascript进行了颠覆性的改革,目标是解决Javascript的很多遗留问题,使其可以编写复杂的应用程序,代码可读性也更好,更接近面向对象的思想,与java.C#语法更接近;
+</code></pre><p>   <strong><a href="http://babeljs.io/" target="_blank" rel="external">Babel</a>:</strong> 由于不是所有的浏览器都支持ES6语法,所以就有了Bable转码器,开发ES6程序基本上必不可少的工具,详细的配置大家去网上搜索,我们这里主要讲 ES6学习中的一些思路;</p>
 <a id="more"></a>
-<p>​    学习每一门新语言,建议大家都要系统的去读他们的官方文档(我读的是<a href="http://es6.ruanyifeng.com/" target="_blank" rel="external">阮一峰</a>的博客);第一次读可能读不懂,没关系,第二次读的写写demo,会理解更深刻,我的这些注意事项就是在读完第一次文档后,实际项目中遇到的问题和感受.</p>
-<p>​    学习ES6我们最好要知道ES5语法有哪些问题,ES6是如避免和解决的;</p>
-<p>​    ES5存在的问题</p>
-<ul>
+<pre><code>学习每一门新语言,建议大家都要系统的去读他们的官方文档(我读的是[阮一峰](http://es6.ruanyifeng.com/)的博客);第一次读可能读不懂,没关系,第二次读的写写demo,会理解更深刻,我的这些注意事项就是在读完第一次文档后,实际项目中遇到的问题和感受.
+
+学习ES6我们最好要知道ES5语法有哪些问题,ES6是如避免和解决的;
+
+ES5存在的问题
+</code></pre><ul>
 <li>作用域</li>
 <li>异步函数</li>
 <li>原型</li>
@@ -268,7 +271,15 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">es6,Javascript,ECMAScript</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">es6</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Javascript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ECMAScript</a>
         		</li>
       		
 		</ul>
@@ -486,7 +497,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">设计模式 生成器模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">生成器模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">适配器模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -502,7 +521,19 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">JavaScript,闭包,作用域</a>
+                <a href="javascript:void(0)" class="js-tag color3">闭包</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">作用域</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -518,14 +549,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
@@ -538,15 +561,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">java,.net,多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">软考</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">系统架构师</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">java,.net,多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -562,15 +585,39 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">es6,Javascript,ECMAScript</a>
+                <a href="javascript:void(0)" class="js-tag color4">es6</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Flutter,移动跨平台开发,Dart</a>
+                <a href="javascript:void(0)" class="js-tag color1">Javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">ECMAScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Flutter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">移动跨平台开发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Dart</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">react native</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">android studio</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -586,27 +633,35 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">react native</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">android studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">shell,Python</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring Boot</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Spring Boot,注解</a>
+                <a href="javascript:void(0)" class="js-tag color3">注解</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sql server,AlwaysOn,读写分离,高可用性</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -623,14 +678,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">扫描枪</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
               </li>
              
               <li class="article-tag-list-item">

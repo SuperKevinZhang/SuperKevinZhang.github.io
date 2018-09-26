@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangzeshuai.com">
-  <title>redis 学习笔记 -- 学习redis看这个脑图也许就够了 | 行者无疆</title>
+  <title>redis 数据类型及应用场景分析 | 行者无疆</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="​    Redis 的网上学习资料很多,这篇文章整理多篇文章,结合自己的项目经验,以脑图的形势展现给大家以供学习; 主要内容包括:  Redis五种数据类型解析 实际应用场景分析 Master@Slave 主从复制(待完成) 持久化(待完成) 与其他内存数据库的比较">
+  <meta name="description" content="Redis 的网上学习资料很多,这篇文章整理多篇文章,结合自己的项目经验,以脑图的形势展现给大家以供学习; 主要内容包括:  Redis五种数据类型解析 实际应用场景分析 Master@Slave 主从复制(待完成) 持久化 与其他内存数据库的比较">
 <meta name="keywords" content="redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="redis 学习笔记 -- 学习redis看这个脑图也许就够了">
+<meta property="og:title" content="redis 数据类型及应用场景分析">
 <meta property="og:url" content="http://zhangzeshuai.com/2018/08/30/redis/index.html">
 <meta property="og:site_name" content="行者无疆">
-<meta property="og:description" content="​    Redis 的网上学习资料很多,这篇文章整理多篇文章,结合自己的项目经验,以脑图的形势展现给大家以供学习; 主要内容包括:  Redis五种数据类型解析 实际应用场景分析 Master@Slave 主从复制(待完成) 持久化(待完成) 与其他内存数据库的比较">
+<meta property="og:description" content="Redis 的网上学习资料很多,这篇文章整理多篇文章,结合自己的项目经验,以脑图的形势展现给大家以供学习; 主要内容包括:  Redis五种数据类型解析 实际应用场景分析 Master@Slave 主从复制(待完成) 持久化 与其他内存数据库的比较">
 <meta property="og:image" content="https://raw.githubusercontent.com/SuperKevinZhang/SuperKevinZhang.github.io/master/image/redis.png">
-<meta property="og:updated_time" content="2018-08-30T11:04:38.747Z">
+<meta property="og:updated_time" content="2018-09-26T03:28:39.097Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="redis 学习笔记 -- 学习redis看这个脑图也许就够了">
-<meta name="twitter:description" content="​    Redis 的网上学习资料很多,这篇文章整理多篇文章,结合自己的项目经验,以脑图的形势展现给大家以供学习; 主要内容包括:  Redis五种数据类型解析 实际应用场景分析 Master@Slave 主从复制(待完成) 持久化(待完成) 与其他内存数据库的比较">
+<meta name="twitter:title" content="redis 数据类型及应用场景分析">
+<meta name="twitter:description" content="Redis 的网上学习资料很多,这篇文章整理多篇文章,结合自己的项目经验,以脑图的形势展现给大家以供学习; 主要内容包括:  Redis五种数据类型解析 实际应用场景分析 Master@Slave 主从复制(待完成) 持久化 与其他内存数据库的比较">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/SuperKevinZhang/SuperKevinZhang.github.io/master/image/redis.png">
   
     <link rel="alternative" href="/atom.xml" title="行者无疆" type="application/atom+xml">
@@ -176,7 +176,7 @@ var _hmt = _hmt || [];
         
   
     <h1 class="article-title" itemprop="name">
-      redis 学习笔记 -- 学习redis看这个脑图也许就够了
+      redis 数据类型及应用场景分析
     </h1>
   
 
@@ -189,13 +189,13 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>​    Redis 的网上学习资料很多,这篇文章整理多篇文章,结合自己的项目经验,以脑图的形势展现给大家以供学习;</p>
-<h4 id="主要内容包括"><a href="#主要内容包括" class="headerlink" title="主要内容包括:"></a>主要内容包括:</h4><hr>
+        <pre><code>Redis 的网上学习资料很多,这篇文章整理多篇文章,结合自己的项目经验,以脑图的形势展现给大家以供学习;
+</code></pre><h4 id="主要内容包括"><a href="#主要内容包括" class="headerlink" title="主要内容包括:"></a>主要内容包括:</h4><hr>
 <ul>
 <li>Redis五种数据类型解析</li>
 <li>实际应用场景分析</li>
 <li>Master@Slave 主从复制(待完成)</li>
-<li>持久化(待完成)</li>
+<li>持久化</li>
 <li>与其他内存数据库的比较</li>
 </ul>
 <a id="more"></a>
@@ -453,7 +453,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">设计模式 生成器模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">生成器模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">适配器模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -469,7 +477,19 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">JavaScript,闭包,作用域</a>
+                <a href="javascript:void(0)" class="js-tag color3">闭包</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">作用域</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -485,14 +505,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
@@ -505,15 +517,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">java,.net,多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">软考</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">系统架构师</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">java,.net,多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -529,15 +541,39 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">es6,Javascript,ECMAScript</a>
+                <a href="javascript:void(0)" class="js-tag color4">es6</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Flutter,移动跨平台开发,Dart</a>
+                <a href="javascript:void(0)" class="js-tag color1">Javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">ECMAScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Flutter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">移动跨平台开发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Dart</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">react native</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">android studio</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -553,27 +589,35 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">react native</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">android studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">shell,Python</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring Boot</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Spring Boot,注解</a>
+                <a href="javascript:void(0)" class="js-tag color3">注解</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sql server,AlwaysOn,读写分离,高可用性</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -590,14 +634,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">扫描枪</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
               </li>
              
               <li class="article-tag-list-item">

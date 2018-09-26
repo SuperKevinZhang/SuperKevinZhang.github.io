@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://zhangzeshuai.com">
   <title>JavaScript 关于闭包的理解(文章未完成) | 行者无疆</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="​       闭包这个文章,很早就像写,由于自己理解的不透彻,一直不敢写.原计划5月31号写的文章,7月份才完成,由于项目忙和自己的偷懒,一直想看的Javascript权威指南,断断续续的看了很久,也只是挑自己感兴趣的看些.不想学习,总是有各种诱惑和理由; ​     我也尝试着用更清晰简洁的方式来写问题,学过了很多理论,在没有实践的支持下,记忆不到半年就忘记的差不多了.这次借鉴5W1H的方法来">
+  <meta name="description" content="闭包这个文章,很早就像写,由于自己理解的不透彻,一直不敢写.原计划5月31号写的文章,7月份才完成,由于项目忙和自己的偷懒,一直想看的Javascript权威指南,断断续续的看了很久,也只是挑自己感兴趣的看些.不想学习,总是有各种诱惑和理由; ​     我也尝试着用更清晰简洁的方式来写问题,学过了很多理论,在没有实践的支持下,记忆不到半年就忘记的差不多了.这次借鉴5W1H的方法来写这篇文字试试;">
 <meta name="keywords" content="JavaScript,闭包,作用域">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript 关于闭包的理解(文章未完成)">
 <meta property="og:url" content="http://zhangzeshuai.com/2018/05/31/Javascript-closure/index.html">
 <meta property="og:site_name" content="行者无疆">
-<meta property="og:description" content="​       闭包这个文章,很早就像写,由于自己理解的不透彻,一直不敢写.原计划5月31号写的文章,7月份才完成,由于项目忙和自己的偷懒,一直想看的Javascript权威指南,断断续续的看了很久,也只是挑自己感兴趣的看些.不想学习,总是有各种诱惑和理由; ​     我也尝试着用更清晰简洁的方式来写问题,学过了很多理论,在没有实践的支持下,记忆不到半年就忘记的差不多了.这次借鉴5W1H的方法来">
-<meta property="og:updated_time" content="2018-08-20T08:53:46.937Z">
+<meta property="og:description" content="闭包这个文章,很早就像写,由于自己理解的不透彻,一直不敢写.原计划5月31号写的文章,7月份才完成,由于项目忙和自己的偷懒,一直想看的Javascript权威指南,断断续续的看了很久,也只是挑自己感兴趣的看些.不想学习,总是有各种诱惑和理由; ​     我也尝试着用更清晰简洁的方式来写问题,学过了很多理论,在没有实践的支持下,记忆不到半年就忘记的差不多了.这次借鉴5W1H的方法来写这篇文字试试;">
+<meta property="og:updated_time" content="2018-09-26T03:29:32.243Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript 关于闭包的理解(文章未完成)">
-<meta name="twitter:description" content="​       闭包这个文章,很早就像写,由于自己理解的不透彻,一直不敢写.原计划5月31号写的文章,7月份才完成,由于项目忙和自己的偷懒,一直想看的Javascript权威指南,断断续续的看了很久,也只是挑自己感兴趣的看些.不想学习,总是有各种诱惑和理由; ​     我也尝试着用更清晰简洁的方式来写问题,学过了很多理论,在没有实践的支持下,记忆不到半年就忘记的差不多了.这次借鉴5W1H的方法来">
+<meta name="twitter:description" content="闭包这个文章,很早就像写,由于自己理解的不透彻,一直不敢写.原计划5月31号写的文章,7月份才完成,由于项目忙和自己的偷懒,一直想看的Javascript权威指南,断断续续的看了很久,也只是挑自己感兴趣的看些.不想学习,总是有各种诱惑和理由; ​     我也尝试着用更清晰简洁的方式来写问题,学过了很多理论,在没有实践的支持下,记忆不到半年就忘记的差不多了.这次借鉴5W1H的方法来写这篇文字试试;">
   
     <link rel="alternative" href="/atom.xml" title="行者无疆" type="application/atom+xml">
   
@@ -187,24 +187,25 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>​       闭包这个文章,很早就像写,由于自己理解的不透彻,一直不敢写.原计划5月31号写的文章,7月份才完成,由于项目忙和自己的偷懒,一直想看的Javascript权威指南,断断续续的看了很久,也只是挑自己感兴趣的看些.不想学习,总是有各种诱惑和理由;</p>
-<p>​     我也尝试着用更清晰简洁的方式来写问题,学过了很多理论,在没有实践的支持下,记忆不到半年就忘记的差不多了.这次借鉴5W1H的方法来写这篇文字试试;</p>
-<p>​     了解闭包,我们从以下这5个方面开始;</p>
-<p>1:闭包的定义</p>
+        <pre><code>闭包这个文章,很早就像写,由于自己理解的不透彻,一直不敢写.原计划5月31号写的文章,7月份才完成,由于项目忙和自己的偷懒,一直想看的Javascript权威指南,断断续续的看了很久,也只是挑自己感兴趣的看些.不想学习,总是有各种诱惑和理由;
+</code></pre><p>​     我也尝试着用更清晰简洁的方式来写问题,学过了很多理论,在没有实践的支持下,记忆不到半年就忘记的差不多了.这次借鉴5W1H的方法来写这篇文字试试;</p>
+<pre><code>了解闭包,我们从以下这5个方面开始;
+</code></pre><p>1:闭包的定义</p>
 <p>2:为什么会出现闭包</p>
 <p>3:闭包解决了哪些问题</p>
 <p>4:闭包带来了哪些问题</p>
 <p>5:理解闭包需要了解的哪些知识</p>
 <a id="more"></a>
 <p>1:闭包的定义</p>
-<p>​      闭包的定义还是比较简单,我们先看百度百科的定义: “闭包就是能够读取其他函数内部变量的函数。例如在javascript中，只有函数内部的子函数才能读取<a href="https://baike.baidu.com/item/%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F" target="_blank" rel="external">局部变量</a>，所以闭包可以理解成“定义在一个<a href="https://baike.baidu.com/item/%E5%87%BD%E6%95%B0/301912" target="_blank" rel="external">函数</a>内部的函数“。在本质上，闭包是将函数内部和函数外部连接起来的桥梁。”</p>
-<p>​     关于闭包的定义,我一直觉得很不好,当然我也给不出很好的定义.一个好的定义应该让人通俗易懂,看完能明白其中的意思.但是看完闭包的定义,在没有应用上下场景的联系下,很难知道闭包是做什么的;这个时候就需要理解以下的一些问题;</p>
-<p>2:为什么会出现闭包</p>
+<pre><code> 闭包的定义还是比较简单,我们先看百度百科的定义: &quot;闭包就是能够读取其他函数内部变量的函数。例如在javascript中，只有函数内部的子函数才能读取[局部变量](https://baike.baidu.com/item/%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F)，所以闭包可以理解成“定义在一个[函数](https://baike.baidu.com/item/%E5%87%BD%E6%95%B0/301912)内部的函数“。在本质上，闭包是将函数内部和函数外部连接起来的桥梁。&quot;
+
+关于闭包的定义,我一直觉得很不好,当然我也给不出很好的定义.一个好的定义应该让人通俗易懂,看完能明白其中的意思.但是看完闭包的定义,在没有应用上下场景的联系下,很难知道闭包是做什么的;这个时候就需要理解以下的一些问题;
+</code></pre><p>2:为什么会出现闭包</p>
 <p>3:闭包解决了哪些问题</p>
 <p>4:闭包带来了哪些问题</p>
 <p>5:理解闭包需要了解的哪些知识</p>
-<p>​        理解闭包你应该了解这些知识:变量作用域,作用域链;</p>
-
+<pre><code>理解闭包你应该了解这些知识:变量作用域,作用域链;
+</code></pre>
       
 
       
@@ -238,7 +239,15 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">JavaScript,闭包,作用域</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">闭包</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">作用域</a>
         		</li>
       		
 		</ul>
@@ -456,7 +465,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">设计模式 生成器模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">生成器模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">适配器模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -472,7 +489,19 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">JavaScript,闭包,作用域</a>
+                <a href="javascript:void(0)" class="js-tag color3">闭包</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">作用域</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -488,14 +517,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
@@ -508,15 +529,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">java,.net,多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">软考</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">系统架构师</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">java,.net,多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -532,15 +553,39 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">es6,Javascript,ECMAScript</a>
+                <a href="javascript:void(0)" class="js-tag color4">es6</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Flutter,移动跨平台开发,Dart</a>
+                <a href="javascript:void(0)" class="js-tag color1">Javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">ECMAScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Flutter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">移动跨平台开发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Dart</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">react native</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">android studio</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -556,27 +601,35 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">react native</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">android studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">shell,Python</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring Boot</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Spring Boot,注解</a>
+                <a href="javascript:void(0)" class="js-tag color3">注解</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sql server,AlwaysOn,读写分离,高可用性</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -593,14 +646,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">扫描枪</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
               </li>
              
               <li class="article-tag-list-item">

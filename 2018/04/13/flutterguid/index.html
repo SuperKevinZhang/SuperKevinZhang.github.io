@@ -8,22 +8,22 @@
   <link rel="dns-prefetch" href="http://zhangzeshuai.com">
   <title>当React Native 遇上 Flutter | 行者无疆</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="​        最近做了两个React Native(以后简称RN)的项目,重新Review一下相关的项目代码,期望下次使用的时候可以有更好的结构,更好的规范和约束已帮助大家减少bug,提高开发效率; ​        在做了一些原生Android开发,iOS开发和基于Cordova的混合开发之后,对React Native的开发还算比较满意,他解决了原生开发工作量大的问题,也解决了混合开发效率">
+  <meta name="description" content="最近做了两个React Native(以后简称RN)的项目,重新Review一下相关的项目代码,期望下次使用的时候可以有更好的结构,更好的规范和约束已帮助大家减少bug,提高开发效率;  在做了一些原生Android开发,iOS开发和基于Cordova的混合开发之后,对React Native的开发还算比较满意,他解决了原生开发工作量大的问题,也解决了混合开发效率比较低,特别是低端Android卡">
 <meta name="keywords" content="Flutter,移动跨平台开发,Dart">
 <meta property="og:type" content="article">
 <meta property="og:title" content="当React Native 遇上 Flutter">
 <meta property="og:url" content="http://zhangzeshuai.com/2018/04/13/flutterguid/index.html">
 <meta property="og:site_name" content="行者无疆">
-<meta property="og:description" content="​        最近做了两个React Native(以后简称RN)的项目,重新Review一下相关的项目代码,期望下次使用的时候可以有更好的结构,更好的规范和约束已帮助大家减少bug,提高开发效率; ​        在做了一些原生Android开发,iOS开发和基于Cordova的混合开发之后,对React Native的开发还算比较满意,他解决了原生开发工作量大的问题,也解决了混合开发效率">
+<meta property="og:description" content="最近做了两个React Native(以后简称RN)的项目,重新Review一下相关的项目代码,期望下次使用的时候可以有更好的结构,更好的规范和约束已帮助大家减少bug,提高开发效率;  在做了一些原生Android开发,iOS开发和基于Cordova的混合开发之后,对React Native的开发还算比较满意,他解决了原生开发工作量大的问题,也解决了混合开发效率比较低,特别是低端Android卡">
 <meta property="og:image" content="https://raw.githubusercontent.com/SuperKevinZhang/blogbackup/master/images/Flutter.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/SuperKevinZhang/blogbackup/master/images/native.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/SuperKevinZhang/blogbackup/master/images/error1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/SuperKevinZhang/blogbackup/master/images/menu.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/SuperKevinZhang/blogbackup/master/images/fultter_helloword1.png">
-<meta property="og:updated_time" content="2018-04-13T10:25:14.196Z">
+<meta property="og:updated_time" content="2018-09-26T03:29:55.451Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="当React Native 遇上 Flutter">
-<meta name="twitter:description" content="​        最近做了两个React Native(以后简称RN)的项目,重新Review一下相关的项目代码,期望下次使用的时候可以有更好的结构,更好的规范和约束已帮助大家减少bug,提高开发效率; ​        在做了一些原生Android开发,iOS开发和基于Cordova的混合开发之后,对React Native的开发还算比较满意,他解决了原生开发工作量大的问题,也解决了混合开发效率">
+<meta name="twitter:description" content="最近做了两个React Native(以后简称RN)的项目,重新Review一下相关的项目代码,期望下次使用的时候可以有更好的结构,更好的规范和约束已帮助大家减少bug,提高开发效率;  在做了一些原生Android开发,iOS开发和基于Cordova的混合开发之后,对React Native的开发还算比较满意,他解决了原生开发工作量大的问题,也解决了混合开发效率比较低,特别是低端Android卡">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/SuperKevinZhang/blogbackup/master/images/Flutter.png">
   
     <link rel="alternative" href="/atom.xml" title="行者无疆" type="application/atom+xml">
@@ -193,13 +193,15 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>​        最近做了两个React Native(以后简称RN)的项目,重新Review一下相关的项目代码,期望下次使用的时候可以有更好的结构,更好的规范和约束已帮助大家减少bug,提高开发效率;</p>
-<p>​        在做了一些原生Android开发,iOS开发和基于Cordova的混合开发之后,对React Native的开发还算比较满意,他解决了原生开发工作量大的问题,也解决了混合开发效率比较低,特别是低端Android卡顿的问题;但也有些不满意的地方,比如ListView渲染有内存泄露,替换的解决方案FlatList又渲染过慢,低端机卡顿,同时升级困难,有时候升级会牵涉到很多改动,如果改动的原生代码,升级更麻烦,同时RN的安装环境也异常复杂,安装好一个可以真机调试的环境有时候一天都搞不定;</p>
-<p>​        正在对RN又爱又恨的时候,Google 在吸收了React的思想之后,Google 在2018年的世界移动大会上发布了新的跨平台开发框架<a href="https://github.com/flutter/flutter" target="_blank" rel="external">Flutter</a>的bate版本,来解决大家的痛点问题;虽然Flutter在一年前就有了,但备受关注和发展还是近几个月的事情,目前Star数量已经超过两万,而且持续快速增长中;目前RN的Star数量是六万多,基于cordova的ionic解决方案是三万多,可见大家多Flutter的期待程度,当然Google 也不负众望,版本更新速度达到了令人发指以天为单位,当然还都是beta版本;</p>
-<a id="more"></a>
-<p>​        下面大概介绍一下Flutter的一些特性以及与其他跨平台技术的对比:</p>
-<ul>
-<li><p>​    <strong>关于性能</strong></p>
+        <pre><code>最近做了两个React Native(以后简称RN)的项目,重新Review一下相关的项目代码,期望下次使用的时候可以有更好的结构,更好的规范和约束已帮助大家减少bug,提高开发效率;
+
+在做了一些原生Android开发,iOS开发和基于Cordova的混合开发之后,对React Native的开发还算比较满意,他解决了原生开发工作量大的问题,也解决了混合开发效率比较低,特别是低端Android卡顿的问题;但也有些不满意的地方,比如ListView渲染有内存泄露,替换的解决方案FlatList又渲染过慢,低端机卡顿,同时升级困难,有时候升级会牵涉到很多改动,如果改动的原生代码,升级更麻烦,同时RN的安装环境也异常复杂,安装好一个可以真机调试的环境有时候一天都搞不定;
+
+正在对RN又爱又恨的时候,Google 在吸收了React的思想之后,Google 在2018年的世界移动大会上发布了新的跨平台开发框架[Flutter](https://github.com/flutter/flutter)的bate版本,来解决大家的痛点问题;虽然Flutter在一年前就有了,但备受关注和发展还是近几个月的事情,目前Star数量已经超过两万,而且持续快速增长中;目前RN的Star数量是六万多,基于cordova的ionic解决方案是三万多,可见大家多Flutter的期待程度,当然Google 也不负众望,版本更新速度达到了令人发指以天为单位,当然还都是beta版本;
+</code></pre><a id="more"></a>
+<pre><code>下面大概介绍一下Flutter的一些特性以及与其他跨平台技术的对比:
+</code></pre><ul>
+<li><p><strong>关于性能</strong></p>
 <p><strong>        跨平台开发第一个考虑的就是性能问题</strong></p>
 <ul>
 <li><strong>Cordova</strong>的基础是html和js运行在webview容器里面,通过Cordova提供的接口与硬件通讯;所以它的效率天生收到限制,而且也受到了各个厂商对webkit内核的好坏;比如之前基于国产某Cloud的程序,在华为手机上显示就不正常,花费了不少精力修改;</li>
@@ -207,19 +209,19 @@ var _hmt = _hmt || [];
 <li><strong>Flutter</strong> 吸收了前两者的教训之后,在渲染技术上,选择了自己实现(GDI),由于有更好的可控性,使用了新的语言Dart,避免了RN的那种通过桥接器与Javascript通讯导致效率低下的问题,所以在性能方面比RN更高一筹;有经验的开发者可以打开Android手机开发者选项里面的显示边界布局,发现Flutter的布局是一个整体.说明Flutter的渲染没用使用原生控件进行渲染</li>
 </ul>
 <p><img src="https://raw.githubusercontent.com/SuperKevinZhang/blogbackup/master/images/Flutter.png" alt="Flutter APP"></p>
-<p>  <img src="https://raw.githubusercontent.com/SuperKevinZhang/blogbackup/master/images/native.png" alt="原生APP"></p>
+<p><img src="https://raw.githubusercontent.com/SuperKevinZhang/blogbackup/master/images/native.png" alt="原生APP"></p>
 <p>​</p>
 </li>
-<li><p>​        <strong>关于开发体验</strong></p>
+<li><p><strong>关于开发体验</strong></p>
 <ul>
 <li><p><strong>Hot Reload(热重载)</strong>,这个对于原生开发者是一个福音,特别是Android开发者,Android原生改一个东西运行需要好久时间;对于Cordova和RN,差别不大,两个基本都可以支持热重载</p>
 </li>
 <li><p><strong>Widget(组件)</strong></p>
-<p>这点和RN的component有些类似,但是比RN更彻底,Flutter自身提供了很多基于 Material Design and Cupertino (iOS-flavor) 风格Widget,这点也和Google对它的定位有关(<a href="https://flutter.io/" target="_blank" rel="external">Flutter is Google’s mobile UI framework</a>),大家在开发的时候更简单,特别对于美工UI设计师薄弱中小公司更是福音;</p>
 </li>
 </ul>
+<p>这点和RN的component有些类似,但是比RN更彻底,Flutter自身提供了很多基于 Material Design and Cupertino (iOS-flavor) 风格Widget,这点也和Google对它的定位有关(<a href="https://flutter.io/" target="_blank" rel="external">Flutter is Google’s mobile UI framework</a>),大家在开发的时候更简单,特别对于美工UI设计师薄弱中小公司更是福音;</p>
 </li>
-<li><p>​        <strong>其他</strong></p>
+<li><p><strong>其他</strong></p>
 <ul>
 <li><strong><a href="https://www.dartlang.org/" target="_blank" rel="external">Dart</a></strong>  Flutter使用了新的开发语言,这个语言相信大家都没听说过,这个google推出的新的编程语言,属于动态语言,”结构化的web编程”语言,语法与Javascript 的ES6标准有些类似,有Java和C#语言基础,理解起来不难.缺点是程序猿们又要学习一门新语言了;</li>
 <li>除了效率和Widget之外,最期待的还是Flutter的渲染方式,不说跨平台的开发语言,就单单Android原生开发,不同的手机对不同控件的渲染可能就有不同,希望Flutter自己的渲染平台能解决这个问题;</li>
@@ -228,9 +230,10 @@ var _hmt = _hmt || [];
 </ul>
 </li>
 </ul>
-<p>​        按照惯例,学习一门语言和工具,总需要搭建一个环境和写一个Hello Word程序,下面记录下我的点点滴滴;</p>
-<p>​        文档地址 :<a href="https://flutter.io/setup-macos/#system-requirements" target="_blank" rel="external">https://flutter.io/setup-macos/#system-requirements</a></p>
-<p>我的是mac环境,上面的是mac安装环境,Flutter的文档比较友好,MAC,windows的安装说明都有,而且还有Android Studio,VSCode 等不同开发工具的配置,开发者可以选择自己熟悉和喜欢的工具;详细步骤请参考官网,我这里只是记录安装过学习程中遇到的问题</p>
+<pre><code>按照惯例,学习一门语言和工具,总需要搭建一个环境和写一个Hello Word程序,下面记录下我的点点滴滴;
+
+文档地址 :https://flutter.io/setup-macos/#system-requirements
+</code></pre><p>我的是mac环境,上面的是mac安装环境,Flutter的文档比较友好,MAC,windows的安装说明都有,而且还有Android Studio,VSCode 等不同开发工具的配置,开发者可以选择自己熟悉和喜欢的工具;详细步骤请参考官网,我这里只是记录安装过学习程中遇到的问题</p>
 <p>1:下载解压后,把它放在你喜欢的目录,指定一下PATH路径</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> PATH=/Users/[XXX]/development/flutter/bin:<span class="variable">$PATH</span></div></pre></td></tr></table></figure>
 <p>2:运行doctor命令,检查系统环境</p>
@@ -238,16 +241,16 @@ var _hmt = _hmt || [];
 <p>第一次安装一般环境都会有些问题,需要按照提示说明一步一步进行处理,提示说明很清楚,命令copy到终端执行 一遍即可;</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">[✓] Flutter (Channel beta, v0.2.8, on Mac OS X 10.13.3 17D102, locale zh-Hans-CN)</div><div class="line">[!] Android toolchain - develop for Android devices (Android SDK 26.0.2)</div><div class="line">    ! Some Android licenses not accepted.  To resolve this, run: flutter doctor --android-licenses</div><div class="line">[!] iOS toolchain - develop for iOS devices (Xcode 9.2)</div><div class="line">    ✗ ios-deploy not installed. To install:</div><div class="line">        brew install ios-deploy</div><div class="line">    ✗ CocoaPods not installed.</div><div class="line">        CocoaPods is used to retrieve the iOS platform side&apos;s plugin code that responds to your plugin usage on the Dart side.</div><div class="line">        Without resolving iOS dependencies with CocoaPods, plugins will not work on iOS.</div><div class="line">        For more info, see https://flutter.io/platform-plugins</div><div class="line">      To install:</div><div class="line">        brew install cocoapods</div><div class="line">        pod setup</div><div class="line">[✓] Android Studio</div><div class="line">[!] VS Code (version 1.21.1)</div><div class="line">[!] Connected devices</div><div class="line">    ! No devices available</div><div class="line"></div><div class="line">! Doctor found issues in 4 categories.</div></pre></td></tr></table></figure>
 <p>3:配置开发环境</p>
-<p>​        我这里选择的是VSCode开发,一切按照文档配置好之后,运行Create Project没有反应,原因是忘记配置VSCode的SDK了.大家选择一下Locate SDK,设置成解压后的path路径即可”/Users/[XXX]/development/flutter”</p>
-<p><img src="https://raw.githubusercontent.com/SuperKevinZhang/blogbackup/master/images/error1.png" alt="提示错误"></p>
+<pre><code>我这里选择的是VSCode开发,一切按照文档配置好之后,运行Create Project没有反应,原因是忘记配置VSCode的SDK了.大家选择一下Locate SDK,设置成解压后的path路径即可&quot;/Users/[XXX]/development/flutter&quot;
+</code></pre><p><img src="https://raw.githubusercontent.com/SuperKevinZhang/blogbackup/master/images/error1.png" alt="提示错误"></p>
 <p>4:创建第一个项目:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Start VS Code</div><div class="line">Invoke View&gt;Command Palette…</div><div class="line">Type ‘flutter’, and select the ‘Flutter: New Project’ action</div><div class="line">Enter a project name (e.g. myapp), and press Enter</div><div class="line">Specify a location to place the project, and press the blue OK button</div><div class="line">Wait for the project creation to continue, and the main.dart file to appear</div></pre></td></tr></table></figure>
 <p>注意大家不好选择SDK的目录为项目目录,程序是禁止的;</p>
 <p>创建好的目录如下: 结构是不是 有些眼熟,和RN类似.main 主类又有些陌生,谁让这货是dart语法呢;</p>
 <p><img src="https://raw.githubusercontent.com/SuperKevinZhang/blogbackup/master/images/menu.png" alt="Flutter 目录结构"></p>
 <p>5:运行调试</p>
-<p>​        神奇的地方出现了,在VSCode中,选择调试,在没有选择配置的情况下,直接同步到我的模拟器安装了</p>
-<p>试了一下热更新.瞬间同步到模拟器,爽歪歪;</p>
+<pre><code>神奇的地方出现了,在VSCode中,选择调试,在没有选择配置的情况下,直接同步到我的模拟器安装了
+</code></pre><p>试了一下热更新.瞬间同步到模拟器,爽歪歪;</p>
 <p><img src="https://raw.githubusercontent.com/SuperKevinZhang/blogbackup/master/images/fultter_helloword1.png" alt="hello word"></p>
 
       
@@ -283,7 +286,15 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Flutter,移动跨平台开发,Dart</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Flutter</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">移动跨平台开发</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Dart</a>
         		</li>
       		
 		</ul>
@@ -501,7 +512,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">设计模式 生成器模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">生成器模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">适配器模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -517,7 +536,19 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">JavaScript,闭包,作用域</a>
+                <a href="javascript:void(0)" class="js-tag color3">闭包</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">作用域</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -533,14 +564,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
@@ -553,15 +576,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">java,.net,多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">软考</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">系统架构师</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">java,.net,多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -577,15 +600,39 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">es6,Javascript,ECMAScript</a>
+                <a href="javascript:void(0)" class="js-tag color4">es6</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Flutter,移动跨平台开发,Dart</a>
+                <a href="javascript:void(0)" class="js-tag color1">Javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">ECMAScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Flutter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">移动跨平台开发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Dart</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">react native</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">android studio</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -601,27 +648,35 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">react native</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">android studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">shell,Python</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring Boot</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Spring Boot,注解</a>
+                <a href="javascript:void(0)" class="js-tag color3">注解</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sql server,AlwaysOn,读写分离,高可用性</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -638,14 +693,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">扫描枪</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
               </li>
              
               <li class="article-tag-list-item">

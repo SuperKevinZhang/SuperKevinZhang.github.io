@@ -167,6 +167,87 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-AbstractFactoryPattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/27/AbstractFactoryPattern/">设计模式在项目架构中的最佳实践 -- 抽象工厂模式</a>
+    </h1>
+  
+
+        
+        <a href="/2018/09/27/AbstractFactoryPattern/" class="archive-article-date">
+  	<time datetime="2018-09-27T10:49:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景:"></a>项目背景:</h4><p>​    项目是为一家第三方物流公司做的仓储管理系统(WMS),由于国内电商的盛行,第三方物流仓储也迎来了大的发展,老旧系统在仓储利用率和操作效率上需要提高,且老旧系统在应对新业务方面处理能力不足.所以系统需要在这几个方面进行改进,本文只抽取对新业务处理的部分问题进行讨论设计模式的最佳实践;</p>
+<h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述:"></a>问题描述:</h4><p>​    电商第三方仓库,需要和大量的快递公司进行打交道,需要通过call接口的形式去不同的快递公司获取快递单号,又需要根据不同的快递公司进行打印相应的运单格式.且不确定哪些快递公司.比如A客户租赁的仓库只发顺丰的快递,B客户可以发中通申通的快递,由于仓库分布在全国各地,将来谈的不同客户可能要求各种稀奇古怪等不确定的快递公司;所以架构在处理此处业务的时候,必需保证足够的灵魂;</p>
+        
+          <a class="article-more-a" href="/2018/09/27/AbstractFactoryPattern/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">抽象工厂</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/09/27/AbstractFactoryPattern/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Design-Pattern-Adapter" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -803,8 +884,8 @@ ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Jav
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>​    从 SQL Server 2008 开始，微软在“高可用”、“灾难恢复”技术中使用 AlwaysOn 一词。在 SQL Server 2012 中，微软明确地打出的 AlwaysOn 招牌。 SQL Server 2014 和  <a href="https://docs.microsoft.com/zh-cn/sql/sql-server/what-s-new-in-sql-server-2016" title="新特性" target="_blank" rel="external">SQL Server 2016</a>对AlwaysOn功能进行了改进与升级,其中2016版本升级较大,支持了负载均衡设置和无域集群,这两个功能比较实用,可惜这次的2014没有;</p>
-<p>　　SQL Server AlwaysOn 即“全面的高可用性和灾难恢复解决方案”。使用 AlwaysOn，您可以提高应用程序可用性，并且通过简化高可用性 (HA) 部署和管理方面的工作，获得更好的硬件投资回报。</p>
+        <pre><code>从 SQL Server 2008 开始，微软在“高可用”、“灾难恢复”技术中使用 AlwaysOn 一词。在 SQL Server 2012 中，微软明确地打出的 AlwaysOn 招牌。 SQL Server 2014 和  [SQL Server 2016](https://docs.microsoft.com/zh-cn/sql/sql-server/what-s-new-in-sql-server-2016 &quot;新特性&quot;)对AlwaysOn功能进行了改进与升级,其中2016版本升级较大,支持了负载均衡设置和无域集群,这两个功能比较实用,可惜这次的2014没有;
+</code></pre><p>　　SQL Server AlwaysOn 即“全面的高可用性和灾难恢复解决方案”。使用 AlwaysOn，您可以提高应用程序可用性，并且通过简化高可用性 (HA) 部署和管理方面的工作，获得更好的硬件投资回报。</p>
 <p>AlwaysOn主要包含以下特性:</p>
         
           <a class="article-more-a" href="/2018/04/12/sqlserver2014alwayson/#more">more >></a>
@@ -821,7 +902,19 @@ ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Jav
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">sql server,AlwaysOn,读写分离,高可用性</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">sql server</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">AlwaysOn</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">读写分离</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">高可用性</a>
         		</li>
       		
 		</ul>
@@ -881,8 +974,8 @@ ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Jav
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>​    作为一个.net程序员,在开发java程序过程中总有些不解,比如这次我们在写接口的过程中,按照C#的思路,将变量写成了全局变量,java工程师看到这个问题后,认为这样写会导致线程不安全,为此展开了一系列的套路和测试(文章最后附上相关代码);主要套路了以下问题:</p>
-<ul>
+        <pre><code>作为一个.net程序员,在开发java程序过程中总有些不解,比如这次我们在写接口的过程中,按照C#的思路,将变量写成了全局变量,java工程师看到这个问题后,认为这样写会导致线程不安全,为此展开了一系列的套路和测试(文章最后附上相关代码);主要套路了以下问题:
+</code></pre><ul>
 <li><p>在.net开发过程中很简单的东西为什么在java里面实现起来这么复杂;</p>
 </li>
 <li><p>为什么java非常关注多线程的东西,而.net开发关注多线程就比较少;</p>
@@ -903,7 +996,15 @@ ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Jav
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java,.net,多线程</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">.net</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">多线程</a>
         		</li>
       		
 		</ul>
@@ -914,87 +1015,6 @@ ES6 是 ECMAScript 6简称,也就是新一代的Javascript标准,对原有的Jav
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/04/10/ThreadServletIIS/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-shellautotestandroid" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/31/shellautotestandroid/">Android 自动化测试脚本初探</a>
-    </h1>
-  
-
-        
-        <a href="/2018/01/31/shellautotestandroid/" class="archive-article-date">
-  	<time datetime="2018-01-31T09:32:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <pre><code>最近做一个仓库APP的项目,其中一些测试的体力活,数据造起来非常麻烦,需要造条码,需要疯狂扫描测试效率,以及永远都无法避免的回归测试.烦恼之余,想想为什么不使用自动化脚本来解脱轮回呢.
-</code></pre>
-        
-          <a class="article-more-a" href="/2018/01/31/shellautotestandroid/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/31/shellautotestandroid/">展开全文 >></a>
         </p>
       
 
@@ -1127,15 +1147,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">抽象工厂</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Excel</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1147,11 +1163,19 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
+                <a href="javascript:void(0)" class="js-tag color1">Excel</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1179,7 +1203,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">java,.net,多线程</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">.net</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1188,18 +1220,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">系统架构师</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">genymotion</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Android</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据库优化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1227,7 +1247,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
+                <a href="javascript:void(0)" class="js-tag color1">数据库优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">genymotion</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1236,6 +1264,46 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">android studio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring Boot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">注解</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">sql server</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">AlwaysOn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">读写分离</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">高可用性</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1251,27 +1319,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">大批量导入</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring Boot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">注解</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sql server,AlwaysOn,读写分离,高可用性</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color2">BULK INSERT</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1283,14 +1335,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">大批量导入</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">BULK INSERT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">WMS</a>
               </li>
              
@@ -1299,11 +1343,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">双击热备</a>
+                <a href="javascript:void(0)" class="js-tag color3">阿里</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">阿里</a>
+                <a href="javascript:void(0)" class="js-tag color5">双击热备</a>
               </li>
             
             <div class="clearfix"></div>

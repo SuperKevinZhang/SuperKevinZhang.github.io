@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://zhangzeshuai.com">
   <title>网站请求高并发  --  Servlet与IIS 线程处理 区别 | 行者无疆</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="​    作为一个.net程序员,在开发java程序过程中总有些不解,比如这次我们在写接口的过程中,按照C#的思路,将变量写成了全局变量,java工程师看到这个问题后,认为这样写会导致线程不安全,为此展开了一系列的套路和测试(文章最后附上相关代码);主要套路了以下问题:  在.net开发过程中很简单的东西为什么在java里面实现起来这么复杂;  为什么java非常关注多线程的东西,而.net开发关">
+  <meta name="description" content="作为一个.net程序员,在开发java程序过程中总有些不解,比如这次我们在写接口的过程中,按照C#的思路,将变量写成了全局变量,java工程师看到这个问题后,认为这样写会导致线程不安全,为此展开了一系列的套路和测试(文章最后附上相关代码);主要套路了以下问题:  在.net开发过程中很简单的东西为什么在java里面实现起来这么复杂;  为什么java非常关注多线程的东西,而.net开发关注多线程就">
 <meta name="keywords" content="java,.net,多线程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网站请求高并发  --  Servlet与IIS 线程处理 区别">
 <meta property="og:url" content="http://zhangzeshuai.com/2018/04/10/ThreadServletIIS/index.html">
 <meta property="og:site_name" content="行者无疆">
-<meta property="og:description" content="​    作为一个.net程序员,在开发java程序过程中总有些不解,比如这次我们在写接口的过程中,按照C#的思路,将变量写成了全局变量,java工程师看到这个问题后,认为这样写会导致线程不安全,为此展开了一系列的套路和测试(文章最后附上相关代码);主要套路了以下问题:  在.net开发过程中很简单的东西为什么在java里面实现起来这么复杂;  为什么java非常关注多线程的东西,而.net开发关">
-<meta property="og:updated_time" content="2018-04-10T10:26:17.491Z">
+<meta property="og:description" content="作为一个.net程序员,在开发java程序过程中总有些不解,比如这次我们在写接口的过程中,按照C#的思路,将变量写成了全局变量,java工程师看到这个问题后,认为这样写会导致线程不安全,为此展开了一系列的套路和测试(文章最后附上相关代码);主要套路了以下问题:  在.net开发过程中很简单的东西为什么在java里面实现起来这么复杂;  为什么java非常关注多线程的东西,而.net开发关注多线程就">
+<meta property="og:updated_time" content="2018-09-26T03:32:33.067Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网站请求高并发  --  Servlet与IIS 线程处理 区别">
-<meta name="twitter:description" content="​    作为一个.net程序员,在开发java程序过程中总有些不解,比如这次我们在写接口的过程中,按照C#的思路,将变量写成了全局变量,java工程师看到这个问题后,认为这样写会导致线程不安全,为此展开了一系列的套路和测试(文章最后附上相关代码);主要套路了以下问题:  在.net开发过程中很简单的东西为什么在java里面实现起来这么复杂;  为什么java非常关注多线程的东西,而.net开发关">
+<meta name="twitter:description" content="作为一个.net程序员,在开发java程序过程中总有些不解,比如这次我们在写接口的过程中,按照C#的思路,将变量写成了全局变量,java工程师看到这个问题后,认为这样写会导致线程不安全,为此展开了一系列的套路和测试(文章最后附上相关代码);主要套路了以下问题:  在.net开发过程中很简单的东西为什么在java里面实现起来这么复杂;  为什么java非常关注多线程的东西,而.net开发关注多线程就">
   
     <link rel="alternative" href="/atom.xml" title="行者无疆" type="application/atom+xml">
   
@@ -187,8 +187,8 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>​    作为一个.net程序员,在开发java程序过程中总有些不解,比如这次我们在写接口的过程中,按照C#的思路,将变量写成了全局变量,java工程师看到这个问题后,认为这样写会导致线程不安全,为此展开了一系列的套路和测试(文章最后附上相关代码);主要套路了以下问题:</p>
-<ul>
+        <pre><code>作为一个.net程序员,在开发java程序过程中总有些不解,比如这次我们在写接口的过程中,按照C#的思路,将变量写成了全局变量,java工程师看到这个问题后,认为这样写会导致线程不安全,为此展开了一系列的套路和测试(文章最后附上相关代码);主要套路了以下问题:
+</code></pre><ul>
 <li><p>在.net开发过程中很简单的东西为什么在java里面实现起来这么复杂;</p>
 </li>
 <li><p>为什么java非常关注多线程的东西,而.net开发关注多线程就比较少;</p>
@@ -198,11 +198,14 @@ var _hmt = _hmt || [];
 </li>
 </ul>
 <p>首先回答第一个问题:</p>
-<p>​    微软的c#设计者更注重一线开发人员的感受，为方便开发提高效率，他们愿意大费周章改善语言本身各方特性，不断加入语法糖，从泛型，nullable，隐式类型到lamada再到dynamic，awaitasyc等等都可看到其一直在围绕代码整洁，减少bug等实际的开发过程中问题来进行的改进，同时越来越智能的IDE也说明了这点。<br>​    而java设计者则不同，他们的关注点在于java应用系统本身，更好的降低耦合，保持OOP是其始终坚持的。同时也应该不难发现，社区对java应用架构师提出的各类尖锐问题反馈总是较为及时，而对java应用开发者则相对冷淡些。</p>
-<p>​    可见两者出发点的思路不一样;</p>
-<p>​    第二个问题要和第三个问题一起回答:通常在.net的webapi中,多个地方用到了一个变量,我们会如下声明变量的,在正常的调用中,如果同时发起多个请求,每个请求给变量abc的赋值并不会被其他后面的请求给覆盖掉;但同样的代码,在java/Servlet中,后面请求参数将会把前面的参数给覆盖掉,也就是说这样写是线程不安全的;</p>
-<p>​    同样的代码: 两个请求间隔5秒执行,返回结果如下</p>
-<table>
+<pre><code>微软的c#设计者更注重一线开发人员的感受，为方便开发提高效率，他们愿意大费周章改善语言本身各方特性，不断加入语法糖，从泛型，nullable，隐式类型到lamada再到dynamic，awaitasyc等等都可看到其一直在围绕代码整洁，减少bug等实际的开发过程中问题来进行的改进，同时越来越智能的IDE也说明了这点。
+</code></pre><p>​    而java设计者则不同，他们的关注点在于java应用系统本身，更好的降低耦合，保持OOP是其始终坚持的。同时也应该不难发现，社区对java应用架构师提出的各类尖锐问题反馈总是较为及时，而对java应用开发者则相对冷淡些。</p>
+<pre><code>可见两者出发点的思路不一样;
+
+第二个问题要和第三个问题一起回答:通常在.net的webapi中,多个地方用到了一个变量,我们会如下声明变量的,在正常的调用中,如果同时发起多个请求,每个请求给变量abc的赋值并不会被其他后面的请求给覆盖掉;但同样的代码,在java/Servlet中,后面请求参数将会把前面的参数给覆盖掉,也就是说这样写是线程不安全的;
+
+同样的代码: 两个请求间隔5秒执行,返回结果如下
+</code></pre><table>
 <thead>
 <tr>
 <th></th>
@@ -234,11 +237,11 @@ var _hmt = _hmt || [];
 </tbody>
 </table>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">int abc = 0;</div><div class="line">public string Get(int id)</div><div class="line">&#123;</div><div class="line">    abc = id;</div><div class="line">    Thread.Sleep(15000);</div><div class="line">    return abc.ToString() ;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>​    可以看出同样的代码执行的结果却不一样;这个时候就牵涉到了两种语言和容器对多线程的处理逻辑;</p>
-<p><strong>在Java/Servlet 中</strong>,采用的是单实例多线程开发;当第一个用户发起请求后,Servlet将Class进行实例化,并分配线程调用的方法栈,当第二个请求来之后,还是使用的之前的实例,只是分配的线程方法栈不同,所以在类里面声明的全局变量,就会存在线程不安全的问题.这个时候需要将变量声明到方法体里面;</p>
+<pre><code>可以看出同样的代码执行的结果却不一样;这个时候就牵涉到了两种语言和容器对多线程的处理逻辑;
+</code></pre><p><strong>在Java/Servlet 中</strong>,采用的是单实例多线程开发;当第一个用户发起请求后,Servlet将Class进行实例化,并分配线程调用的方法栈,当第二个请求来之后,还是使用的之前的实例,只是分配的线程方法栈不同,所以在类里面声明的全局变量,就会存在线程不安全的问题.这个时候需要将变量声明到方法体里面;</p>
 <p><strong>在.NET/IIS中</strong>,由于没有查询到相关的文档,猜测是多线程,非单例模式.没用IIS会为每个请求创建一个新的实例.这样的话,就不会存在java中的线程不安全问题;</p>
-<p>​    从上面的两个执行结果,我们就可以推断出,为什么java那么关心多线程而.net关心的就比较少,因为.net 的framework的执行中,避免了线程不安全的情况,可以让大家更方便省心的写代码;但同时带来了一个问题,也就是.net的处理方式会导致比java更多的开销,每当一个请求过来,都会声明一个实例,这样会带来大量的时间和空间开销.IIS同时处理的并发数也就比Tomcat等java容器高了;</p>
-
+<pre><code>从上面的两个执行结果,我们就可以推断出,为什么java那么关心多线程而.net关心的就比较少,因为.net 的framework的执行中,避免了线程不安全的情况,可以让大家更方便省心的写代码;但同时带来了一个问题,也就是.net的处理方式会导致比java更多的开销,每当一个请求过来,都会声明一个实例,这样会带来大量的时间和空间开销.IIS同时处理的并发数也就比Tomcat等java容器高了;
+</code></pre>
       
 
       
@@ -272,7 +275,15 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java,.net,多线程</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">.net</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">多线程</a>
         		</li>
       		
 		</ul>
@@ -502,15 +513,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">抽象工厂</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Excel</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -522,11 +529,19 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
+                <a href="javascript:void(0)" class="js-tag color1">Excel</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -554,7 +569,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">java,.net,多线程</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">.net</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -563,18 +586,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">系统架构师</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">genymotion</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Android</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据库优化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -602,7 +613,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
+                <a href="javascript:void(0)" class="js-tag color1">数据库优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">genymotion</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -611,6 +630,46 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">android studio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring Boot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">注解</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">sql server</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">AlwaysOn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">读写分离</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">高可用性</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -626,27 +685,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">大批量导入</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring Boot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">注解</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sql server,AlwaysOn,读写分离,高可用性</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color2">BULK INSERT</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -658,14 +701,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">大批量导入</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">BULK INSERT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">WMS</a>
               </li>
              
@@ -674,11 +709,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">双击热备</a>
+                <a href="javascript:void(0)" class="js-tag color3">阿里</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">阿里</a>
+                <a href="javascript:void(0)" class="js-tag color5">双击热备</a>
               </li>
             
             <div class="clearfix"></div>

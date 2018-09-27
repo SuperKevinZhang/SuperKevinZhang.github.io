@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://zhangzeshuai.com">
   <title>SQL Server 2014 通过AlwaysOn实现高可用集群及负载分离 | 行者无疆</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="​    从 SQL Server 2008 开始，微软在“高可用”、“灾难恢复”技术中使用 AlwaysOn 一词。在 SQL Server 2012 中，微软明确地打出的 AlwaysOn 招牌。 SQL Server 2014 和  SQL Server 2016对AlwaysOn功能进行了改进与升级,其中2016版本升级较大,支持了负载均衡设置和无域集群,这两个功能比较实用,可惜这次的20">
+  <meta name="description" content="从 SQL Server 2008 开始，微软在“高可用”、“灾难恢复”技术中使用 AlwaysOn 一词。在 SQL Server 2012 中，微软明确地打出的 AlwaysOn 招牌。 SQL Server 2014 和  [SQL Server 2016](https://docs.microsoft.com/zh-cn/sql/sql-server/what-s-new-in-sql-s">
 <meta name="keywords" content="sql server,AlwaysOn,读写分离,高可用性">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL Server 2014 通过AlwaysOn实现高可用集群及负载分离">
 <meta property="og:url" content="http://zhangzeshuai.com/2018/04/12/sqlserver2014alwayson/index.html">
 <meta property="og:site_name" content="行者无疆">
-<meta property="og:description" content="​    从 SQL Server 2008 开始，微软在“高可用”、“灾难恢复”技术中使用 AlwaysOn 一词。在 SQL Server 2012 中，微软明确地打出的 AlwaysOn 招牌。 SQL Server 2014 和  SQL Server 2016对AlwaysOn功能进行了改进与升级,其中2016版本升级较大,支持了负载均衡设置和无域集群,这两个功能比较实用,可惜这次的20">
+<meta property="og:description" content="从 SQL Server 2008 开始，微软在“高可用”、“灾难恢复”技术中使用 AlwaysOn 一词。在 SQL Server 2012 中，微软明确地打出的 AlwaysOn 招牌。 SQL Server 2014 和  [SQL Server 2016](https://docs.microsoft.com/zh-cn/sql/sql-server/what-s-new-in-sql-s">
 <meta property="og:image" content="http://s3.51cto.com/wyfs02/M01/2B/C2/wKiom1OJ3-_wyLYPAABep6Xbuws496.gif">
-<meta property="og:updated_time" content="2018-04-12T07:18:13.059Z">
+<meta property="og:updated_time" content="2018-09-26T03:31:44.572Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL Server 2014 通过AlwaysOn实现高可用集群及负载分离">
-<meta name="twitter:description" content="​    从 SQL Server 2008 开始，微软在“高可用”、“灾难恢复”技术中使用 AlwaysOn 一词。在 SQL Server 2012 中，微软明确地打出的 AlwaysOn 招牌。 SQL Server 2014 和  SQL Server 2016对AlwaysOn功能进行了改进与升级,其中2016版本升级较大,支持了负载均衡设置和无域集群,这两个功能比较实用,可惜这次的20">
+<meta name="twitter:description" content="从 SQL Server 2008 开始，微软在“高可用”、“灾难恢复”技术中使用 AlwaysOn 一词。在 SQL Server 2012 中，微软明确地打出的 AlwaysOn 招牌。 SQL Server 2014 和  [SQL Server 2016](https://docs.microsoft.com/zh-cn/sql/sql-server/what-s-new-in-sql-s">
 <meta name="twitter:image" content="http://s3.51cto.com/wyfs02/M01/2B/C2/wKiom1OJ3-_wyLYPAABep6Xbuws496.gif">
   
     <link rel="alternative" href="/atom.xml" title="行者无疆" type="application/atom+xml">
@@ -189,8 +189,8 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>​    从 SQL Server 2008 开始，微软在“高可用”、“灾难恢复”技术中使用 AlwaysOn 一词。在 SQL Server 2012 中，微软明确地打出的 AlwaysOn 招牌。 SQL Server 2014 和  <a href="https://docs.microsoft.com/zh-cn/sql/sql-server/what-s-new-in-sql-server-2016" title="新特性" target="_blank" rel="external">SQL Server 2016</a>对AlwaysOn功能进行了改进与升级,其中2016版本升级较大,支持了负载均衡设置和无域集群,这两个功能比较实用,可惜这次的2014没有;</p>
-<p>　　SQL Server AlwaysOn 即“全面的高可用性和灾难恢复解决方案”。使用 AlwaysOn，您可以提高应用程序可用性，并且通过简化高可用性 (HA) 部署和管理方面的工作，获得更好的硬件投资回报。</p>
+        <pre><code>从 SQL Server 2008 开始，微软在“高可用”、“灾难恢复”技术中使用 AlwaysOn 一词。在 SQL Server 2012 中，微软明确地打出的 AlwaysOn 招牌。 SQL Server 2014 和  [SQL Server 2016](https://docs.microsoft.com/zh-cn/sql/sql-server/what-s-new-in-sql-server-2016 &quot;新特性&quot;)对AlwaysOn功能进行了改进与升级,其中2016版本升级较大,支持了负载均衡设置和无域集群,这两个功能比较实用,可惜这次的2014没有;
+</code></pre><p>　　SQL Server AlwaysOn 即“全面的高可用性和灾难恢复解决方案”。使用 AlwaysOn，您可以提高应用程序可用性，并且通过简化高可用性 (HA) 部署和管理方面的工作，获得更好的硬件投资回报。</p>
 <p>AlwaysOn主要包含以下特性:</p>
 <a id="more"></a>
 <ul>
@@ -261,7 +261,19 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">sql server,AlwaysOn,读写分离,高可用性</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">sql server</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">AlwaysOn</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">读写分离</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">高可用性</a>
         		</li>
       		
 		</ul>
@@ -491,15 +503,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">抽象工厂</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Excel</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -511,11 +519,19 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">项目管理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">React Native</a>
+                <a href="javascript:void(0)" class="js-tag color1">Excel</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -543,7 +559,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">java,.net,多线程</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">.net</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -552,18 +576,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">系统架构师</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">genymotion</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Android</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据库优化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -591,7 +603,15 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
+                <a href="javascript:void(0)" class="js-tag color1">数据库优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">genymotion</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -600,6 +620,46 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">android studio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">housekeeping</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring Boot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">注解</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">sql server</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">AlwaysOn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">读写分离</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">高可用性</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -615,27 +675,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">大批量导入</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring Boot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">注解</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sql server,AlwaysOn,读写分离,高可用性</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color2">BULK INSERT</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -647,14 +691,6 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">大批量导入</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">BULK INSERT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">WMS</a>
               </li>
              
@@ -663,11 +699,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">双击热备</a>
+                <a href="javascript:void(0)" class="js-tag color3">阿里</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">阿里</a>
+                <a href="javascript:void(0)" class="js-tag color5">双击热备</a>
               </li>
             
             <div class="clearfix"></div>
